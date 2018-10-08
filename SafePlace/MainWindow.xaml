@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SafePlace"
        mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1000"
-        ResizeMode="NoResize">
+        ResizeMode="CanResize">
     <!--If I figure out a way to bind cameras to their location on the map as the window is resized
     The window shall be resizable.-->
     

@@ -29,7 +29,6 @@ namespace SafePlace
         private void CamerasButton_Click(object sender, RoutedEventArgs e)
         {
             new Service.ConsoleLogger().LogInfo("You have clicked " + ((Button)sender).Name);
-
         }
     }
 }
