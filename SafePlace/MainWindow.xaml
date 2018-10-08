@@ -43,14 +43,37 @@
                     </StackPanel>
                 </Button>
             </Grid>
-            <Viewbox>
-                <Grid RenderTransformOrigin="0.336,0.514">
-                    <Image Source="Images/Floor.png" x:Name="FloorMap" Margin="0 50 0 0"/>
-                    <Image Source="Images/camera.png" x:Name="Camera1" Height="30" Margin="-331,144,331,296"/>
-                    <Image Source="Images/camera.png"  Height="30" Margin="-375,271,375,169"/>
-                </Grid>
-            </Viewbox>
-            
+            <Grid Margin="0 20 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="9*"/>
+                </Grid.ColumnDefinitions>
+                <!--A view box containing the current floor's image and all the cameras-->
+                <Viewbox Grid.Column="1">
+                    <Grid x:Name="FloorGrid" RenderTransformOrigin="0.336,0.514">
+                        <Image Source="Images/Floor.png" x:Name="FloorMap"/>
+                        <Image Source="Images/camera.png" x:Name="Camera1" Height="30" Margin="-331,144,331,296"/>
+                        <Image Source="Images/camera.png" IsMouseDirectlyOverChanged="Image_IsMouseDirectlyOverChanged" Height="30" Margin="-375,271,375,169"/>
+                    </Grid>
+                </Viewbox>
+                <!--A StackPanel for buttons and list of floors-->
+                <StackPanel>
+                    <Button Margin="0 0 10 0">
+                        <Image Source="/Images/up.png"/>
+                    </Button>
+                    <Button Margin="0 10 10 0">
+                        <Image Source="/Images/down.png"/>
+                    </Button>
+                    <ListView Margin="0 15 10 0">
+                        <ListViewItem Content="Floor1"/>
+                        <ListViewItem Content="Floor2"/>
+                        <ListViewItem Content="Floor3"/>
+                        <ListViewItem Content="Floor4"/>
+                        <ListViewItem Content="Floor5"/>
+                    </ListView>
+                </StackPanel>
+            </Grid>
+
             <Image>
                 
             </Image>
