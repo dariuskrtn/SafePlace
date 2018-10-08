@@ -4,9 +4,59 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SafePlace"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+       mc:Ignorable="d"
+        Title="MainWindow" Height="700" Width="1000"
+        ResizeMode="NoResize">
+    <!--If I figure out a way to bind cameras to their location on the map as the window is resized
+    The window shall be resizable.-->
+    
+    <Border Padding="10" >
+        <StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="HomeButton" Grid.Column="0" Click="CamerasButton_Click" Margin="0 0 10 0">
+                    <StackPanel>
+                        <Image Source="Images/home.png"  Height="45" Width="36"/>
+                    </StackPanel>
+                </Button>
+                <Button  x:Name="VisitorsButton" Click="CamerasButton_Click" Grid.Column="1" Margin="0 0 10 0">
+                    <StackPanel>
+                        <Image Source="Images/people.png"  Height="45" Width="36"/>
+                    </StackPanel>
+                </Button>
+                <Button  x:Name="CamerasButton" Click="CamerasButton_Click" Grid.Column="2" Margin="0 0 10 0">
+                    <StackPanel>
+                        <Image Source="Images/camera.png"  Height="45" Width="36"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="SettingsButton" Click="CamerasButton_Click" Grid.Column="3">
+                    <StackPanel>
+                        <Image Source="Images/settings.png"  Height="45" Width="36"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+            <Viewbox>
+                <Grid RenderTransformOrigin="0.336,0.514">
+                    <Image Source="Images/Floor.png" x:Name="FloorMap" Margin="0 50 0 0"/>
+                    <Image Source="Images/camera.png" x:Name="Camera1" Height="30" Margin="-331,144,331,296"/>
+                    <Image Source="Images/camera.png"  Height="30" Margin="-375,271,375,169"/>
+                </Grid>
+            </Viewbox>
+            
+            <Image>
+                
+            </Image>
+            <Label Content="{Binding Test}"/>
+            <!--<Image Source="Images/camera.png" Height="100"/>-->
+
+        </StackPanel>
+    </Border>
 </Window>

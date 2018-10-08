@@ -53,6 +53,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="Service\ConsoleLogger.cs" />
     <Compile Include="Service\ILogger.cs" />
     <Page Include="MainWindow.xaml">
@@ -103,6 +104,10 @@
     <Resource Include="Images\person.png" />
     <Resource Include="Images\settings.png" />
     <Resource Include="Images\Small-Office-Floor-Plan.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
