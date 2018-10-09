@@ -16,26 +16,23 @@ namespace SafePlace.Models
         #region Fields
         //url for the image
         private const string url = "/Images/camera.png";
-        public int Floor { set; get; }
         
         //IdentifiedPeople will be used in the list, shown near a camera.
         private List<Person> IdentifiedPeople;
-        //Following 2 might be bad practice if we create a separate class which represents an icon of a camera in the UI
-        public double X; 
-        public double Y;
         
         // It would be simpler to have 2 icons near a camera: a green one and a red one. Both could have a number of spotted people.
         // They would appear depending on below 2 values.
         public bool SpottedTrespasser;
         public bool SpottedLegitPerson;
+
         #endregion
         //Need fields for camera footage and connection handling
-
+                   
         #region Constructors
-        public Camera(int floor)
+        public Camera()
         {
             this.Source = new BitmapImage(new Uri(url, UriKind.Relative));
-            Floor = floor;
+            IdentifiedPeople = new List<Person>();
         }
 
         #endregion

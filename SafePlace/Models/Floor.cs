@@ -15,22 +15,26 @@ namespace SafePlace.Models
         List<Camera> cameras;
         Image FloorMap { set; get; }
         string FloorName { set; get; }
-        int FloorNumber;
 
         //Creating a floor without any arguments should give it a placeholder image
         public Floor()
         {
-            var img = new BitmapImage(new Uri("/Images/placeholder.png", UriKind.Relative)); 
-            FloorMap = new Image();
-            FloorMap.Source = img;
+            var img = new BitmapImage(new Uri("/Images/placeholder.png", UriKind.Relative));
+            FloorMap = new Image
+            {
+                Source = img
+            };
+            cameras = new List<Camera>();
         }
 
         //Could try finding the image with given url, if it cannot be found, default constructor will be used.
         public Floor(string url, string name)
         {
             var img = new BitmapImage(new Uri(url, UriKind.Relative));
-            FloorMap = new Image();
-            FloorMap.Source = img;
+            FloorMap = new Image()
+            {
+                Source = img
+            };
             FloorName = name;
         }
 
@@ -40,8 +44,10 @@ namespace SafePlace.Models
         /// <param name="PlanningCamera">A dummy camera, put on a floor image in the floor planning window</param>
         public void AddCamera(Image PlanningCamera)
         {
-            Camera camera = new Camera(FloorNumber);
-            camera.Margin = PlanningCamera.Margin;
+            Camera camera = new Camera
+            {
+                Margin = PlanningCamera.Margin
+            };
             cameras.Add(camera);
         }
     }

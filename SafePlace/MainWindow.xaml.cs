@@ -25,7 +25,7 @@ namespace SafePlace
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new WpfApp1.ViewModels.BaseViewModel();
+            this.DataContext = new ViewModels.BaseViewModel();
             //FloorGrid.Children.Add() //will need to define an object of type UIElement (or that inherits it)
 
         }
