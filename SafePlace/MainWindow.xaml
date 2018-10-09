@@ -50,8 +50,9 @@
                 </Grid.ColumnDefinitions>
                 <!--A view box containing the current floor's image and all the cameras-->
                 <Viewbox Grid.Column="1">
-                    <Grid x:Name="FloorGrid" RenderTransformOrigin="0.336,0.514">
+                    <Grid x:Name="FloorGrid">
                         <Image Source="Images/Floor.png" x:Name="FloorMap"/>
+                        <!--Following 2 images are test data, images are to be added to FloorGrid when a floor is selected-->
                         <Image Source="Images/camera.png" x:Name="Camera1" Height="30" Margin="-331,144,331,296"/>
                         <Image Source="Images/camera.png" IsMouseDirectlyOverChanged="Image_IsMouseDirectlyOverChanged" Height="30" Margin="-375,271,375,169"/>
                     </Grid>
