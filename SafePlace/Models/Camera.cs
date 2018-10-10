@@ -18,7 +18,7 @@ namespace SafePlace.Models
         private const string url = "/Images/camera.png";
         
         //IdentifiedPeople will be used in the list, shown near a camera.
-        private List<Person> IdentifiedPeople;
+        public List<Person> IdentifiedPeople { get; set; }
         
         // It would be simpler to have 2 icons near a camera: a green one and a red one. Both could have a number of spotted people.
         // They would appear depending on below 2 values.
