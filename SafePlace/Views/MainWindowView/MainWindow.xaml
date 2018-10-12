@@ -23,22 +23,22 @@
                 </Grid.ColumnDefinitions>
                 <Button x:Name="HomeButton" Grid.Column="0" Margin="0 0 10 0">
                     <StackPanel>
-                        <Image Source="../../Images/home.png"  Height="45" Width="36"/>
+                        <Image Source="/Images/home.png"  Height="45" Width="36"/>
                     </StackPanel>
                 </Button>
                 <Button  x:Name="VisitorsButton" Grid.Column="1" Margin="0 0 10 0">
                     <StackPanel>
-                        <Image Source="Images/people.png"  Height="45" Width="36"/>
+                        <Image Source="/Images/people.png"  Height="45" Width="36"/>
                     </StackPanel>
                 </Button>
                 <Button  x:Name="CamerasButton" Grid.Column="2" Margin="0 0 10 0">
                     <StackPanel>
-                        <Image Source="Images/camera.png"  Height="45" Width="36"/>
+                        <Image Source="/Images/camera.png"  Height="45" Width="36"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="SettingsButton" Command="{Binding CameraClickCommand }" Grid.Column="3">
                     <StackPanel>
-                        <Image Source="Images/settings.png"  Height="45" Width="36"/>
+                        <Image Source="/Images/settings.png"  Height="45" Width="36"/>
                     </StackPanel>
                 </Button>
             </Grid>
@@ -50,9 +50,9 @@
                 <!--A view box containing the current floor's image and all the cameras-->
                 <Viewbox Grid.Column="1">
                     <Grid x:Name="FloorGrid">
-                        <Image Source="../../Images/Floor.png" x:Name="FloorMap"/>
+                        <Image Source="/Images/Floor.png" x:Name="FloorMap"/>
                         <!--Following 2 images are test data, images are to be added to FloorGrid when a floor is selected-->
-                        <Image Source="../../Images/camera.png" x:Name="Camera1" Height="30" Margin="284,255,-284,351">
+                        <Image Source="/Images/camera.png" x:Name="Camera1" Height="30" Margin="284,255,-284,351">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="IsMouseDirectlyOverChanged">
                                     <i:InvokeCommandAction Command="{Binding CameraClickCommand}"/>
@@ -86,7 +86,7 @@
                 </StackPanel>
             </Grid>
             <Label Content="{Binding Test}"/>
-            <!--<Image Source="Images/camera.png" Height="100"/>-->
+            <!--<Image Source="/Images/camera.png" Height="100"/>-->
 
         </StackPanel>
     </Border>
