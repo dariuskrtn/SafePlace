@@ -22,7 +22,7 @@ namespace SafePlace.Service
             _logger = logger;
 
             
-            CreateGroup();
+            //CreateGroup();
         }
 
         //Required only for the first time to register user group.
@@ -33,30 +33,40 @@ namespace SafePlace.Service
 
         public async Task<bool> AddFaceImage(Guid guid, Bitmap image)
         {
-            MemoryStream ms = null;
-            ms = new MemoryStream();
-            image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-            await _faceServiceClient.AddPersonFaceInPersonGroupAsync(_groupId, guid, ms);
+            try
+            {
+                await _faceServiceClient.AddPersonFaceInPersonGroupAsync(_groupId, guid, BitmapToJpegStream(image));
+            } catch (Exception ex)
+            {
+                _logger.LogWarning("Failed to add face image.");
+                return false;
+            }
 
             return true;
         }
 
         public async Task<IEnumerable<Guid>> DetectFaces(Bitmap image)
         {
-            MemoryStream ms = null;
-            ms = new MemoryStream();
-            image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
 
-            var faces = await _faceServiceClient.DetectAsync(ms,
-                        true,
-                        true,
-                        new FaceAttributeType[] {
-                    FaceAttributeType.Gender,
-                    FaceAttributeType.Age,
-                    FaceAttributeType.Emotion
-                        });
-            return faces.Select(item => item.FaceId);
+            Face[] faces = null;
+
+            try
+            {
+                faces = await _faceServiceClient.DetectAsync(BitmapToJpegStream(image),
+                true,
+                true,
+                new FaceAttributeType[] {
+                        FaceAttributeType.Gender,
+                        FaceAttributeType.Age,
+                        FaceAttributeType.Emotion
+                });
+            } catch (Exception e)
+            {
+                _logger.LogWarning("Failed to detect faces.");
+                _logger.LogError(e.Message);
+            }
+
+            return faces?.Select(item => item.FaceId);
         }
 
         public async Task<Guid> RegisterFace(string name)
@@ -73,6 +83,15 @@ namespace SafePlace.Service
 
             if (person != null) return person.PersonId;
             return Guid.Empty;
+        }
+
+        private MemoryStream BitmapToJpegStream(Bitmap bitmap)
+        {
+            MemoryStream ms = null;
+            ms = new MemoryStream();
+            bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            ms.Position = 0;
+            return ms;
         }
     }
 }
