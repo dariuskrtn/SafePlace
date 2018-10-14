@@ -8,6 +8,10 @@ using System.Windows.Controls;
 
 namespace SafePlace.Service
 {
+    /*
+     * Class responsible for different Page creation
+     */
+
     class PageCreator : IPageCreator
     {
         private readonly IMainService _mainService;
@@ -17,6 +21,10 @@ namespace SafePlace.Service
             _mainService = mainService;
         }
 
+
+        /*
+         * Creates Home Page View and injects all required dependencies.
+         */
         public Page CreateHomePage()
         {
             var homePageViewModel = new HomePageViewModel();

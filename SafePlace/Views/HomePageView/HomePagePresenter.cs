@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace SafePlace.Views.HomePageView
 {
+    /*
+     * Moved Home Page from MainWindow.
+     * Please check if all dependencies are required and remove/add the ones which are needed.
+     */
     class HomePagePresenter
     {
         private HomePageViewModel _viewModel;

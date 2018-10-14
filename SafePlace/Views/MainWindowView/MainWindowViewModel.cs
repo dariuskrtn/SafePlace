@@ -13,6 +13,7 @@ namespace SafePlace.Views.MainWindowView
     class MainWindowViewModel : BaseViewModel
     {
 
+        //Holds currently displayed page.
         private Page _displayPage;
         public Page DisplayPage
         {
@@ -40,7 +41,6 @@ namespace SafePlace.Views.MainWindowView
                 NotifyPropertyChanged();
             }
         }
-
 
     }
 }

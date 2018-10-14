@@ -13,6 +13,7 @@ namespace SafePlace.Service
         private IPageCreator _pageCreator;
         private SynchronizationContext _synchronizationContext;
 
+        //Simple lock object to avoid multiple threads creating different class instances.
         private static readonly object _lock = new object();
 
         public MainService()
