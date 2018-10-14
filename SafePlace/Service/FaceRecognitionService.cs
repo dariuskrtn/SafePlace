@@ -3,6 +3,7 @@ using Microsoft.ProjectOxford.Face.Contract;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,28 +31,48 @@ namespace SafePlace.Service
             await _faceServiceClient.CreatePersonGroupAsync(_groupId, "Users");
         }
 
-        public Task<bool> AddFaceImage(string guid, Bitmap image)
+        public async Task<bool> AddFaceImage(Guid guid, Bitmap image)
         {
-            throw new NotImplementedException();
+            MemoryStream ms = null;
+            ms = new MemoryStream();
+            image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+            await _faceServiceClient.AddPersonFaceInPersonGroupAsync(_groupId, guid, ms);
+
+            return true;
         }
 
-        public Task<List<string>> DetectFaces(Bitmap image)
+        public async Task<IEnumerable<Guid>> DetectFaces(Bitmap image)
         {
-            throw new NotImplementedException();
+            MemoryStream ms = null;
+            ms = new MemoryStream();
+            image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+            var faces = await _faceServiceClient.DetectAsync(ms,
+                        true,
+                        true,
+                        new FaceAttributeType[] {
+                    FaceAttributeType.Gender,
+                    FaceAttributeType.Age,
+                    FaceAttributeType.Emotion
+                        });
+            return faces.Select(item => item.FaceId);
         }
 
-        public async Task<bool> RegisterFace(string guid)
+        public async Task<Guid> RegisterFace(string name)
         {
+            CreatePersonResult person = null;
             try
             {
-                CreatePersonResult person = await _faceServiceClient.CreatePersonInPersonGroupAsync(_groupId, guid);
+                person = await _faceServiceClient.CreatePersonInPersonGroupAsync(_groupId, name);
             } catch (Exception ex)
             {
                 _logger.LogWarning("Failed to register new face.");
                 _logger.LogWarning(ex.Message);
-                return false;
             }
-            return true;
+
+            if (person != null) return person.PersonId;
+            return Guid.Empty;
         }
     }
 }
