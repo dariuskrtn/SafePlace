@@ -31,20 +31,24 @@ namespace SafePlace.Service
             await _faceServiceClient.CreatePersonGroupAsync(_groupId, "Users");
         }
 
+        //Adds new face image to registered user and trains user group with already added image.
         public async Task<bool> AddFaceImage(Guid guid, Bitmap image)
         {
             try
             {
                 await _faceServiceClient.AddPersonFaceInPersonGroupAsync(_groupId, guid, BitmapToJpegStream(image));
+                await _faceServiceClient.TrainPersonGroupAsync(_groupId);
             } catch (Exception ex)
             {
                 _logger.LogWarning("Failed to add face image.");
+                _logger.LogWarning(ex.Message);
                 return false;
             }
 
             return true;
         }
 
+        //Returns IEnumerable of detected faces GUID's.
         public async Task<IEnumerable<Guid>> DetectFaces(Bitmap image)
         {
 
@@ -69,6 +73,7 @@ namespace SafePlace.Service
             return faces?.Select(item => item.FaceId);
         }
 
+        //Registers new face to API and returns GUID.
         public async Task<Guid> RegisterFace(string name)
         {
             CreatePersonResult person = null;

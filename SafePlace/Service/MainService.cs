@@ -51,6 +51,7 @@ namespace SafePlace.Service
             {
                 if (_faceRecognitionService == null)
                 {
+                    //Instantiates face recognition service with parameters taken from App.config
                     _faceRecognitionService = new FaceRecognitionService(
                         ConfigurationManager.AppSettings["azure-key"],
                         ConfigurationManager.AppSettings["azure-endpoint"],

@@ -28,22 +28,6 @@ namespace SafePlace
 
             var mainService = new MainService();
 
-            var faceApi = mainService.GetFaceRecognitionServiceInstance();
-
-            OpenFileDialog dlg = new OpenFileDialog();
-
-                dlg.Title = "Open Image";
-
-                dlg.ShowDialog();
-
-                var btm = new Bitmap(dlg.FileName);
-            faceApi.DetectFaces(btm);
-
-
-
-
-
-
             var mainWindowViewModel = new MainWindowViewModel();
             var mainWindowPresenter = new MainWindowPresenter(mainWindowViewModel, mainService.GetPageCreatorInstance());
             var mainWindow = new MainWindow();
