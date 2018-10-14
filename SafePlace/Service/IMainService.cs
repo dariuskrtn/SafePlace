@@ -12,5 +12,8 @@ namespace SafePlace.Service
         ILogger GetLoggerInstance();
         IPageCreator GetPageCreatorInstance();
         SynchronizationContext GetSynchronizationContext();
+        IFloorService GetFloorServiceInstance();
+        ICameraService GetCameraServiceInstance();
+        IPersonService GetPersonServiceInstance();
     }
 }

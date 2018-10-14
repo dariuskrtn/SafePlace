@@ -12,6 +12,10 @@ namespace SafePlace.Service
         private ILogger _logger;
         private IPageCreator _pageCreator;
         private SynchronizationContext _synchronizationContext;
+        private ICameraService _cameraService;
+        private IFloorService _floorService;
+        private IPersonService _personService;
+
 
         //Simple lock object to avoid multiple threads creating different class instances.
         private static readonly object _lock = new object();
@@ -38,7 +42,7 @@ namespace SafePlace.Service
             {
                 if (_pageCreator == null)
                 {
-                    _pageCreator = new PageCreator(this);
+                    _pageCreator = new PageCreator(GetLoggerInstance(), GetSynchronizationContext(), GetFloorServiceInstance());
                 }
                 return _pageCreator;
             }
@@ -47,5 +51,42 @@ namespace SafePlace.Service
         {
             return _synchronizationContext;
         }
+
+        public IFloorService GetFloorServiceInstance()
+        {
+            lock (_lock)
+            {
+                if (_floorService == null)
+                {
+                    _floorService = new FloorService();
+                }
+                return _floorService;
+            }
+        }
+
+        public ICameraService GetCameraServiceInstance()
+        {
+            lock (_lock)
+            {
+                if (_cameraService == null)
+                {
+                    _cameraService = new CameraService();
+                }
+                return _cameraService;
+            }
+        }
+
+        public IPersonService GetPersonServiceInstance()
+        {
+            lock (_lock)
+            {
+                if (_personService == null)
+                {
+                    _personService = new PersonService();
+                }
+                return _personService;
+            }
+        }
+
     }
 }

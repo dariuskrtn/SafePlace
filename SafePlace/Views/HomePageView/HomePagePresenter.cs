@@ -1,4 +1,5 @@
-﻿using SafePlace.Service;
+﻿using SafePlace.Models;
+using SafePlace.Service;
 using SafePlace.Utilities;
 using System;
 using System.Collections.Generic;
@@ -18,12 +19,35 @@ namespace SafePlace.Views.HomePageView
         private HomePageViewModel _viewModel;
         private SynchronizationContext _synchronizationContext;
         private ILogger _logger;
+        private IFloorService _floorService;
 
-        public HomePagePresenter(HomePageViewModel viewModel, ILogger logger, SynchronizationContext synchronizationContext)
+        private IList<Floor> _floors;
+
+        public HomePagePresenter(HomePageViewModel viewModel, ILogger logger, SynchronizationContext synchronizationContext, IFloorService floorService)
         {
             _viewModel = viewModel;
             _logger = logger;
             _synchronizationContext = synchronizationContext;
+            _floorService = floorService;
+
+            LoadFloorList();
+            BuildViewModel();
         }
+
+        private void BuildViewModel()
+        {
+            _viewModel.CurrentFloorImage = _floors[0].FloorMap;
+            foreach (Floor floor in _floors)
+            {
+                _viewModel.FloorList.Add(floor.FloorName);
+            }
+        }
+
+        private void LoadFloorList()
+        {
+            _floors = _floorService.GetFloorList().ToList();
+        }
+
+
     }
 }

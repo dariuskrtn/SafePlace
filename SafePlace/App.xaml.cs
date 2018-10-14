@@ -26,6 +26,12 @@ namespace SafePlace
 
             var mainService = new MainService();
 
+            //Fake data
+            var floor = mainService.GetFloorServiceInstance().CreateFloor();
+            floor.FloorName = "First floor";
+
+            //End of faka data
+
 
             var mainWindowViewModel = new MainWindowViewModel();
             var mainWindowPresenter = new MainWindowPresenter(mainWindowViewModel, mainService.GetPageCreatorInstance());

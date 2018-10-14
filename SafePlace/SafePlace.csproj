@@ -59,6 +59,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -87,14 +88,19 @@
     </ApplicationDefinition>
     <Compile Include="Models\Camera.cs" />
     <Compile Include="Models\Floor.cs" />
-    <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Person.cs" />
+    <Compile Include="Service\CameraService.cs" />
     <Compile Include="Service\ConsoleLogger.cs" />
+    <Compile Include="Service\FloorService.cs" />
+    <Compile Include="Service\ICameraService.cs" />
+    <Compile Include="Service\IFloorService.cs" />
     <Compile Include="Service\ILogger.cs" />
     <Compile Include="Service\IMainService.cs" />
     <Compile Include="Service\IPageCreator.cs" />
+    <Compile Include="Service\IPersonService.cs" />
     <Compile Include="Service\MainService.cs" />
     <Compile Include="Service\PageCreator.cs" />
+    <Compile Include="Service\PersonService.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="Views\HomePageView\HomePagePresenter.cs" />

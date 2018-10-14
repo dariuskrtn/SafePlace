@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
@@ -15,11 +16,15 @@ namespace SafePlace.Service
 
     class PageCreator : IPageCreator
     {
-        private readonly IMainService _mainService;
+        private readonly ILogger _logger;
+        private readonly SynchronizationContext _synchronizationContext;
+        private readonly IFloorService _floorService;
 
-        public PageCreator(IMainService mainService)
+        public PageCreator(ILogger logger, SynchronizationContext synchronizationContext, IFloorService floorService)
         {
-            _mainService = mainService;
+            _logger = logger;
+            _synchronizationContext = synchronizationContext;
+            _floorService = floorService;
         }
 
 
@@ -29,7 +34,7 @@ namespace SafePlace.Service
         public Page CreateHomePage()
         {
             var homePageViewModel = new HomePageViewModel();
-            var homePagePresenter = new HomePagePresenter(homePageViewModel, _mainService.GetLoggerInstance(), _mainService.GetSynchronizationContext());
+            var homePagePresenter = new HomePagePresenter(homePageViewModel, _logger, _synchronizationContext, _floorService);
 
             var homePageView = new HomePageView();
             homePageView.DataContext = homePageViewModel;
@@ -39,8 +44,8 @@ namespace SafePlace.Service
 
         public Page CreateSettingsPage()
         {
-            var settingsPageViewModel = new HomePageViewModel();
-            var settingsPagePresenter = new HomePagePresenter(settingsPageViewModel, _mainService.GetLoggerInstance(), _mainService.GetSynchronizationContext());
+            var settingsPageViewModel = new SettingsPageViewModel();
+            var settingsPagePresenter = new SettingsPagePresenter(settingsPageViewModel, _logger, _synchronizationContext);
 
             var settingsPageView = new SettingsPageView();
             settingsPageView.DataContext = settingsPageView;
