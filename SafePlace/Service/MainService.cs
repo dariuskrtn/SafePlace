@@ -10,8 +10,10 @@ namespace SafePlace.Service
     class MainService : IMainService
     {
         private ILogger _logger;
+        private IPageCreator _pageCreator;
         private SynchronizationContext _synchronizationContext;
 
+        //Simple lock object to avoid multiple threads creating different class instances.
         private static readonly object _lock = new object();
 
         public MainService()
@@ -28,6 +30,17 @@ namespace SafePlace.Service
                     _logger = new ConsoleLogger();
                 }
                 return _logger;
+            }
+        }
+        public IPageCreator GetPageCreatorInstance()
+        {
+            lock (_lock)
+            {
+                if (_pageCreator == null)
+                {
+                    _pageCreator = new PageCreator(this);
+                }
+                return _pageCreator;
             }
         }
         public SynchronizationContext GetSynchronizationContext()

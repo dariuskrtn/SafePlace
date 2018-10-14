@@ -17,6 +17,9 @@ namespace SafePlace
     public partial class App : Application
     {
 
+        /*
+         * Creates MainService and MainWindow to load and manage different views.
+         */
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -25,7 +28,7 @@ namespace SafePlace
 
 
             var mainWindowViewModel = new MainWindowViewModel();
-            var mainWindowPresenter = new MainWindowPresenter(mainWindowViewModel, mainService.GetLoggerInstance(), mainService.GetSynchronizationContext());
+            var mainWindowPresenter = new MainWindowPresenter(mainWindowViewModel, mainService.GetPageCreatorInstance());
             var mainWindow = new MainWindow();
 
             mainWindow.DataContext = mainWindowViewModel;

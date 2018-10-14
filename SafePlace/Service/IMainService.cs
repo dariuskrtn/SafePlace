@@ -10,6 +10,7 @@ namespace SafePlace.Service
     interface IMainService
     {
         ILogger GetLoggerInstance();
+        IPageCreator GetPageCreatorInstance();
         SynchronizationContext GetSynchronizationContext();
     }
 }

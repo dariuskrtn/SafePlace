@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace SafePlace.Views.MainWindowView
@@ -12,21 +13,34 @@ namespace SafePlace.Views.MainWindowView
     class MainWindowViewModel : BaseViewModel
     {
 
-        private ICommand _cameraClickCommand;
-        public ICommand CameraClickCommand {
+        //Holds currently displayed page.
+        private Page _displayPage;
+        public Page DisplayPage
+        {
             get
             {
-                return _cameraClickCommand;
+                return _displayPage;
             }
             set
             {
-                _cameraClickCommand = value;
+                _displayPage = value;
                 NotifyPropertyChanged();
             }
-
         }
 
-        public ObservableCollection<string> FloorList { get; } = new ObservableCollection<string>();
+        private ICommand _homePageCommand;
+        public ICommand HomePageCommand
+        {
+            get
+            {
+                return _homePageCommand;
+            }
+            set
+            {
+                _homePageCommand = value;
+                NotifyPropertyChanged();
+            }
+        }
 
     }
 }
