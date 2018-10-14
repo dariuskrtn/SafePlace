@@ -35,7 +35,7 @@
                     <Image Source="/Images/camera.png"  Height="45" Width="36"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="SettingsButton" Grid.Column="3">
+            <Button x:Name="SettingsButton" Command="{ Binding SettingsPageCommand }" Grid.Column="3">
                 <StackPanel>
                     <Image Source="/Images/settings.png"  Height="45" Width="36"/>
                 </StackPanel>

@@ -104,6 +104,11 @@
     <Compile Include="Views\HomePageView\HomePageViewModel.cs" />
     <Compile Include="Views\MainWindowView\MainWindowPresenter.cs" />
     <Compile Include="Views\MainWindowView\MainWindowViewModel.cs" />
+    <Compile Include="Views\SettingsPageView\SettingsPageView.xaml.cs">
+      <DependentUpon>SettingsPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPageView\SettingsPagePresenter.cs" />
+    <Compile Include="Views\SettingsPageView\SettingsPageViewModel.cs" />
     <Page Include="Views\HomePageView\HomePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -120,6 +125,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\SettingsPageView\SettingsPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

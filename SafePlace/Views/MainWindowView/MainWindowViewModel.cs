@@ -42,5 +42,19 @@ namespace SafePlace.Views.MainWindowView
             }
         }
 
+        private ICommand _settingsPageCommand;
+        public ICommand SettingsPageCommand
+        {
+            get
+            {
+                return _settingsPageCommand;
+            }
+            set
+            {
+                _settingsPageCommand = value;
+                NotifyPropertyChanged();
+            }
+        }
+
     }
 }
