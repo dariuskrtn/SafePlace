@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="HomePageView">
 
-    <Grid Margin="0 20 0 0">
+    <Grid Margin="0 0 0 0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="9*"/>

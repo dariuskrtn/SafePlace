@@ -25,7 +25,7 @@ namespace SafePlace
 
 
             var mainWindowViewModel = new MainWindowViewModel();
-            var mainWindowPresenter = new MainWindowPresenter(mainWindowViewModel, mainService.GetLoggerInstance(), mainService.GetSynchronizationContext());
+            var mainWindowPresenter = new MainWindowPresenter(mainWindowViewModel, mainService.GetPageCreatorInstance());
             var mainWindow = new MainWindow();
 
             mainWindow.DataContext = mainWindowViewModel;

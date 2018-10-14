@@ -92,7 +92,9 @@
     <Compile Include="Service\ConsoleLogger.cs" />
     <Compile Include="Service\ILogger.cs" />
     <Compile Include="Service\IMainService.cs" />
+    <Compile Include="Service\IPageCreator.cs" />
     <Compile Include="Service\MainService.cs" />
+    <Compile Include="Service\PageCreator.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="Views\HomePageView\HomePagePresenter.cs" />

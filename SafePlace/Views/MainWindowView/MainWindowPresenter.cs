@@ -12,28 +12,26 @@ namespace SafePlace.Views.MainWindowView
     class MainWindowPresenter
     {
         private MainWindowViewModel _viewModel;
-        private SynchronizationContext _synchronizationContext;
-        private ILogger _logger;
+        private IPageCreator _pageCreator;
         
 
-        public MainWindowPresenter(MainWindowViewModel viewModel, ILogger logger, SynchronizationContext synchronizationContext)
+        public MainWindowPresenter(MainWindowViewModel viewModel, IPageCreator pageCreator)
         {
             _viewModel = viewModel;
-            _logger = logger;
-            _synchronizationContext = synchronizationContext;
+            _pageCreator = pageCreator;
 
             BuildViewModel();
         }
 
         private void BuildViewModel()
         {
-            _viewModel.DisplayPage = null;
+            _viewModel.DisplayPage = _pageCreator.CreateHomePage();
             _viewModel.HomePageCommand = new RelayCommand(e => OpenHomePageCommand());
         }
 
         private void OpenHomePageCommand()
         {
-            Console.WriteLine("Hello");
+            _viewModel.DisplayPage = _pageCreator.CreateHomePage();
         }
     }
 }

@@ -10,6 +10,7 @@ namespace SafePlace.Service
     class MainService : IMainService
     {
         private ILogger _logger;
+        private IPageCreator _pageCreator;
         private SynchronizationContext _synchronizationContext;
 
         private static readonly object _lock = new object();
@@ -28,6 +29,17 @@ namespace SafePlace.Service
                     _logger = new ConsoleLogger();
                 }
                 return _logger;
+            }
+        }
+        public IPageCreator GetPageCreatorInstance()
+        {
+            lock (_lock)
+            {
+                if (_pageCreator == null)
+                {
+                    _pageCreator = new PageCreator(this);
+                }
+                return _pageCreator;
             }
         }
         public SynchronizationContext GetSynchronizationContext()
