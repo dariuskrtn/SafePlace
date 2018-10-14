@@ -1,4 +1,5 @@
 ﻿using SafePlace.Views.HomePageView;
+using SafePlace.Views.SettingsPageView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,17 @@ namespace SafePlace.Service
             homePageView.DataContext = homePageViewModel;
 
             return homePageView;
+        }
+
+        public Page CreateSettingsPage()
+        {
+            var settingsPageViewModel = new HomePageViewModel();
+            var settingsPagePresenter = new HomePagePresenter(settingsPageViewModel, _mainService.GetLoggerInstance(), _mainService.GetSynchronizationContext());
+
+            var settingsPageView = new SettingsPageView();
+            settingsPageView.DataContext = settingsPageView;
+
+            return settingsPageView;
         }
     }
 }

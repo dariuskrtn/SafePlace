@@ -10,5 +10,6 @@ namespace SafePlace.Service
     interface IPageCreator
     {
         Page CreateHomePage();
+        Page CreateSettingsPage();
     }
 }
