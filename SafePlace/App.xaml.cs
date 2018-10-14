@@ -1,4 +1,5 @@
-﻿using SafePlace.Views.MainWindowView;
+﻿using SafePlace.Service;
+using SafePlace.Views.MainWindowView;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -20,13 +21,11 @@ namespace SafePlace
         {
             base.OnStartup(e);
 
-            var uiContext = SynchronizationContext.Current;
+            var mainService = new MainService();
 
-            Service.ConsoleLogger Logger = new Service.ConsoleLogger();
 
             var mainWindowViewModel = new MainWindowViewModel();
-
-            var mainWindowPresenter = new MainWindowPresenter(mainWindowViewModel, Logger, uiContext);
+            var mainWindowPresenter = new MainWindowPresenter(mainWindowViewModel, mainService.GetLoggerInstance(), mainService.GetSynchronizationContext());
             var mainWindow = new MainWindow();
 
             mainWindow.DataContext = mainWindowViewModel;
