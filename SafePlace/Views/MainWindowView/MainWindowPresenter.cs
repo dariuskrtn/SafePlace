@@ -14,6 +14,7 @@ namespace SafePlace.Views.MainWindowView
         private MainWindowViewModel _viewModel;
         private SynchronizationContext _synchronizationContext;
         private ILogger _logger;
+        
 
         public MainWindowPresenter(MainWindowViewModel viewModel, ILogger logger, SynchronizationContext synchronizationContext)
         {
@@ -26,7 +27,13 @@ namespace SafePlace.Views.MainWindowView
 
         private void BuildViewModel()
         {
-            _viewModel.CameraClickCommand = new RelayCommand(e => _logger.LogInfo("Button click executed!"));
+            _viewModel.DisplayPage = null;
+            _viewModel.HomePageCommand = new RelayCommand(e => OpenHomePageCommand());
+        }
+
+        private void OpenHomePageCommand()
+        {
+            Console.WriteLine("Hello");
         }
     }
 }

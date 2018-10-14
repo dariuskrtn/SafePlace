@@ -1,0 +1,49 @@
+﻿<Page x:Class="SafePlace.Views.HomePageView.HomePageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SafePlace.Views.HomePageView"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="HomePageView">
+
+    <Grid Margin="0 20 0 0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="9*"/>
+        </Grid.ColumnDefinitions>
+        <!--A view box containing the current floor's image and all the cameras-->
+        <Viewbox Grid.Column="1">
+            <Grid x:Name="FloorGrid">
+                <Image Source="/Images/Floor.png" x:Name="FloorMap"/>
+                <!--Following 2 images are test data, images are to be added to FloorGrid when a floor is selected-->
+                <Image Source="/Images/camera.png" x:Name="Camera1" Height="30" Margin="284,255,-284,351">
+                </Image>
+
+                <!--
+                        <Image Source="Images/camera.png" IsMouseDirectlyOverChanged="Image_IsMouseDirectlyOverChanged" Height="30" Margin="-337,334,337,272"/>
+                        <Image Source="Images/camera.png" IsMouseDirectlyOverChanged="Image_IsMouseDirectlyOverChanged" Height="30" Margin="-506,150,506,456"/>
+                        <Image Source="Images/camera.png" IsMouseDirectlyOverChanged="Image_IsMouseDirectlyOverChanged" Height="30" Margin="-667,547,667,59"/>
+                        <Image Source="Images/camera.png" IsMouseDirectlyOverChanged="Image_IsMouseDirectlyOverChanged" Height="30" Margin="0,547,0,59"/>
+                        <Image Source="Images/camera.png" IsMouseDirectlyOverChanged="Image_IsMouseDirectlyOverChanged" Height="30" Margin="119,547,-119,59"/>
+                        <Image Source="Images/camera.png" IsMouseDirectlyOverChanged="Image_IsMouseDirectlyOverChanged" Height="30" Margin="444,547,-444,59"/>
+                        <Image Source="Images/camera.png" x:Name="Camera1_Copy" Height="30" Margin="135,33,-135,573"/>
+                        <Image Source="Images/camera.png" x:Name="Camera1_Copy1" Height="30" Margin="347,33,-347,573"/>
+                        <Image Source="Images/camera.png" x:Name="Camera1_Copy2" Height="30" Margin="616,33,-616,573"/>
+                        -->
+            </Grid>
+        </Viewbox>
+        <!--A StackPanel for buttons and list of floors-->
+        <StackPanel>
+            <Button Margin="0 0 10 0">
+                <Image Source="/Images/up.png"/>
+            </Button>
+            <Button Margin="0 10 10 0">
+                <Image Source="/Images/down.png"/>
+            </Button>
+            <ListView Margin="0 15 10 0" ItemsSource="{Binding FloorList}">
+            </ListView>
+        </StackPanel>
+    </Grid>
+</Page>
