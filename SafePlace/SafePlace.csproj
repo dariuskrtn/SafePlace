@@ -103,6 +103,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\ImageClickBehavior.cs" />
     <Compile Include="Models\Camera.cs" />
     <Compile Include="Models\Floor.cs" />
     <Compile Include="Models\Person.cs" />

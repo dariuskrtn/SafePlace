@@ -41,6 +41,8 @@ namespace SafePlace.Views.HomePageView
             {
                 _viewModel.FloorList.Add(floor.FloorName);
             }
+
+            _viewModel.CameraClickCommand = new RelayCommand(o => Console.WriteLine("Camera click detected."));
         }
 
         private void LoadFloorList()
