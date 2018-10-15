@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SafePlace.Views.HomePageView"
+      xmlns:e="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:behaviors="clr-namespace:SafePlace.Behaviors"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="HomePageView">
@@ -19,6 +21,9 @@
                 <Image Source="{ Binding CurrentFloorImage }" x:Name="FloorMap"/>
                 <!--Following 2 images are test data, images are to be added to FloorGrid when a floor is selected-->
                 <Image Source="/Images/camera.png" x:Name="Camera1" Height="30" Margin="284,255,-284,351">
+                    <e:Interaction.Behaviors>
+                        <behaviors:ImageClickBehavior Command="{ Binding CameraClickCommand }" />
+                    </e:Interaction.Behaviors>
                 </Image>
 
                 <!--
