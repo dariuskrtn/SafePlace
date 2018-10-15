@@ -1,8 +1,8 @@
-﻿using SafePlace.ViewModels;
+﻿using SafePlace.Models;
+using SafePlace.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +14,7 @@ namespace SafePlace.Views.HomePageView
 {
     class HomePageViewModel : BaseViewModel
     {
+        public ObservableCollection<Image> Cameras { set; get; }
 
         private ICommand _cameraClickCommand;
         public ICommand CameraClickCommand {
@@ -28,6 +29,21 @@ namespace SafePlace.Views.HomePageView
             }
 
         }
+
+        private BitmapImage _cameraImage;
+        public BitmapImage CameraImage
+        {
+            get
+            {
+                return _cameraImage;
+            }
+            set
+            {
+                _cameraImage = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         private BitmapImage _currentFloorImage;
         public BitmapImage CurrentFloorImage
         {

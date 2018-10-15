@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using SafePlace.Models;
 using SafePlace.Service;
 using SafePlace.Views.MainWindowView;
 using System;
@@ -31,8 +32,15 @@ namespace SafePlace
             //Fake data
             var floor = mainService.GetFloorServiceInstance().CreateFloor();
             floor.FloorName = "First floor";
-
-            //End of faka data
+            for (int i = 0; i < 25; i++)
+            {
+                Camera newCamera = mainService.GetCameraServiceInstance().CreateCamera();
+                //Setting camera position, which relates to the translation transformation of an image in its container.
+                newCamera.PositionX = (3 - i % 5) * 200;
+                newCamera.PositionY = (3 - i / 5) * 50;
+               floor.Cameras.Add(newCamera);
+            }
+            //End of fake data
 
 
             var mainWindowViewModel = new MainWindowViewModel();
