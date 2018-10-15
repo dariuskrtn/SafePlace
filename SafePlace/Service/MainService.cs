@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -15,6 +16,7 @@ namespace SafePlace.Service
         private ICameraService _cameraService;
         private IFloorService _floorService;
         private IPersonService _personService;
+        private IFaceRecognitionService _faceRecognitionService;
 
 
         //Simple lock object to avoid multiple threads creating different class instances.
@@ -45,6 +47,22 @@ namespace SafePlace.Service
                     _pageCreator = new PageCreator(GetLoggerInstance(), GetSynchronizationContext(), GetFloorServiceInstance());
                 }
                 return _pageCreator;
+            }
+        }
+        public IFaceRecognitionService GetFaceRecognitionServiceInstance()
+        {
+            lock (_lock)
+            {
+                if (_faceRecognitionService == null)
+                {
+                    //Instantiates face recognition service with parameters taken from App.config
+                    _faceRecognitionService = new FaceRecognitionService(
+                        ConfigurationManager.AppSettings["azure-key"],
+                        ConfigurationManager.AppSettings["azure-endpoint"],
+                        ConfigurationManager.AppSettings["azure-group-id"],
+                        GetLoggerInstance());
+                }
+                return _faceRecognitionService;
             }
         }
         public SynchronizationContext GetSynchronizationContext()
