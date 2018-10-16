@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 /// <summary>
 /// A class which represents any camera in a office building.
@@ -14,7 +15,7 @@ namespace SafePlace.Models
     class Camera
     {
         #region Fields
-        public Guid guid { get; set; }
+        public Guid Guid { get; set; }
         //IdentifiedPeople will be used in the list, shown near a camera.
         public List<Person> IdentifiedPeople { get; set; }
         public string IPAddress { get; set; }
@@ -23,6 +24,7 @@ namespace SafePlace.Models
         //Currently when put into the grid container of floor and camera images, the camera appears in the middle.
         public int PositionX { get; set; }
         public int PositionY { get; set; }
+        public TransformGroup Transform { get; set; }
         #endregion
                    
 

@@ -14,7 +14,7 @@ namespace SafePlace.Views.HomePageView
 {
     class HomePageViewModel : BaseViewModel
     {
-        public ObservableCollection<Image> Cameras { set; get; }
+        public ObservableCollection<Camera> Cameras { set; get; }
 
         private ICommand _cameraClickCommand;
         public ICommand CameraClickCommand {

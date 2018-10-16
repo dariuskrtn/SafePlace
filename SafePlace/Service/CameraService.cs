@@ -13,9 +13,12 @@ namespace SafePlace.Service
 
         public Camera CreateCamera()
         {
-            var camera = new Camera();
-            camera.guid = Guid.NewGuid();
-            cameras.Add(camera.guid, camera);
+            var camera = new Camera()
+            {
+                Guid = Guid.NewGuid(),
+                Transform = new System.Windows.Media.TransformGroup()
+            };
+            cameras.Add(camera.Guid, camera);
             return camera;
         }
 

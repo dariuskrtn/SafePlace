@@ -23,7 +23,7 @@
                         <behaviors:ImageClickBehavior Command="{ Binding CameraClickCommand }" />
                     </e:Interaction.Behaviors>
                 </Image>
-                <ItemsControl ItemsSource="{Binding Cameras}">
+                <ItemsControl ItemsSource="{Binding Path=Cameras}" >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <Grid/>
@@ -31,37 +31,26 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Image Source="{Binding CameraImage}"/>
+                            <Image Source="/Images/camera.png" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform X="{Binding Path=PositionX}" Y="{Binding Path=PositionY}"/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                                <e:Interaction.Behaviors>
+                                    <behaviors:ImageClickBehavior Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl},
+                                        Path=DataContext.CameraClickCommand}" />
+                                </e:Interaction.Behaviors>
+                            </Image>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
+                    
                 </ItemsControl>
                 <!--Following 2 images are test data, images are to be added to FloorGrid when a floor is selected-->
-                <Image Source="/Images/camera.png" x:Name="CustomPositionCamera" Height="30">
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform/>
-                            <TranslateTransform X="450" Y="280"/>
-                        </TransformGroup>
-                    </Image.RenderTransform>
-                    <e:Interaction.Behaviors>
-                        <behaviors:ImageClickBehavior Command="{ Binding CameraClickCommand }" />
-                    </e:Interaction.Behaviors>
-                </Image>
-                <Image Source="/Images/camera.png" x:Name="CenteredCamera" Height="30">
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform/>
-                            <TranslateTransform X="0" Y="0"/>
-                        </TransformGroup>
-                    </Image.RenderTransform>
-                    <e:Interaction.Behaviors>
-                        <behaviors:ImageClickBehavior Command="{ Binding CameraClickCommand }" />
-                    </e:Interaction.Behaviors>
-                </Image>
+                
                  <!--Margin="fromLeft,fromTop,fromRight,fromBottom", if all = 0, item is in middle of the floor image.
                         <Image Source="/Images/camera.png" Height="30" Margin="-337,334,337,272"/>
                         <Image Source="/Images/camera.png" Height="30" Margin="-699,23,699,583"/>

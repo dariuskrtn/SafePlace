@@ -48,20 +48,15 @@ namespace SafePlace.Views.HomePageView
             }
 
             //Initializing Cameras observable collection, which will be used to store names, connecting images to cameras
-            _viewModel.Cameras = new System.Collections.ObjectModel.ObservableCollection<Image>();
-            
+            _viewModel.Cameras = new System.Collections.ObjectModel.ObservableCollection<Camera>();
+            Image floorImage = new Image()
+            {
+                Source = _viewModel.CurrentFloorImage
+            };
+
             foreach (Camera cam in _floors[0].Cameras)
             {
-                TransformGroup group = new TransformGroup();
-                group.Children.Add(new TranslateTransform() {X = cam.PositionX, Y = cam.PositionY });
-                Image newImage = new Image()
-                {
-                    RenderTransform = group,
-                    Uid = cam.guid.ToString(),
-                    Height = 30,
-                    Source = _viewModel.CameraImage
-                };
-                _viewModel.Cameras.Add(newImage);
+                _viewModel.Cameras.Add(cam);
             }
 
          
@@ -77,7 +72,7 @@ namespace SafePlace.Views.HomePageView
                 {
                     var clickPosition = args.GetPosition(ClickedImage);
                     ///Seems to work, but also be faulty as a warning appears System.Windows.Data Error: 26 : ItemTemplate..."
-                    _viewModel.Cameras.Add(ImageFromCoords((int)clickPosition.X, (int)clickPosition.Y, ClickedImage));
+                   // _viewModel.Cameras.Add(ImageFromCoords((int)clickPosition.X, (int)clickPosition.Y, ClickedImage));
                 }
             });
         }
@@ -88,11 +83,12 @@ namespace SafePlace.Views.HomePageView
         }
         ///A method fit for edit page, allows creating images with accurate position floor-plan-wise when put in an observable collection.
         ///Would be more accurate if ImageWidth and imageHeight are calculated from the current floor image.
-        public Image ImageFromCoords(int x, int y, Image floorImage)
+        ///x, y are click position coordinates
+        ///The image must be shown in the
+        public Image ImageFromCoords(int x, int y)
         {
             TransformGroup group = new TransformGroup();
-            int ImageWidth = (int)floorImage.ActualWidth, ImageHeight = (int)floorImage.ActualHeight;
-            group.Children.Add(new TranslateTransform() { X = x - ImageWidth/2, Y = y - ImageHeight/2});
+            group.Children.Add(new TranslateTransform() { X = x, Y = y});
             Image newImage = new Image()
             {
                 RenderTransform = group,
@@ -100,6 +96,8 @@ namespace SafePlace.Views.HomePageView
                 Height = 30,
                 Source = _viewModel.CameraImage
             };
+            newImage.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+            newImage.VerticalAlignment = System.Windows.VerticalAlignment.Top;
             return newImage;
         }
 
