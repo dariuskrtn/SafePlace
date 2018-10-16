@@ -13,9 +13,14 @@ namespace SafePlace.Service
 
         public Camera CreateCamera()
         {
-            var camera = new Camera();
-            camera.guid = Guid.NewGuid();
-            cameras.Add(camera.guid, camera);
+            var camera = new Camera()
+            {
+                Guid = Guid.NewGuid(),
+                Transform = new System.Windows.Media.TransformGroup(),
+                //Test data for implementing ItemSource, which takes items from ObservableCollection<Person>
+                IdentifiedPeople = new List<Person>() { new Person() { Name = "John", LastName = "Johnson"} }
+            };
+            cameras.Add(camera.Guid, camera);
             return camera;
         }
 
