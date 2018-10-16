@@ -16,12 +16,12 @@ namespace SafePlace.Service
         public Floor CreateFloor()
         {
             var floor = new Floor();
-            floor.guid = Guid.NewGuid();
+            floor.Guid = Guid.NewGuid();
             floor.Cameras = new List<Camera>();
             var img = new BitmapImage(new Uri("/Images/Floor.png", UriKind.Relative));
             floor.FloorMap = img;
 
-            floors.Add(floor.guid, floor);
+            floors.Add(floor.Guid, floor);
             return floor;
         }
 

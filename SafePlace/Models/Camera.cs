@@ -17,7 +17,7 @@ namespace SafePlace.Models
         #region Fields
         public Guid Guid { get; set; }
         //IdentifiedPeople will be used in the list, shown near a camera.
-        public List<Person> IdentifiedPeople { get; set; }
+        public IList<Person> IdentifiedPeople { get; set; }
         public string IPAddress { get; set; }
         public string Name { get; set; }
         //Position: X and Y mean the position of image's top left corner in relation to the top left corner of the floor image.

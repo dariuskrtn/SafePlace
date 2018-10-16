@@ -78,8 +78,9 @@ namespace SafePlace.Views.HomePageView
                 {
                     //Get the camera that corresponds to the clicked image
                     Camera RelatedCamera = ClickedImage.DataContext as Camera;
-                    _viewModel.SpottedPeople.Clear();
-                    RelatedCamera.IdentifiedPeople.ForEach(p => _viewModel.SpottedPeople.Add(p));
+                    //If we create a new observable list from the IdentifiedPeople list, the link between UIElement ItemControl and the list will be destroyed.
+                    //So currently we reload it with new items
+                    ReloadObservableCollection(_viewModel.SpottedPeople, RelatedCamera.IdentifiedPeople);
                     _logger.LogInfo($"You clicked on camera with the Guid of: {RelatedCamera.Guid.ToString()}");
                     
                 }
@@ -110,7 +111,16 @@ namespace SafePlace.Views.HomePageView
             return newImage;
         }
 
-        
+        public void LoadFloor(Floor NewFloor)
+        {
+            _viewModel.CurrentFloorImage = NewFloor.FloorMap;
+            ReloadObservableCollection(_viewModel.Cameras, NewFloor.Cameras);
+        }
 
+        public void ReloadObservableCollection<T>(ObservableCollection<T> oCollection, IList<T> list)
+        {
+            oCollection.Clear();
+            list.ToList().ForEach(o => oCollection.Add(o));
+        }
     }
 }

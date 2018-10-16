@@ -9,7 +9,7 @@ namespace SafePlace.Models
 {
     class Floor
     {
-        public Guid guid { get; set; }
+        public Guid Guid { get; set; }
         public IList<Camera> Cameras { get; set; }
         public BitmapImage FloorMap { set; get; }
         public string FloorName { set; get; }
