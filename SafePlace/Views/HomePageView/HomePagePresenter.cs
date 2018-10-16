@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using System.Collections.ObjectModel;
 
 namespace SafePlace.Views.HomePageView
 {
@@ -46,7 +47,7 @@ namespace SafePlace.Views.HomePageView
             {
                 _viewModel.FloorList.Add(floor.FloorName);
             }
-
+            _viewModel.SpottedPeople = new ObservableCollection<Person>();
             //Initializing Cameras observable collection, which will be used to store names, connecting images to cameras
             _viewModel.Cameras = new System.Collections.ObjectModel.ObservableCollection<Camera>();
             Image floorImage = new Image()
@@ -64,8 +65,9 @@ namespace SafePlace.Views.HomePageView
             _viewModel.CameraClickCommand = new RelayCommand(o => {
                 MouseButtonEventArgs args = (MouseButtonEventArgs)o;
                 Image ClickedImage = args.Source as Image;
-                _logger.LogInfo($"Camera click detected. Sender is of type:{ClickedImage}");
-                Console.WriteLine($"Coordinates of the click: {args.GetPosition(ClickedImage)}");
+                //_logger.LogInfo($"Camera click detected. Sender is of type:{ClickedImage}");
+                //_logger.LogInfo($"Coordinates of the click: {args.GetPosition(ClickedImage)}");
+                
                 //If the clicked image is a floor plan, then add a new camera on click position.
                 //This code fragment is meant to be here temporarily, unless we decide to allow camera creation in the home page.
                 if (ClickedImage.Name == "FloorMap")
@@ -73,6 +75,15 @@ namespace SafePlace.Views.HomePageView
                     var clickPosition = args.GetPosition(ClickedImage);
                     ///Seems to work, but also be faulty as a warning appears System.Windows.Data Error: 26 : ItemTemplate..."
                    // _viewModel.Cameras.Add(ImageFromCoords((int)clickPosition.X, (int)clickPosition.Y, ClickedImage));
+                }
+                else
+                {
+                    //Get the camera that corresponds to the clicked image
+                    Camera RelatedCamera = ClickedImage.DataContext as Camera;
+                    _viewModel.SpottedPeople.Clear();
+                    RelatedCamera.IdentifiedPeople.ForEach(p => _viewModel.SpottedPeople.Add(p));
+                    _logger.LogInfo($"You clicked on camera with the Guid of: {RelatedCamera.Guid.ToString()}");
+                    
                 }
             });
         }

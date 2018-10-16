@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -15,7 +16,7 @@ namespace SafePlace.Views.HomePageView
     class HomePageViewModel : BaseViewModel
     {
         public ObservableCollection<Camera> Cameras { set; get; }
-
+        public ObservableCollection<Person> SpottedPeople { set; get; }
         private ICommand _cameraClickCommand;
         public ICommand CameraClickCommand {
             get
@@ -57,6 +58,9 @@ namespace SafePlace.Views.HomePageView
                 NotifyPropertyChanged();
             }
         }
+        //Intended to be linked to the visibility of the listView, containing identified people.
+        //The list should appear only when a camera is clicked and ShowList becomes true.
+        public Boolean ShowList { set; get; }
 
         public ObservableCollection<string> FloorList { get; } = new ObservableCollection<string>();
 

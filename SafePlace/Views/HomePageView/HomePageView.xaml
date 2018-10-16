@@ -34,9 +34,6 @@
                             <Image Source="/Images/camera.png" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top">
                                 <Image.RenderTransform>
                                     <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
                                         <TranslateTransform X="{Binding Path=PositionX}" Y="{Binding Path=PositionY}"/>
                                     </TransformGroup>
                                 </Image.RenderTransform>
@@ -49,6 +46,7 @@
                     </ItemsControl.ItemTemplate>
                     
                 </ItemsControl>
+                
                 <!--Following 2 images are test data, images are to be added to FloorGrid when a floor is selected-->
                 
                  <!--Margin="fromLeft,fromTop,fromRight,fromBottom", if all = 0, item is in middle of the floor image.
@@ -72,8 +70,33 @@
             <Button Margin="0 10 10 0">
                 <Image Source="/Images/down.png"/>
             </Button>
-            <ListView Margin="0 15 10 0" ItemsSource="{Binding FloorList}">
+            <ListView Margin="0 15 10 50" ItemsSource="{Binding FloorList}">
             </ListView>
+            <!--Items Control to show what people are identified by the selected camera. Currently static-->
+            <Label>Spotted People:</Label>
+            <ItemsControl ItemsSource="{Binding Path=SpottedPeople}" MaxHeight="400" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Path=Name}" Grid.Column="0"/>
+                            <TextBlock Text="{Binding Path=LastName}" Grid.Column="1"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+
+
+
         </StackPanel>
     </Grid>
 </Page>

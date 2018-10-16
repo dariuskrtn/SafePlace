@@ -11,7 +11,7 @@ namespace SafePlace.Models
         public String Name { get; set; }
         public String LastName { get; set; }
         public IList<Guid> AllowedCameras { get; set; }
-        public Guid guid { get; set; }
+        public Guid Guid { get; set; }
         
         //Whenever a camera notices a person, following should happen:
         //1. If camera was not null, the person is removed from the camera's SpottedPeople list;
@@ -22,6 +22,11 @@ namespace SafePlace.Models
         {
             this.Name = name;
             this.LastName = lastname;
+        }
+
+        override public string ToString()
+        {
+            return $"{Name} {LastName}";
         }
 
        
