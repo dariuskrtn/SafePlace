@@ -62,16 +62,16 @@
                         <behaviors:ImageClickBehavior Command="{ Binding CameraClickCommand }" />
                     </e:Interaction.Behaviors>
                 </Image>
-                <!--
-                        <Image Source="Images/camera.png" Height="30" Margin="-337,334,337,272"/>
-                        <Image Source="Images/camera.png" Height="30" Margin="-506,150,506,456"/>
-                        <Image Source="Images/camera.png" Height="30" Margin="-667,547,667,59"/>
-                        <Image Source="Images/camera.png" Height="30" Margin="0,547,0,59"/>
-                        <Image Source="Images/camera.png" Height="30" Margin="119,547,-119,59"/>
-                        <Image Source="Images/camera.png" Height="30" Margin="444,547,-444,59"/>
-                        <Image Source="Images/camera.png" Height="30" Margin="135,33,-135,573"/>
-                        <Image Source="Images/camera.png" Height="30" Margin="347,33,-347,573"/>
-                        <Image Source="Images/camera.png" Height="30" Margin="616,33,-616,573"/>
+                 <!--Margin="fromLeft,fromTop,fromRight,fromBottom", if all = 0, item is in middle of the floor image.
+                        <Image Source="/Images/camera.png" Height="30" Margin="-337,334,337,272"/>
+                        <Image Source="/Images/camera.png" Height="30" Margin="-699,23,699,583"/>
+                        <Image Source="/Images/camera.png" Height="30" Margin="-667,547,667,59"/>
+                        <Image Source="/Images/camera.png" Height="30" Margin="0,547,0,59"/>
+                        <Image Source="/Images/camera.png" Height="30" Margin="119,547,-119,59"/>
+                        <Image Source="/Images/camera.png" Height="30" Margin="444,547,-444,59"/>
+                        <Image Source="/Images/camera.png" Height="30" Margin="135,33,-135,573"/>
+                        <Image Source="/Images/camera.png" Height="30" Margin="347,33,-347,573"/>
+                        <Image Source="/Images/camera.png" Height="30" Margin="616,33,-616,573"/>
                         -->
             </Grid>
         </Viewbox>

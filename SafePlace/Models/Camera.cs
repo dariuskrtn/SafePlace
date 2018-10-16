@@ -19,6 +19,8 @@ namespace SafePlace.Models
         public List<Person> IdentifiedPeople { get; set; }
         public string IPAddress { get; set; }
         public string Name { get; set; }
+        //Position: X and Y mean the position of image's top left corner in relation to the top left corner of the floor image.
+        //Currently when put into the grid container of floor and camera images, the camera appears in the middle.
         public int PositionX { get; set; }
         public int PositionY { get; set; }
         #endregion
