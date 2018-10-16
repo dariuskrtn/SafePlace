@@ -47,9 +47,7 @@ namespace SafePlace.Views.HomePageView
             {
                 _viewModel.FloorList.Add(floor.FloorName);
             }
-            _viewModel.SpottedPeople = new ObservableCollection<Person>();
             //Initializing Cameras observable collection, which will be used to store names, connecting images to cameras
-            _viewModel.Cameras = new System.Collections.ObjectModel.ObservableCollection<Camera>();
             Image floorImage = new Image()
             {
                 Source = _viewModel.CurrentFloorImage
@@ -111,6 +109,8 @@ namespace SafePlace.Views.HomePageView
             newImage.VerticalAlignment = System.Windows.VerticalAlignment.Top;
             return newImage;
         }
+
+        
 
     }
 }

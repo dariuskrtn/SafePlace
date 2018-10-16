@@ -18,7 +18,10 @@ namespace SafePlace.Service
                 Guid = Guid.NewGuid(),
                 Transform = new System.Windows.Media.TransformGroup(),
                 //Test data for implementing ItemSource, which takes items from ObservableCollection<Person>
-                IdentifiedPeople = new List<Person>() { new Person() { Name = "John", LastName = "Johnson"} }
+                IdentifiedPeople = new List<Person>() {
+                    new Person() { Name = "John", LastName = "Johnson" },
+                    new Person() { Name = "John", LastName = "Seenhim" }
+                }
             };
             cameras.Add(camera.Guid, camera);
             return camera;
