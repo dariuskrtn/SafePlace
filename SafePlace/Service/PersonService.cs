@@ -14,8 +14,8 @@ namespace SafePlace.Service
         public Person CreatePerson()
         {
             var person = new Person();
-            person.guid = Guid.NewGuid();
-            people.Add(person.guid, person);
+            person.Guid = Guid.NewGuid();
+            people.Add(person.Guid, person);
             return person;
         }
 

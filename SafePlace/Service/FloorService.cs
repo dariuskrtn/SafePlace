@@ -17,7 +17,7 @@ namespace SafePlace.Service
         {
             var floor = new Floor();
             floor.guid = Guid.NewGuid();
-
+            floor.Cameras = new List<Camera>();
             var img = new BitmapImage(new Uri("/Images/Floor.png", UriKind.Relative));
             floor.FloorMap = img;
 
