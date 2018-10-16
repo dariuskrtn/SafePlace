@@ -48,7 +48,7 @@ namespace SafePlace.Service
             var settingsPagePresenter = new SettingsPagePresenter(settingsPageViewModel, _logger, _synchronizationContext);
 
             var settingsPageView = new SettingsPageView();
-            settingsPageView.DataContext = settingsPageView;
+            settingsPageView.DataContext = settingsPageViewModel;
 
             return settingsPageView;
         }
