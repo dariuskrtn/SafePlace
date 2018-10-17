@@ -30,14 +30,52 @@ namespace SafePlace.Views.SettingsPageView
 
         private void BuildViewModel()
         {
-            _viewModel.FloorButtonClickCommand = new RelayCommand(e => FloorButtonClickedCommand());
+            BuildButttonsCommans();
         }
 
-        #region Commands
+        private void BuildButttonsCommans()
+        {
+            _viewModel.EditButtonClickCommand = new RelayCommand(e => OnEditButtonClicked());
+            _viewModel.AddCameraButtonClickCommand = new RelayCommand(e => OnAddCameraButtonClicked());
+            _viewModel.ChooseImageButtonClickCommand = new RelayCommand(e => OnChooseImageButtonClicked());
+            _viewModel.FloorButtonClickCommand = new RelayCommand(e => OnFloorButtonClicked());
+            _viewModel.CancelButtonClickCommand = new RelayCommand(e => OnCancelButtonClicked());
+            _viewModel.DeleteButtonClickCommand = new RelayCommand(e => OnDeleteButtonClicked());
+        }
 
-        private void FloorButtonClickedCommand()
+        #region Buttons Commands
+
+        //Floor button - Add floor, Edit floor and Save (Depending on settings page state) 
+        private void OnEditButtonClicked()
+        {
+
+        }
+
+        private void OnAddCameraButtonClicked()
+        {
+
+        }
+
+        // Choose and Change image is the same button
+        private void OnChooseImageButtonClicked()
         {
             SelectFile();
+        }
+
+        private void OnFloorButtonClicked()
+        {
+            
+        }
+
+        // CAncel and Restore is the same button
+        private void OnCancelButtonClicked()
+        {
+
+        }
+
+        private void OnDeleteButtonClicked()
+        {
+
         }
 
         #endregion

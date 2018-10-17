@@ -44,12 +44,10 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Button Content="Edit selected floor"              Margin="0 5"/>
                     <Button Content="Add new camera&#x0d;&#x0a;(To delete or edit exiting camera click on it) " Grid.Row="1"      Margin="0 5" TextBlock.TextAlignment="Center"/>
-                    <Button Content="Choose image" Grid.Row="2"        Margin="0 5"/>
-                    <Button Content="Change floor image" Grid.Row="3"  Margin="0 5"/>
+                    <Button Content="Choose/Change floor image" Command="{ Binding ChooseImageButtonClickCommand}" Grid.Row="2"        Margin="0 5"/>
                 </Grid>
             </Grid> 
             
@@ -63,8 +61,8 @@
                 <!-- Name input -->
                 <StackPanel Grid.Row="0" Orientation="Horizontal">
                     <!--ViewBox changes test size when window size is changed-->
-                    <Viewbox>
-                        <TextBox Width="auto" MinWidth="256" Text="Input floor name here" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ClipToBounds="True" />
+                    <Viewbox HorizontalAlignment="Center">
+                        <TextBox Width="auto" Text="Input floor name here" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ClipToBounds="True" />
                     </Viewbox>
                 </StackPanel>
 
