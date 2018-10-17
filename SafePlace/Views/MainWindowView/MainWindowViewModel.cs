@@ -56,5 +56,19 @@ namespace SafePlace.Views.MainWindowView
             }
         }
 
+        private ICommand _userRegistrationPageCommand;
+        public ICommand UserRegistrationPageCommand
+        {
+            get
+            {
+                return _userRegistrationPageCommand;
+            }
+            set
+            {
+                _userRegistrationPageCommand = value;
+                NotifyPropertyChanged();
+            }
+        }
+
     }
 }

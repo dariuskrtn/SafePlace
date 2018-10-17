@@ -135,6 +135,11 @@
     </Compile>
     <Compile Include="Views\SettingsPageView\SettingsPagePresenter.cs" />
     <Compile Include="Views\SettingsPageView\SettingsPageViewModel.cs" />
+    <Compile Include="Views\UserRegistrationPageView\UserRegistrationPagePresenter.cs" />
+    <Compile Include="Views\UserRegistrationPageView\UserRegistrationPageView.xaml.cs">
+      <DependentUpon>UserRegistrationPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserRegistrationPageView\UserRegistrationPageViewModel.cs" />
     <Page Include="Views\HomePageView\HomePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -152,6 +157,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\SettingsPageView\SettingsPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserRegistrationPageView\UserRegistrationPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

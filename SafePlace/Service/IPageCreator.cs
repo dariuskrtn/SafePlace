@@ -11,5 +11,6 @@ namespace SafePlace.Service
     {
         Page CreateHomePage();
         Page CreateSettingsPage();
+        Page CreateUserRegistrationPage();
     }
 }
