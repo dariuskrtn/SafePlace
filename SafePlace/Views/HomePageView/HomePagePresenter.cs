@@ -78,6 +78,8 @@ namespace SafePlace.Views.HomePageView
                 {
                     //Get the camera that corresponds to the clicked image
                     Camera RelatedCamera = ClickedImage.DataContext as Camera;
+                    //Adding more dummy data
+                    RelatedCamera.IdentifiedPeople.Add(new Person() { Name = "Olaf", LastName = $"Johanson the {new Random().Next(4, 10)}th"});
                     //If we create a new observable list from the IdentifiedPeople list, the link between UIElement ItemControl and the list will be destroyed.
                     //So currently we reload it with new items
                     ReloadObservableCollection(_viewModel.SpottedPeople, RelatedCamera.IdentifiedPeople);
