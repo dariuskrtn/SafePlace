@@ -28,6 +28,10 @@ namespace SafePlace.Views.HomePageView
 
         private IList<Floor> _floors;
 
+        private string[] Names = { "Joseph", "Johan", "John", "Jack", "Joe", "Johnattan", "Jacob", "Jason", "Jennifer", "Jay" };
+        private string[] LastNames = { "Peugeot", "Ferrari", "Harrari", "Smith", "Sans", "Rutherford", "Boore", "Huxley", "Jacksondaughter", "Joestar"};
+        private Random Random;
+
         public HomePagePresenter(HomePageViewModel viewModel, ILogger logger, SynchronizationContext synchronizationContext, IFloorService floorService)
         {
             _viewModel = viewModel;
@@ -42,7 +46,10 @@ namespace SafePlace.Views.HomePageView
         {
             //Setting the default starting floor's image.
             _viewModel.CurrentFloorImage = _floors[0].FloorMap;
+            _viewModel.CurrentFloor = 0;
             _viewModel.CameraImage = new BitmapImage(new Uri("/Images/camera.png", UriKind.Relative));
+            //Random number generator for random data generating
+            Random = new Random();
             foreach (Floor floor in _floors)
             {
                 _viewModel.FloorList.Add(floor.FloorName);
@@ -58,7 +65,22 @@ namespace SafePlace.Views.HomePageView
                 _viewModel.Cameras.Add(cam);
             }
 
-         
+            _viewModel.FloorUpCommand = new RelayCommand(e =>
+            {
+                if (_viewModel.CurrentFloor < _floors.IndexOf(_floors.Last()))
+                {
+                    _viewModel.CurrentFloor++;
+                    LoadFloor(_floors[_viewModel.CurrentFloor]);
+                }
+            });
+            _viewModel.FloorDownCommand = new RelayCommand(e =>
+            {
+                if (_viewModel.CurrentFloor > 0)
+                {
+                    _viewModel.CurrentFloor--;
+                    LoadFloor(_floors[_viewModel.CurrentFloor]);
+                }
+            });
             
             _viewModel.CameraClickCommand = new RelayCommand(o => {
                 MouseButtonEventArgs args = (MouseButtonEventArgs)o;
@@ -79,7 +101,7 @@ namespace SafePlace.Views.HomePageView
                     //Get the camera that corresponds to the clicked image
                     Camera RelatedCamera = ClickedImage.DataContext as Camera;
                     //Adding more dummy data
-                    RelatedCamera.IdentifiedPeople.Add(new Person() { Name = "Olaf", LastName = $"Johanson the {new Random().Next(4, 10)}th"});
+                    RelatedCamera.IdentifiedPeople.Add(new Person() { Name = Names[Random.Next(0, 9)], LastName = LastNames[Random.Next(0, 9)]});
                     //If we create a new observable list from the IdentifiedPeople list, the link between UIElement ItemControl and the list will be destroyed.
                     //So currently we reload it with new items
                     ReloadObservableCollection(_viewModel.SpottedPeople, RelatedCamera.IdentifiedPeople);
@@ -117,6 +139,7 @@ namespace SafePlace.Views.HomePageView
         {
             _viewModel.CurrentFloorImage = NewFloor.FloorMap;
             ReloadObservableCollection(_viewModel.Cameras, NewFloor.Cameras);
+            _viewModel.SpottedPeople.Clear();
         }
 
         public void ReloadObservableCollection<T>(ObservableCollection<T> oCollection, IList<T> list)

@@ -41,6 +41,8 @@ namespace SafePlace
                 newCamera.PositionY = coords[i + 1];
                 floor.Cameras.Add(newCamera);
             }
+            var secondFloor = mainService.GetFloorServiceInstance().CreateFloor("/Images/Floor2.png");
+            secondFloor.FloorName = "Second floor";
             /*for (int i = 0; i < 25; i++)
             {
                 Camera newCamera = mainService.GetCameraServiceInstance().CreateCamera();

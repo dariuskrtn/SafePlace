@@ -17,6 +17,9 @@ namespace SafePlace.Views.HomePageView
     {
         public ObservableCollection<Camera> Cameras { set; get; } = new ObservableCollection<Camera>();
         public ObservableCollection<Person> SpottedPeople { set; get; } = new ObservableCollection<Person>();
+        //Required for tracking which floor is currently shown.
+        public int CurrentFloor { set; get; }
+
         private ICommand _cameraClickCommand;
         public ICommand CameraClickCommand {
             get
@@ -26,6 +29,36 @@ namespace SafePlace.Views.HomePageView
             set
             {
                 _cameraClickCommand = value;
+                NotifyPropertyChanged();
+            }
+
+        }
+        //If a behavior to the floor changing buttons is applied, one command for changing floors should be enough.
+        private ICommand _floorUpCommand;
+        public ICommand FloorUpCommand
+        {
+            get
+            {
+                return _floorUpCommand;
+            }
+            set
+            {
+                _floorUpCommand = value;
+                NotifyPropertyChanged();
+            }
+
+        }
+
+        private ICommand _floorDownCommand;
+        public ICommand FloorDownCommand
+        {
+            get
+            {
+                return _floorDownCommand;
+            }
+            set
+            {
+                _floorDownCommand = value;
                 NotifyPropertyChanged();
             }
 

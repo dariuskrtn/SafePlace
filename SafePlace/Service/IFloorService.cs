@@ -11,6 +11,7 @@ namespace SafePlace.Service
     {
         Floor GetFloor(Guid guid);
         Floor CreateFloor();
+        Floor CreateFloor(string path);
         IEnumerable<Floor> GetFloorList();
     }
 }
