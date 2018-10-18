@@ -10,7 +10,7 @@ namespace SafePlace.Models
     {
         public String Name { get; set; }
         public String LastName { get; set; }
-        public IList<Guid> AllowedCameras { get; set; }
+        public ICollection<Guid> AllowedCameras { get; set; }
         public Guid Guid { get; set; }
         
         //Whenever a camera notices a person, following should happen:

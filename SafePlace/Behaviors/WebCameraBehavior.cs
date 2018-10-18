@@ -107,7 +107,7 @@ namespace SafePlace.Behaviors
         private static void OnRecordingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var behavior = d as WebCameraBehavior;
-            if (behavior.Capturing) behavior.StartRecording();
+            if (behavior.Capturing && behavior.Recording) behavior.SaveImage();
         }
         private static void OnWebCameraIdChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -115,7 +115,6 @@ namespace SafePlace.Behaviors
             if (behavior.WebCameraId != null)
             {
                 if (behavior.Capturing) behavior.StartCapturing();
-                if (behavior.Recording) behavior.StartRecording();
             }
             else
             {
@@ -139,26 +138,16 @@ namespace SafePlace.Behaviors
                 AssociatedObject.StopCapture();
             }
         }
-        public void StartRecording()
-        {
-            if (!_threadRunning) new Thread(_ => Record()).Start();
-        }
-
-        private void Record()
-        {
-            _threadRunning = true;
-            if (Recording && Capturing) SaveImage();
-            Thread.Sleep(Framerate);
-            if (Recording) Record();
-            else _threadRunning = false;
-        }
 
         public void SaveImage()
         {
+            if (!Recording) return;
+
             if (RecordingsCollection != null && AssociatedObject.IsCapturing)
             {
                 RecordingsCollection.Add(AssociatedObject.GetCurrentImage());
             }
+            Recording = false;
         }
 
     }
