@@ -55,7 +55,7 @@ namespace SafePlace.Views.HomePageView
             {
                 _viewModel.FloorList.Add(floor.FloorName);
             }
-            //Initializing Cameras observable collection, which will be used to store names, connecting images to cameras
+            
             Image floorImage = new Image()
             {
                 Source = _viewModel.CurrentFloorImage
@@ -89,13 +89,11 @@ namespace SafePlace.Views.HomePageView
                 //_logger.LogInfo($"Camera click detected. Sender is of type:{ClickedImage}");
                 //_logger.LogInfo($"Coordinates of the click: {args.GetPosition(ClickedImage)}");
                 
-                //If the clicked image is a floor plan, then add a new camera on click position.
-                //This code fragment is meant to be here temporarily, unless we decide to allow camera creation in the home page.
+                //The first if part of the statement could be an empty statement or space for functionality to be implemented.
                 if (ClickedImage.Name == "FloorMap")
                 {
                     var clickPosition = args.GetPosition(ClickedImage);
-                    ///Seems to work, but also be faulty as a warning appears System.Windows.Data Error: 26 : ItemTemplate..."
-                   // _viewModel.Cameras.Add(ImageFromCoords((int)clickPosition.X, (int)clickPosition.Y, ClickedImage));
+                    //_viewModel.Cameras.Add(ImageFromCoords((int)clickPosition.X, (int)clickPosition.Y, ClickedImage));
                 }
                 else
                 {
