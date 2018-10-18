@@ -24,6 +24,11 @@ namespace SafePlace.Service
             return camera;
         }
 
+        public IEnumerable<Camera> GetAllCameras()
+        {
+            return cameras.Select(item => item.Value);
+        }
+
         public Camera GetCamera(Guid guid)
         {
             if (cameras.ContainsKey(guid)) return cameras[guid];

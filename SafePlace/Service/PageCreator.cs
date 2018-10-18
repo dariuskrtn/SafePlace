@@ -20,12 +20,14 @@ namespace SafePlace.Service
         private readonly ILogger _logger;
         private readonly SynchronizationContext _synchronizationContext;
         private readonly IFloorService _floorService;
+        private readonly IMainService _mainService;
 
-        public PageCreator(ILogger logger, SynchronizationContext synchronizationContext, IFloorService floorService)
+        public PageCreator(ILogger logger, SynchronizationContext synchronizationContext, IFloorService floorService, IMainService mainService)
         {
             _logger = logger;
             _synchronizationContext = synchronizationContext;
             _floorService = floorService;
+            _mainService = mainService;
         }
 
 
@@ -57,7 +59,7 @@ namespace SafePlace.Service
         public Page CreateUserRegistrationPage()
         {
             var userRegistrationViewModel = new UserRegistrationPageViewModel();
-            var userRegistrationPresenter = new UserRegistrationPagePresenter(userRegistrationViewModel);
+            var userRegistrationPresenter = new UserRegistrationPagePresenter(userRegistrationViewModel, _mainService);
 
             var userRegistrationPageView = new UserRegistrationPageView();
             userRegistrationPageView.DataContext = userRegistrationViewModel;

@@ -90,6 +90,17 @@
                     <Label VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Content="Surname:" />
                     <TextBox VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}" />
                     <Label VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" Content="Allowed Cameras:" />
+                    <ComboBox ItemsSource="{Binding Cameras}" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Width="220" Content="{Binding Name}" IsChecked="{Binding IsChecked}">
+                                    <e:Interaction.Behaviors>
+                                        <behaviors:CameraMultiComboboxBehavior SelectedItems="{Binding SelectedItems }" />
+                                    </e:Interaction.Behaviors>
+                                </CheckBox>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </Grid>
             </GroupBox>
             <Button VerticalAlignment="Center" Grid.Column="0" Grid.Row="6" Content="Save Person" Command="{Binding SavePersonCommand}" />

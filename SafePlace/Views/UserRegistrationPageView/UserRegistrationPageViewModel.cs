@@ -1,4 +1,6 @@
-﻿using SafePlace.ViewModels;
+﻿using SafePlace.Models;
+using SafePlace.ViewModels;
+using SafePlace.WpfComponents;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -155,5 +157,7 @@ namespace SafePlace.Views.UserRegistrationPageView
             }
         }
 
+        public ObservableCollection<MultiComboboxItem<Camera>> Cameras { get; set; } = new ObservableCollection<MultiComboboxItem<Camera>>();
+        public ObservableCollection<Camera> SelectedCameras { get; set; } = new ObservableCollection<Camera>();
     }
 }

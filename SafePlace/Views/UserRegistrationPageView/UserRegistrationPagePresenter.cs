@@ -1,5 +1,7 @@
 ﻿using SafePlace.Models;
+using SafePlace.Service;
 using SafePlace.Utilities;
+using SafePlace.WpfComponents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +13,16 @@ namespace SafePlace.Views.UserRegistrationPageView
     class UserRegistrationPagePresenter
     {
         private readonly UserRegistrationPageViewModel _viewModel;
-        public UserRegistrationPagePresenter(UserRegistrationPageViewModel viewModel)
+        private readonly IMainService _mainService;
+        private readonly ICameraService _cameraService;
+        private readonly IPersonService _personService;
+        public UserRegistrationPagePresenter(UserRegistrationPageViewModel viewModel, IMainService mainService)
         {
             _viewModel = viewModel;
+            _mainService = mainService;
+            _cameraService = mainService.GetCameraServiceInstance();
+            _personService = mainService.GetPersonServiceInstance();
+
             BuildViewModel();
         }
 
@@ -25,6 +34,16 @@ namespace SafePlace.Views.UserRegistrationPageView
             _viewModel.RecordImageCommand = new RelayCommand(_ => SaveRecordCommand(), _ => SaveRecordCommandAllowed());
             _viewModel.SavePersonCommand = new RelayCommand(_ => SavePersonCommand(), _ => SavePersonCommandAllowed());
             _viewModel.ToggleCapturingCommand = new RelayCommand(_ => ToggleCapturingCommand());
+
+            PopulateCameras();
+        }
+
+        private void PopulateCameras()
+        {
+            foreach (Camera cam in _cameraService.GetAllCameras())
+            {
+                _viewModel.Cameras.Add(new MultiComboboxItem<Camera>() { Item = cam, Name = cam.Name, SelectedItems = _viewModel.SelectedCameras });
+            }
         }
 
         private void ToggleCapturingCommand()
@@ -50,7 +69,6 @@ namespace SafePlace.Views.UserRegistrationPageView
         }
         private void SavePersonCommand()
         {
-            var person = new Person();
 
         }
     }

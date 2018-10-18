@@ -106,7 +106,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\CameraMultiComboboxBehavior.cs" />
     <Compile Include="Behaviors\ImageClickBehavior.cs" />
+    <Compile Include="Behaviors\MultiComboboxBehavior.cs" />
     <Compile Include="Behaviors\WebCameraBehavior.cs" />
     <Compile Include="Models\Camera.cs" />
     <Compile Include="Models\Floor.cs" />
@@ -144,6 +146,7 @@
       <DependentUpon>UserRegistrationPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserRegistrationPageView\UserRegistrationPageViewModel.cs" />
+    <Compile Include="WpfComponents\MultiComboboxItem.cs" />
     <Page Include="Views\HomePageView\HomePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
