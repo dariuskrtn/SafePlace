@@ -143,10 +143,10 @@ namespace SafePlace.Views.HomePageView
             _viewModel.SpottedPeople.Clear();
         }
 
-        public void ReloadObservableCollection<T>(ObservableCollection<T> oCollection, IList<T> list)
+        public void ReloadObservableCollection<T>(ObservableCollection<T> observableColl, IList<T> list)
         {
-            oCollection.Clear();
-            list.ToList().ForEach(o => oCollection.Add(o));
+            observableColl.Clear();
+            list.ToList().ForEach(o => observableColl.Add(o));
         }
     }
 }
