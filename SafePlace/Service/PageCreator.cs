@@ -16,25 +16,19 @@ namespace SafePlace.Service
 
     class PageCreator : IPageCreator
     {
-        private readonly ILogger _logger;
-        private readonly SynchronizationContext _synchronizationContext;
-        private readonly IFloorService _floorService;
+        private readonly IMainService _mainService;
 
-        public PageCreator(ILogger logger, SynchronizationContext synchronizationContext, IFloorService floorService)
+        public PageCreator(IMainService mainService)
         {
-            _logger = logger;
-            _synchronizationContext = synchronizationContext;
-            _floorService = floorService;
+            _mainService = mainService;
         }
-
-
         /*
          * Creates Home Page View and injects all required dependencies.
          */
         public Page CreateHomePage()
         {
             var homePageViewModel = new HomePageViewModel();
-            var homePagePresenter = new HomePagePresenter(homePageViewModel, _logger, _synchronizationContext, _floorService);
+            var homePagePresenter = new HomePagePresenter(homePageViewModel, _mainService);
 
             var homePageView = new HomePageView();
             homePageView.DataContext = homePageViewModel;
@@ -45,7 +39,7 @@ namespace SafePlace.Service
         public Page CreateSettingsPage()
         {
             var settingsPageViewModel = new SettingsPageViewModel();
-            var settingsPagePresenter = new SettingsPagePresenter(settingsPageViewModel, _logger, _synchronizationContext);
+            var settingsPagePresenter = new SettingsPagePresenter(settingsPageViewModel, _mainService);
 
             var settingsPageView = new SettingsPageView();
             settingsPageView.DataContext = settingsPageViewModel;

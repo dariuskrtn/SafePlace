@@ -22,20 +22,27 @@ namespace SafePlace.Views.HomePageView
     class HomePagePresenter
     {
         private HomePageViewModel _viewModel;
+        private readonly IMainService _mainService;
         private SynchronizationContext _synchronizationContext;
         private ILogger _logger;
         private IFloorService _floorService;
 
         private IList<Floor> _floors;
 
-        public HomePagePresenter(HomePageViewModel viewModel, ILogger logger, SynchronizationContext synchronizationContext, IFloorService floorService)
+        public HomePagePresenter(HomePageViewModel viewModel, IMainService mainService)
         {
             _viewModel = viewModel;
-            _logger = logger;
-            _synchronizationContext = synchronizationContext;
-            _floorService = floorService;
+            _mainService = mainService;
+            GetServices(_mainService);
             LoadFloorList();
             BuildViewModel();
+        }
+
+        private void GetServices(IMainService mainService)
+        {
+            _logger = mainService.GetLoggerInstance();
+            _synchronizationContext = mainService.GetSynchronizationContext();
+            _floorService = mainService.GetFloorServiceInstance();
         }
 
         private void BuildViewModel()
