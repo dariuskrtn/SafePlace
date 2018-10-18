@@ -16,14 +16,17 @@ namespace SafePlace.Views.SettingsPageView
     {
 
         private SettingsPageViewModel _viewModel;
+        private readonly IMainService _mainService;
         private SynchronizationContext _synchronisationContext;
         private ILogger _logger;
+        private IFloorService _floorService;
+        
 
-        public SettingsPagePresenter(SettingsPageViewModel viewModel, ILogger logger, SynchronizationContext syncgronizationContext)
+        public SettingsPagePresenter(SettingsPageViewModel viewModel, IMainService mainService)
         {
             _viewModel = viewModel;
-            _logger = logger;
-            _synchronisationContext = syncgronizationContext;
+            _mainService = mainService;
+            GetServices(_mainService);
 
             BuildViewModel();
         }
@@ -31,6 +34,12 @@ namespace SafePlace.Views.SettingsPageView
         private void BuildViewModel()
         {
             BuildButttonsCommans();
+        }
+
+        private void GetServices(IMainService mainService)
+        {
+            _logger = mainService.GetLoggerInstance();
+            _floorService = mainService.GetFloorServiceInstance();
         }
 
         private void BuildButttonsCommans()
