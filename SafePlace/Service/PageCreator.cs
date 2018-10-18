@@ -16,7 +16,6 @@ namespace SafePlace.Service
 
     class PageCreator : IPageCreator
     {
-        private readonly ILogger _logger;
         private readonly IMainService _mainService;
 
         public PageCreator(IMainService mainService)
