@@ -44,7 +44,7 @@ namespace SafePlace.Service
             {
                 if (_pageCreator == null)
                 {
-                    _pageCreator = new PageCreator(GetLoggerInstance(), GetSynchronizationContext(), GetFloorServiceInstance());
+                    _pageCreator = new PageCreator(this);
                 }
                 return _pageCreator;
             }

@@ -12,7 +12,9 @@ namespace SafePlace.Models
         public String LastName { get; set; }
         public IList<Guid> AllowedCameras { get; set; }
         public Guid Guid { get; set; }
-        
+        //Possible types: Employee (Various team roles + intern), Guest, BusinessCollaborator (visitors from foreign branches or related companies).
+        //Could be in format: type, subtype. For example: "Visitor, business partner" or "Employee, intern".
+        public String Type { get; set; }
         //Whenever a camera notices a person, following should happen:
         //1. If camera was not null, the person is removed from the camera's SpottedPeople list;
         //2. A new value is set and the person is added there.
