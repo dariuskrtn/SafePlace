@@ -18,7 +18,19 @@ namespace SafePlace.Views.HomePageView
         public ObservableCollection<Camera> Cameras { set; get; } = new ObservableCollection<Camera>();
         public ObservableCollection<Person> SpottedPeople { set; get; } = new ObservableCollection<Person>();
         //Required for tracking which floor is currently shown.
-        public int CurrentFloor { set; get; }
+        private int _currentFloor;
+        public int CurrentFloor
+        {
+            get
+            {
+                return _currentFloor;
+            }
+            set
+            {
+                _currentFloor = value;
+                NotifyPropertyChanged();
+            }
+        }
         public ObservableCollection<Floor> Floors { set; get; } = new ObservableCollection<Floor>();
         private ICommand _cameraClickCommand;
         public ICommand CameraClickCommand {

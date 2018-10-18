@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SafePlace.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,7 +39,9 @@ namespace SafePlace.Behaviors
         private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (Command == null) return;
-            if (Command.CanExecute(e)) Command.Execute(e);
+            Image ClickedImage = e.Source as Image;
+            Camera RelatedCamera = ClickedImage.DataContext as Camera;
+            if (Command.CanExecute(e)) Command.Execute(RelatedCamera);
         }
 
     }

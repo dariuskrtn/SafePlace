@@ -84,29 +84,14 @@ namespace SafePlace.Views.HomePageView
             });
             
             _viewModel.CameraClickCommand = new RelayCommand(o => {
-                MouseButtonEventArgs args = (MouseButtonEventArgs)o;
-                Image ClickedImage = args.Source as Image;
-                //_logger.LogInfo($"Camera click detected. Sender is of type:{ClickedImage}");
-                //_logger.LogInfo($"Coordinates of the click: {args.GetPosition(ClickedImage)}");
-                
-                //The first if part of the statement could be an empty statement or space for functionality to be implemented.
-                if (ClickedImage.Name == "FloorMap")
-                {
-                    var clickPosition = args.GetPosition(ClickedImage);
-                    //_viewModel.Cameras.Add(ImageFromCoords((int)clickPosition.X, (int)clickPosition.Y, ClickedImage));
-                }
-                else
-                {
-                    //Get the camera that corresponds to the clicked image
-                    Camera RelatedCamera = ClickedImage.DataContext as Camera;
-                    //Adding more dummy data
-                    RelatedCamera.IdentifiedPeople.Add(new Person() { Name = Names[Random.Next(0, 9)], LastName = LastNames[Random.Next(0, 9)]});
-                    //If we create a new observable list from the IdentifiedPeople list, the link between UIElement ItemControl and the list will be destroyed.
-                    //So currently we reload it with new items
-                    ReloadObservableCollection(_viewModel.SpottedPeople, RelatedCamera.IdentifiedPeople);
-                    _logger.LogInfo($"You clicked on camera with the Guid of: {RelatedCamera.Guid.ToString()}");
-                    
-                }
+                Camera RelatedCamera = o as Camera;
+                //Adding more dummy data
+                RelatedCamera.IdentifiedPeople.Add(new Person() { Name = Names[Random.Next(0, 9)], LastName = LastNames[Random.Next(0, 9)]});
+                //If we create a new observable list from the IdentifiedPeople list, the link between UIElement ItemControl and the list will be destroyed.
+                //So currently we reload it with new items
+                ReloadObservableCollection(_viewModel.SpottedPeople, RelatedCamera.IdentifiedPeople);
+                _logger.LogInfo($"You clicked on camera with the Guid of: {RelatedCamera.Guid.ToString()}");
+                  
             });
         }
 
