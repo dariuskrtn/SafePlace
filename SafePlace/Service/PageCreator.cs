@@ -19,9 +19,11 @@ namespace SafePlace.Service
         private readonly ILogger _logger;
         private readonly SynchronizationContext _synchronizationContext;
         private readonly IFloorService _floorService;
+        private readonly IMainService _mainService;
 
-        public PageCreator(ILogger logger, SynchronizationContext synchronizationContext, IFloorService floorService)
+        public PageCreator(ILogger logger, SynchronizationContext synchronizationContext, IFloorService floorService, IMainService mainService)
         {
+            _mainService = mainService;
             _logger = logger;
             _synchronizationContext = synchronizationContext;
             _floorService = floorService;
