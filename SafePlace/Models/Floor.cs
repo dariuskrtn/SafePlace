@@ -22,5 +22,9 @@ namespace SafePlace.Models
         {
             Cameras.Add(camera);
         }
+        public override string ToString()
+        {
+            return FloorName;
+        }
     }
 }
