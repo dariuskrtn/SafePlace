@@ -85,7 +85,12 @@ namespace SafePlace.Views.HomePageView
                     LoadFloor(_floors[_viewModel.CurrentFloor]);
                 }
             });
-            _viewModel.FloorListClickCommand = new RelayCommand(selectedFloor => LoadFloor(selectedFloor as Floor));
+            _viewModel.FloorListClickCommand = new RelayCommand(floor =>
+            {
+                Floor selectedFloor = floor as Floor;
+                LoadFloor(selectedFloor as Floor);
+                _viewModel.CurrentFloor = _viewModel.Floors.IndexOf(selectedFloor);
+            });
 
             _viewModel.CameraClickCommand = new RelayCommand(o => {
                 Camera RelatedCamera = o as Camera;
