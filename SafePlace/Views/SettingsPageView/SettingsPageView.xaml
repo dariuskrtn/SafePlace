@@ -63,7 +63,7 @@
                     <!--ViewBox changes test size when window size is changed-->
                    <!-- <Viewbox HorizontalAlignment="Center"> -->
                 <Viewbox>
-                <TextBox Width="auto" Text="Input floor name here" Grid.Row="0"  ClipToBounds="True" BorderThickness="1" />
+                    <TextBox Width="auto" Text="{Binding FloorName}" Grid.Row="0"  ClipToBounds="True" BorderThickness="1" />
                 </Viewbox>
                 
                 <!-- Here will show up uploaded floor image-->

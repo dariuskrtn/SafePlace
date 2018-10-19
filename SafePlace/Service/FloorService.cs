@@ -11,20 +11,15 @@ namespace SafePlace.Service
 {
     class FloorService : IFloorService
     {
+        // const naming?
+        private const string DefaultFloorName = "Input floor name here";
         private Dictionary<Guid, Floor> floors = new Dictionary<Guid, Floor>();
 
         public Floor CreateFloor()
         {
-            var floor = new Floor();
-            floor.Guid = Guid.NewGuid();
-            floor.Cameras = new List<Camera>();
-
-            var img = new BitmapImage(new Uri("/Images/Floor.png", UriKind.Relative));
-            floor.FloorMap = img;
-
-            floors.Add(floor.Guid, floor);
-            return floor;
+            return CreateFloor("/Images/Floor.png");
         }
+        
         public Floor CreateFloor(string Path)
         {
             var floor = new Floor();
@@ -33,9 +28,15 @@ namespace SafePlace.Service
 
             var img = new BitmapImage(new Uri(Path, UriKind.Relative));
             floor.FloorMap = img;
+            floor.FloorName = DefaultFloorName;
 
             floors.Add(floor.Guid, floor);
             return floor;
+        }
+
+        public Floor CreateEmptyFloor()
+        {
+            return CreateFloor("/Images/no_image_icon.png");
         }
 
         public Floor GetFloor(Guid guid)

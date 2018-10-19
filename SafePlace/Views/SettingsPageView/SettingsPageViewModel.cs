@@ -27,6 +27,20 @@ namespace SafePlace.Views.SettingsPageView
             }
         }
 
+        private string _floorName;
+        public string FloorName
+        {
+            get
+            {
+                return _floorName;
+            }
+            set
+            {
+                _floorName = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         #region Buttons Commands
         private ICommand _editButtonClickCommand;
         public ICommand EditButtonClickCommand

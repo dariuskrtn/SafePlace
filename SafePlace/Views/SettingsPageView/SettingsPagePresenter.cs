@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using SafePlace.Models;
 using SafePlace.Service;
 using SafePlace.Utilities;
 using System;
@@ -20,8 +21,9 @@ namespace SafePlace.Views.SettingsPageView
         private SynchronizationContext _synchronisationContext;
         private ILogger _logger;
         private IFloorService _floorService;
+        private Floor _floor;
         
-
+        
         public SettingsPagePresenter(SettingsPageViewModel viewModel, IMainService mainService)
         {
             _viewModel = viewModel;
@@ -34,6 +36,11 @@ namespace SafePlace.Views.SettingsPageView
         private void BuildViewModel()
         {
             BuildButttonsCommans();
+
+            // New floor later will be created when pressed addFloor button, for now this button do not exist
+            _floor = _floorService.CreateEmptyFloor();
+            _viewModel.FloorImage = _floor.FloorMap;
+            _viewModel.FloorName = _floor.FloorName;
         }
 
         private void GetServices(IMainService mainService)
@@ -54,7 +61,7 @@ namespace SafePlace.Views.SettingsPageView
 
         #region Buttons Commands
 
-        //Floor button - Add floor, Edit floor and Save (Depending on settings page state) 
+        
         private void OnEditButtonClicked()
         {
 
@@ -71,15 +78,17 @@ namespace SafePlace.Views.SettingsPageView
             SelectFile();
         }
 
+        //Floor button - Add floor, Edit floor and Save (Depending on settings page state) 
+        // Consider this button as "save button" for now
         private void OnFloorButtonClicked()
         {
-            
+            _floor.FloorName = _viewModel.FloorName;
         }
 
         // CAncel and Restore is the same button
         private void OnCancelButtonClicked()
         {
-
+            
         }
 
         private void OnDeleteButtonClicked()
@@ -104,7 +113,17 @@ namespace SafePlace.Views.SettingsPageView
                 _logger.LogInfo(" Failed to open selected image");
                 return;
             }
-            _viewModel.FloorImage = new BitmapImage(new Uri(openDialog.FileName));
+
+            updateFloorImage(openDialog.FileName);
         }
+
+        // updates image both in floor object as well as on screen
+        private void updateFloorImage(String imagePath)
+        {
+            _floor.FloorMap = new BitmapImage(new Uri(imagePath));
+            _viewModel.FloorImage = _floor.FloorMap;
+        }
+
+
     }
 }

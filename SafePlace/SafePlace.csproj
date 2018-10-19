@@ -191,7 +191,7 @@
     <Resource Include="Images\people.png" />
     <Resource Include="Images\person.png" />
     <Resource Include="Images\settings.png" />
-    <Resource Include="Images\Small-Office-Floor-Plan.jpg" />
+    <Resource Include="Images\small_office_floor_plan.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Floor2.png" />
@@ -201,7 +201,10 @@
     <Resource Include="Images\up.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\placeholder.png" />
+    <Resource Include="Images\Placeholder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\no_image_icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
