@@ -27,7 +27,7 @@ namespace SafePlace.Views.SettingsPageView
             _viewModel = viewModel;
             _mainService = mainService;
             GetServices(_mainService);
-
+            _synchronisationContext = mainService.GetSynchronizationContext();
             BuildViewModel();
         }
 

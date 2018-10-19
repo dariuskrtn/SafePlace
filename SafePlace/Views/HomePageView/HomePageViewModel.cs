@@ -45,6 +45,21 @@ namespace SafePlace.Views.HomePageView
             }
 
         }
+        //a command for changing the current floor based on which floor is clicked.
+        private ICommand _floorListClickCommand;
+        public ICommand FloorListClickCommand
+        {
+            get
+            {
+                return _floorListClickCommand;
+            }
+            set
+            {
+                _floorListClickCommand = value;
+                NotifyPropertyChanged();
+            }
+
+        }
         //If a behavior to the floor changing buttons is applied, one command for changing floors should be enough.
         private ICommand _floorUpCommand;
         public ICommand FloorUpCommand

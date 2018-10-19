@@ -89,7 +89,8 @@ namespace SafePlace.Views.HomePageView
                     LoadFloor(_floors[_viewModel.CurrentFloor]);
                 }
             });
-            
+            _viewModel.FloorListClickCommand = new RelayCommand(selectedFloor => LoadFloor(selectedFloor as Floor));
+
             _viewModel.CameraClickCommand = new RelayCommand(o => {
                 Camera RelatedCamera = o as Camera;
                 //Adding more dummy data
@@ -128,6 +129,8 @@ namespace SafePlace.Views.HomePageView
 
         public void LoadFloor(Floor NewFloor)
         {
+            if (NewFloor == null)
+                return;
             _viewModel.CurrentFloorImage = NewFloor.FloorMap;
             ReloadObservableCollection(_viewModel.Cameras, NewFloor.Cameras);
             _viewModel.SpottedPeople.Clear();

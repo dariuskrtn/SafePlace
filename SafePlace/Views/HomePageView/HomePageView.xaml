@@ -62,7 +62,10 @@
             <Button Height="50" Margin="0 10 10 0" Command="{Binding FloorDownCommand}">
                 <Image Source="/Images/down.png"/>
             </Button>
-            <ListView x:Name="FloorsList" Margin="0 15 10 50" ItemsSource="{Binding Floors}" SelectedIndex="{Binding CurrentFloor, Mode=TwoWay}">
+            <ListView x:Name="FloorsList" Margin="0 15 10 50" ItemsSource="{Binding Floors}">
+                <e:Interaction.Behaviors>
+                    <behaviors:FloorViewBehavior Command="{Binding FloorListClickCommand}"/>
+                </e:Interaction.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding FloorName}"/>
