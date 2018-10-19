@@ -17,6 +17,21 @@ namespace SafePlace.Views.HomePageView
     {
         public ObservableCollection<Camera> Cameras { set; get; } = new ObservableCollection<Camera>();
         public ObservableCollection<Person> SpottedPeople { set; get; } = new ObservableCollection<Person>();
+        public ObservableCollection<Floor> Floors { set; get; } = new ObservableCollection<Floor>();
+        //Is displayed above the floor plan.
+        private string _floorName;
+        public string FloorName
+        {
+            get
+            {
+                return _floorName;
+            }
+            set
+            {
+                _floorName = value;
+                NotifyPropertyChanged();
+            }
+        }
         //Required for tracking which floor is currently shown.
         private int _currentFloor;
         public int CurrentFloor
@@ -31,7 +46,6 @@ namespace SafePlace.Views.HomePageView
                 NotifyPropertyChanged();
             }
         }
-        public ObservableCollection<Floor> Floors { set; get; } = new ObservableCollection<Floor>();
         private ICommand _cameraClickCommand;
         public ICommand CameraClickCommand {
             get
@@ -121,8 +135,6 @@ namespace SafePlace.Views.HomePageView
         //Intended to be linked to the visibility of the listView, containing identified people.
         //The list should appear only when a camera is clicked and ShowList becomes true.
         public Boolean ShowList { set; get; }
-
-        public ObservableCollection<string> FloorList { get; } = new ObservableCollection<string>();
 
     }
 }

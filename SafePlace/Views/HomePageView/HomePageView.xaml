@@ -37,22 +37,28 @@
             <ColumnDefinition Width="8*"/>
         </Grid.ColumnDefinitions>
         
-        <!--A view box containing the current floor's image and all the cameras-->
+        <!--A view box containing the current floor's image, name and all the cameras-->
         <Viewbox x:Name="FloorView" Grid.Column="1" VerticalAlignment="Top">
-            <Grid x:Name="FloorGrid">
-                <Image Source="{Binding CurrentFloorImage}" x:Name="FloorMap" Grid.RowSpan="2"/>
+            <StackPanel>
+                <TextBox Width="auto" Text="{Binding FloorName}"  HorizontalContentAlignment="Center" 
+                    FontSize="70" Height="auto"/>
+                <Grid x:Name="FloorGrid">
+                    <Image Source="{Binding CurrentFloorImage}" x:Name="FloorMap" Grid.RowSpan="2"/>
 
-                <ItemsControl ItemsSource="{Binding Path=Cameras}" ItemTemplate="{StaticResource imageTemplate}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Grid/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </Grid>
+                    <ItemsControl ItemsSource="{Binding Path=Cameras}" ItemTemplate="{StaticResource imageTemplate}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Grid/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Grid>
+            </StackPanel>
+            
         </Viewbox>
 
-        
+
+
 
             <!--A StackPanel for buttons and list of floors-->
         <StackPanel x:Name="Controls" Grid.Column="0" Grid.Row ="0">

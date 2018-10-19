@@ -40,6 +40,9 @@ namespace SafePlace.Views.HomePageView
             GetServices(_mainService);
             LoadFloorList();
             BuildViewModel();
+            //Random number generator for random data generating
+            Random = new Random();
+
         }
 
         private void GetServices(IMainService mainService)
@@ -51,28 +54,21 @@ namespace SafePlace.Views.HomePageView
 
         private void BuildViewModel()
         {
+            SetUpDisplayedFloor(0);
+            BuildCommands();
+        }
+
+        public void SetUpDisplayedFloor(int startingFloor)
+        {
             //Setting the default starting floor's image.
             ReloadObservableCollection(_viewModel.Floors, _floorService.GetFloorList().ToList());
-            _viewModel.CurrentFloorImage = _floors[0].FloorMap;
-            _viewModel.CurrentFloor = 0;
+            _viewModel.CurrentFloor = startingFloor;
+            LoadFloor(_floors[startingFloor]);
             _viewModel.CameraImage = new BitmapImage(new Uri("/Images/camera.png", UriKind.Relative));
-            //Random number generator for random data generating
-            Random = new Random();
-            foreach (Floor floor in _floors)
-            {
-                _viewModel.FloorList.Add(floor.FloorName);
-            }
-            
-            Image floorImage = new Image()
-            {
-                Source = _viewModel.CurrentFloorImage
-            };
+        }
 
-            foreach (Camera cam in _floors[0].Cameras)
-            {
-                _viewModel.Cameras.Add(cam);
-            }
-
+        public void BuildCommands()
+        {
             _viewModel.FloorUpCommand = new RelayCommand(e =>
             {
                 if (_viewModel.CurrentFloor < _floors.IndexOf(_floors.Last()))
@@ -94,12 +90,11 @@ namespace SafePlace.Views.HomePageView
             _viewModel.CameraClickCommand = new RelayCommand(o => {
                 Camera RelatedCamera = o as Camera;
                 //Adding more dummy data
-                RelatedCamera.IdentifiedPeople.Add(new Person() { Name = Names[Random.Next(0, 9)], LastName = LastNames[Random.Next(0, 9)]});
+                RelatedCamera.IdentifiedPeople.Add(new Person() { Name = Names[Random.Next(0, 9)], LastName = LastNames[Random.Next(0, 9)] });
                 //If we create a new observable list from the IdentifiedPeople list, the link between UIElement ItemControl and the list will be destroyed.
                 //So currently we reload it with new items
                 ReloadObservableCollection(_viewModel.SpottedPeople, RelatedCamera.IdentifiedPeople);
                 _logger.LogInfo($"You clicked on camera with the Guid of: {RelatedCamera.Guid.ToString()}");
-                  
             });
         }
 
@@ -134,6 +129,7 @@ namespace SafePlace.Views.HomePageView
             _viewModel.CurrentFloorImage = NewFloor.FloorMap;
             ReloadObservableCollection(_viewModel.Cameras, NewFloor.Cameras);
             _viewModel.SpottedPeople.Clear();
+            _viewModel.FloorName = NewFloor.FloorName;
         }
 
         public void ReloadObservableCollection<T>(ObservableCollection<T> observableColl, IList<T> list)
