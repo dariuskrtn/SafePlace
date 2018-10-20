@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SafePlace.Views.SettingsPageView.CameraAddPopUp
 {
@@ -58,6 +59,19 @@ namespace SafePlace.Views.SettingsPageView.CameraAddPopUp
             set
             {
                 _positionY = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private ICommand _cameraAddCommand;
+        public ICommand CameraAddCommand
+        {
+            get
+            {
+                return _cameraAddCommand;
+            }
+            set
+            {
+                _cameraAddCommand = value;
                 NotifyPropertyChanged();
             }
         }
