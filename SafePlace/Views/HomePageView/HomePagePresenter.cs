@@ -106,26 +106,7 @@ namespace SafePlace.Views.HomePageView
         {
             _floors = _floorService.GetFloorList().ToList();
         }
-        ///A method fit for edit page, allows creating images with accurate position floor-plan-wise when put in an observable collection.
-        ///Would be more accurate if ImageWidth and imageHeight are calculated from the current floor image.
-        ///x, y are click position coordinates
-        ///The image must be shown in the
-        public Image ImageFromCoords(int x, int y)
-        {
-            TransformGroup group = new TransformGroup();
-            group.Children.Add(new TranslateTransform() { X = x, Y = y});
-            Image newImage = new Image()
-            {
-                RenderTransform = group,
-                Uid = Guid.NewGuid().ToString(),
-                Height = 30,
-                Source = _viewModel.CameraImage
-            };
-            newImage.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            newImage.VerticalAlignment = System.Windows.VerticalAlignment.Top;
-            return newImage;
-        }
-
+       
         public void LoadFloor(Floor NewFloor)
         {
             _viewModel.CurrentFloorImage = NewFloor.FloorMap;

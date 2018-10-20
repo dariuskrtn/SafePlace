@@ -55,6 +55,20 @@ namespace SafePlace.Views.SettingsPageView
             }
         }
 
+        private ICommand _floorImageClickCommand;
+        public ICommand FloorImageClickCommand
+        {
+            get
+            {
+                return _floorImageClickCommand;
+            }
+            set
+            {
+                _floorImageClickCommand = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         #region Buttons Commands
         private ICommand _editButtonClickCommand;
         public ICommand EditButtonClickCommand
@@ -141,8 +155,75 @@ namespace SafePlace.Views.SettingsPageView
         }
         #endregion
 
+        #region pop up properties
+        //Binding to the pop up contents.
+        private string _name;
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private string _IPAdress;
+        public string IPAdress
+        {
+            get
+            {
+                return _IPAdress;
+            }
+            set
+            {
+                _IPAdress = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private int _positionX;
+        public int PositionX
+        {
+            get
+            {
+                return _positionX;
+            }
+            set
+            {
+                _positionX = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private int _positionY;
+        public int PositionY
+        {
+            get
+            {
+                return _positionY;
+            }
+            set
+            {
+                _positionY = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private ICommand _cameraAddCommand;
+        public ICommand CameraAddCommand
+        {
+            get
+            {
+                return _cameraAddCommand;
+            }
+            set
+            {
+                _cameraAddCommand = value;
+                NotifyPropertyChanged();
+            }
 
-
+        }
+        #endregion
     }
 
 }

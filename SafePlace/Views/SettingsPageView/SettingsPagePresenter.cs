@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -28,7 +29,7 @@ namespace SafePlace.Views.SettingsPageView
         private IFloorService _floorService;
         private Floor _floor;
         private readonly Window _cameraAddPopUpView;
-
+        private ICameraService _cameraService;
 
         public SettingsPagePresenter(SettingsPageViewModel viewModel, IMainService mainService)
         {
@@ -53,6 +54,7 @@ namespace SafePlace.Views.SettingsPageView
         {
             _logger = mainService.GetLoggerInstance();
             _floorService = mainService.GetFloorServiceInstance();
+            _cameraService = mainService.GetCameraServiceInstance();
         }
 
         private void BuildButttonsCommands()
@@ -63,11 +65,13 @@ namespace SafePlace.Views.SettingsPageView
             _viewModel.FloorButtonClickCommand = new RelayCommand(e => OnFloorButtonClicked());
             _viewModel.CancelButtonClickCommand = new RelayCommand(e => OnCancelButtonClicked());
             _viewModel.DeleteButtonClickCommand = new RelayCommand(e => OnDeleteButtonClicked());
+            _viewModel.CameraAddCommand = new RelayCommand(e => OnComfirmAddButtonClicked());
+            _viewModel.FloorImageClickCommand = new RelayCommand(o => OnFloorImageClicked(o));
         }
 
         #region Buttons Commands
 
-        
+
         private void OnEditButtonClicked()
         {
 
@@ -75,7 +79,13 @@ namespace SafePlace.Views.SettingsPageView
 
         private void OnAddCameraButtonClicked()
         {
-            _cameraAddPopUpView.ShowDialog();
+            _viewModel.ShowPopUp = true;
+        }
+        private void OnComfirmAddButtonClicked()
+        {
+            _floor.AddCamera(CameraFromPopUp());
+            _viewModel.ShowPopUp = false;
+            ClearPopUp();
         }
 
         // Choose and Change image is the same button
@@ -99,7 +109,7 @@ namespace SafePlace.Views.SettingsPageView
 
         private void OnDeleteButtonClicked()
         {
-            _viewModel.ShowPopUp = !_viewModel.ShowPopUp;
+            
         }
 
         #endregion
@@ -129,7 +139,26 @@ namespace SafePlace.Views.SettingsPageView
             _floor.FloorMap = new BitmapImage(new Uri(imagePath));
             _viewModel.FloorImage = _floor.FloorMap;
         }
+        
+        public Camera CameraFromPopUp()
+        {
+            Camera newCamera = _cameraService.CreateCamera();
+            newCamera.Name = _viewModel.Name;
+            newCamera.PositionX = _viewModel.PositionX;
+            newCamera.PositionY = _viewModel.PositionY;
+            newCamera.IPAddress = _viewModel.IPAdress;
+            return newCamera;
+        }
+        public void ClearPopUp()
+        {
+            _viewModel.Name = _viewModel.IPAdress = "";
+            _viewModel.PositionX = _viewModel.PositionY = 0;
+        }
+        ///x, y are click position coordinates in relation to the image.
+            
+        public void OnFloorImageClicked(Object click)
+        {
 
-
+        }
     }
 }
