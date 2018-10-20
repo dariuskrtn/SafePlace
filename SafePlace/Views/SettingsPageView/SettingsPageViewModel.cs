@@ -41,6 +41,20 @@ namespace SafePlace.Views.SettingsPageView
             }
         }
 
+        private bool _showPopUp;
+        public bool ShowPopUp
+        {
+            get
+            {
+                return _showPopUp;
+            }
+            set
+            {
+                _showPopUp = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         #region Buttons Commands
         private ICommand _editButtonClickCommand;
         public ICommand EditButtonClickCommand

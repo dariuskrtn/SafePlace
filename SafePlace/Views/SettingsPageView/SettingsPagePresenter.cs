@@ -2,6 +2,7 @@
 using SafePlace.Models;
 using SafePlace.Service;
 using SafePlace.Utilities;
+using SafePlace.Views.SettingsPageView.CameraAddPopUp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,6 +10,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace SafePlace.Views.SettingsPageView
@@ -22,15 +27,16 @@ namespace SafePlace.Views.SettingsPageView
         private ILogger _logger;
         private IFloorService _floorService;
         private Floor _floor;
-        
-        
+        private readonly Window _cameraAddPopUpView;
+
+
         public SettingsPagePresenter(SettingsPageViewModel viewModel, IMainService mainService)
         {
             _viewModel = viewModel;
             _mainService = mainService;
             GetServices(_mainService);
-
             BuildViewModel();
+            _cameraAddPopUpView = _mainService.GetPageCreatorInstance().CreateCameraAddPopUp();
         }
 
         private void BuildViewModel()
@@ -69,7 +75,7 @@ namespace SafePlace.Views.SettingsPageView
 
         private void OnAddCameraButtonClicked()
         {
-
+            _cameraAddPopUpView.ShowDialog();
         }
 
         // Choose and Change image is the same button
@@ -93,7 +99,7 @@ namespace SafePlace.Views.SettingsPageView
 
         private void OnDeleteButtonClicked()
         {
-
+            _viewModel.ShowPopUp = !_viewModel.ShowPopUp;
         }
 
         #endregion
