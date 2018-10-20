@@ -5,11 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SafePlace.Views.SettingsPageView.CameraAddPopUp"
         mc:Ignorable="d"
-        Title="CameraAddPopUpView" Height="450" Width="800">
+        Title="CameraAddPopUpView" Height="300" Width="300" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
-            <RowDefinition Height="5" />
             <RowDefinition Height="40" />
             <RowDefinition Height="5" />
             <RowDefinition Height="40" />
@@ -22,7 +20,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="30*" />
+            <ColumnDefinition Width="20*" />
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="30*" />
             <ColumnDefinition Width="1*" />
@@ -32,9 +30,9 @@
         <Label VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Content="Name:" />
         <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
         <Label VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Content="Position x:" />
-        <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" Text="{Binding IPAdress, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" Text="{Binding PositionX, UpdateSourceTrigger=PropertyChanged}" />
         <Label VerticalAlignment="Center" Grid.Row="6" Grid.Column="1" Content="Position y:" />
-        <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="6" Text="{Binding IPAdress, UpdateSourceTrigger=PropertyChanged}" />
-
+        <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="6" Text="{Binding PositionY, UpdateSourceTrigger=PropertyChanged}" />
+        <Button Grid.Row="8" Grid.Column="3" Content="Add camera" Command="{Binding CameraAddCommand}"/>
     </Grid>
 </Window>

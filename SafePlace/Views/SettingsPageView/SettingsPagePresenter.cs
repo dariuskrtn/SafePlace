@@ -35,7 +35,7 @@ namespace SafePlace.Views.SettingsPageView
 
         private void BuildViewModel()
         {
-            BuildButttonsCommans();
+            BuildButttonsCommands();
 
             // New floor later will be created when pressed addFloor button, for now this button do not exist
             _floor = _floorService.CreateEmptyFloor();
@@ -49,7 +49,7 @@ namespace SafePlace.Views.SettingsPageView
             _floorService = mainService.GetFloorServiceInstance();
         }
 
-        private void BuildButttonsCommans()
+        private void BuildButttonsCommands()
         {
             _viewModel.EditButtonClickCommand = new RelayCommand(e => OnEditButtonClicked());
             _viewModel.AddCameraButtonClickCommand = new RelayCommand(e => OnAddCameraButtonClicked());

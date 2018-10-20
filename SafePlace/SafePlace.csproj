@@ -130,6 +130,7 @@
     <Compile Include="Views\HomePageView\HomePageViewModel.cs" />
     <Compile Include="Views\MainWindowView\MainWindowPresenter.cs" />
     <Compile Include="Views\MainWindowView\MainWindowViewModel.cs" />
+    <Compile Include="Views\SettingsPageView\CameraAddPopUp\CameraAddPopUpPresenter.cs" />
     <Compile Include="Views\SettingsPageView\CameraAddPopUp\CameraAddPopUpView.xaml.cs">
       <DependentUpon>CameraAddPopUpView.xaml</DependentUpon>
     </Compile>
