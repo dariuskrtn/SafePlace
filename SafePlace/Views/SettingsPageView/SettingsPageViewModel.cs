@@ -223,6 +223,21 @@ namespace SafePlace.Views.SettingsPageView
             }
 
         }
+
+        private ICommand _cameraCancelCommand;
+        public ICommand CameraCancelCommand
+        {
+            get
+            {
+                return _cameraCancelCommand;
+            }
+            set
+            {
+                _cameraCancelCommand = value;
+                NotifyPropertyChanged();
+            }
+
+        }
         #endregion
     }
 

@@ -65,12 +65,17 @@ namespace SafePlace.Views.SettingsPageView
             _viewModel.FloorButtonClickCommand = new RelayCommand(e => OnFloorButtonClicked());
             _viewModel.CancelButtonClickCommand = new RelayCommand(e => OnCancelButtonClicked());
             _viewModel.DeleteButtonClickCommand = new RelayCommand(e => OnDeleteButtonClicked());
-            _viewModel.CameraAddCommand = new RelayCommand(e => OnComfirmAddButtonClicked());
             _viewModel.FloorImageClickCommand = new RelayCommand(o => OnFloorImageClicked(o));
+
+            _viewModel.CameraAddCommand = new RelayCommand(e => PopUp_OnComfirmButtonClicked());
+            _viewModel.CameraCancelCommand = new RelayCommand(e => PopUp_OnCancelButtonClicked());
         }
 
-        #region Buttons Commands
+        //-------------------------------------------------------------
+        // Main settings window code
+        //------------------------------------------------------------
 
+        #region Buttons Commands
 
         private void OnEditButtonClicked()
         {
@@ -80,12 +85,6 @@ namespace SafePlace.Views.SettingsPageView
         private void OnAddCameraButtonClicked()
         {
             _viewModel.ShowPopUp = true;
-        }
-        private void OnComfirmAddButtonClicked()
-        {
-            _floor.AddCamera(CameraFromPopUp());
-            _viewModel.ShowPopUp = false;
-            ClearPopUp();
         }
 
         // Choose and Change image is the same button
@@ -139,7 +138,28 @@ namespace SafePlace.Views.SettingsPageView
             _floor.FloorMap = new BitmapImage(new Uri(imagePath));
             _viewModel.FloorImage = _floor.FloorMap;
         }
-        
+
+
+        //-------------------------------------------------------------
+        // Pop-up code
+        //------------------------------------------------------------
+
+        #region Buttons
+
+        private void PopUp_OnComfirmButtonClicked()
+        {
+            _floor.AddCamera(CameraFromPopUp());
+            _viewModel.ShowPopUp = false;
+            ClearPopUp();
+        }
+        private void PopUp_OnCancelButtonClicked()
+        {
+            _viewModel.ShowPopUp = false;
+            ClearPopUp();
+        }
+
+        #endregion
+
         public Camera CameraFromPopUp()
         {
             Camera newCamera = _cameraService.CreateCamera();
