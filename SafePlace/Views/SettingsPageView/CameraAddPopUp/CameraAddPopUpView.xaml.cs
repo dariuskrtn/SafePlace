@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SafePlace.Views
+namespace SafePlace.Views.SettingsPageView.CameraAddPopUp
 {
     /// <summary>
-    /// Interaction logic for CameraAddPopUp.xaml
+    /// Interaction logic for CameraAddPopUpView.xaml
     /// </summary>
-    public partial class CameraAddPopUp : Window
+    public partial class CameraAddPopUpView : Window
     {
-        public CameraAddPopUp()
+        public CameraAddPopUpView()
         {
             InitializeComponent();
         }

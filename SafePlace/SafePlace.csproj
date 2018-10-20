@@ -123,9 +123,6 @@
     <Compile Include="Service\PersonService.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="Views\CameraAddPopUp.xaml.cs">
-      <DependentUpon>CameraAddPopUp.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\HomePageView\HomePagePresenter.cs" />
     <Compile Include="Views\HomePageView\HomePageView.xaml.cs">
       <DependentUpon>HomePageView.xaml</DependentUpon>
@@ -133,15 +130,15 @@
     <Compile Include="Views\HomePageView\HomePageViewModel.cs" />
     <Compile Include="Views\MainWindowView\MainWindowPresenter.cs" />
     <Compile Include="Views\MainWindowView\MainWindowViewModel.cs" />
+    <Compile Include="Views\SettingsPageView\CameraAddPopUp\CameraAddPopUpView.xaml.cs">
+      <DependentUpon>CameraAddPopUpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPageView\CameraAddPopUp\CameraAddPopUpViewModel.cs" />
     <Compile Include="Views\SettingsPageView\SettingsPageView.xaml.cs">
       <DependentUpon>SettingsPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsPageView\SettingsPagePresenter.cs" />
     <Compile Include="Views\SettingsPageView\SettingsPageViewModel.cs" />
-    <Page Include="Views\CameraAddPopUp.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\HomePageView\HomePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -158,6 +155,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\SettingsPageView\CameraAddPopUp\CameraAddPopUpView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SettingsPageView\SettingsPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

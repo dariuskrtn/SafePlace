@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SafePlace.Views.CameraAddPopUp
+namespace SafePlace.Views.SettingsPageView.CameraAddPopUp
 {
     class CameraAddPopUpViewModel : BaseViewModel
     {
@@ -61,6 +61,5 @@ namespace SafePlace.Views.CameraAddPopUp
                 NotifyPropertyChanged();
             }
         }
-
     }
 }
