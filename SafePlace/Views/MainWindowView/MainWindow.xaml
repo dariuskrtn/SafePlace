@@ -29,7 +29,7 @@
                     <Image Source="/Images/home.png"  Height="45" Width="36"/>
                 </StackPanel>
             </Button>
-            <Button  x:Name="VisitorsButton" Grid.Column="1" Margin="0 0 10 0">
+            <Button  x:Name="UserRegistrationButton" Command="{ Binding UserRegistrationPageCommand }" Grid.Column="1" Margin="0 0 10 0">
                 <StackPanel>
                     <Image Source="/Images/people.png"  Height="45" Width="36"/>
                 </StackPanel>

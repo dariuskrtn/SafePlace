@@ -10,7 +10,7 @@ namespace SafePlace.Models
     {
         public String Name { get; set; }
         public String LastName { get; set; }
-        public IList<Guid> AllowedCameras { get; set; }
+        public ICollection<Guid> AllowedCameras { get; set; }
         public Guid Guid { get; set; }
         //Possible types: Employee (Various team roles + intern), Guest, BusinessCollaborator (visitors from foreign branches or related companies).
         //Could be in format: type, subtype. For example: "Visitor, business partner" or "Employee, intern".

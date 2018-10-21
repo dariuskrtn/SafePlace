@@ -37,7 +37,6 @@ namespace SafePlace.Service
             try
             {
                 await _faceServiceClient.AddPersonFaceInPersonGroupAsync(_groupId, guid, BitmapToJpegStream(image));
-                await _faceServiceClient.TrainPersonGroupAsync(_groupId);
             } catch (Exception ex)
             {
                 _logger.LogWarning("Failed to add face image.");
@@ -46,6 +45,11 @@ namespace SafePlace.Service
             }
 
             return true;
+        }
+
+        public async void TrainAI()
+        {
+            await _faceServiceClient.TrainPersonGroupAsync(_groupId);
         }
 
         //Returns IEnumerable of detected faces GUID's.
