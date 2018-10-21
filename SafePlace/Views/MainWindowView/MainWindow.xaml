@@ -4,11 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:e="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:SafePlace"
-       mc:Ignorable="d"
+        xmlns:behaviors="clr-namespace:SafePlace.Behaviors"
+        mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1000"
         ResizeMode="CanResize">
-
+    <Window.Resources>
+        
+    </Window.Resources>
     <Grid>
         <Grid>
             <Grid.RowDefinitions>

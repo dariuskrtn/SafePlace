@@ -110,6 +110,7 @@
     <Compile Include="Behaviors\ImageClickBehavior.cs" />
     <Compile Include="Behaviors\MultiComboboxBehavior.cs" />
     <Compile Include="Behaviors\WebCameraBehavior.cs" />
+    <Compile Include="Behaviors\FloorViewBehavior.cs" />
     <Compile Include="Models\Camera.cs" />
     <Compile Include="Models\Floor.cs" />
     <Compile Include="Models\Person.cs" />
@@ -209,7 +210,9 @@
     <Resource Include="Images\settings.png" />
     <Resource Include="Images\Small-Office-Floor-Plan.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Floor2.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\down.png" />
     <Resource Include="Images\up.png" />

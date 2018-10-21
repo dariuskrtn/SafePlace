@@ -11,11 +11,10 @@ using System.Windows.Interactivity;
 
 namespace SafePlace.Behaviors
 {
-    class ImageClickBehavior : Behavior<Image>
+    class FloorViewBehavior : Behavior<ListView>
     {
-
         public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
-        "Command", typeof(ICommand), typeof(ImageClickBehavior), new PropertyMetadata(null));
+        "Command", typeof(ICommand), typeof(FloorViewBehavior), new PropertyMetadata(null));
 
         public ICommand Command
         {
@@ -26,23 +25,21 @@ namespace SafePlace.Behaviors
         protected override void OnAttached()
         {
             base.OnAttached();
-            AssociatedObject.MouseLeftButtonDown += OnMouseLeftButtonDown;
+            AssociatedObject.SelectionChanged += SelectionChanged;
         }
 
         protected override void OnDetaching()
         {
             base.OnDetaching();
-            AssociatedObject.MouseLeftButtonDown -= OnMouseLeftButtonDown;
-
+            AssociatedObject.SelectionChanged -= SelectionChanged;
         }
 
-        private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Command == null) return;
-            Image ClickedImage = e.Source as Image;
-            Camera RelatedCamera = ClickedImage.DataContext as Camera;
-            if (Command.CanExecute(e)) Command.Execute(RelatedCamera);
+            var ClickedListView = sender as ListView;
+            ListView ClickedList = e.Source as ListView;
+            if (Command.CanExecute(e)) Command.Execute(ClickedList.SelectedItem);
         }
-
     }
 }
