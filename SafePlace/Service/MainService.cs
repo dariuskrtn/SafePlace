@@ -17,6 +17,7 @@ namespace SafePlace.Service
         private IFloorService _floorService;
         private IPersonService _personService;
         private IFaceRecognitionService _faceRecognitionService;
+        private IWindowCreator _windowCreator;
 
 
         //Simple lock object to avoid multiple threads creating different class instances.
@@ -106,5 +107,16 @@ namespace SafePlace.Service
             }
         }
 
+        public IWindowCreator GetWindowCreatorInstance()
+        {
+            lock (_lock)
+            {
+                if (_windowCreator == null)
+                {
+                    _windowCreator = new WindowCreator();
+                }
+                return _windowCreator;
+            }
+        }
     }
 }
