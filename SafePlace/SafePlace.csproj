@@ -111,7 +111,6 @@
     <Compile Include="Behaviors\MultiComboboxBehavior.cs" />
     <Compile Include="Behaviors\WebCameraBehavior.cs" />
     <Compile Include="Behaviors\FloorViewBehavior.cs" />
-    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Models\Camera.cs" />
     <Compile Include="Models\Floor.cs" />
     <Compile Include="Models\Person.cs" />

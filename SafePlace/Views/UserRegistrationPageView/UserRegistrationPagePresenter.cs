@@ -70,14 +70,14 @@ namespace SafePlace.Views.UserRegistrationPageView
         {
             return !_viewModel.IsSaving &&
                    !String.IsNullOrWhiteSpace(_viewModel.Name) &&
-                   !String.IsNullOrWhiteSpace(_viewModel.Surname) &&
+                   !String.IsNullOrWhiteSpace(_viewModel.LastName) &&
                    _viewModel.RequiredImagesCount == _viewModel.CurrentImagesCount;
         }
         private void SavePersonCommand()
         {
             var person = _personService.CreatePerson();
             person.Name = _viewModel.Name;
-            person.LastName = _viewModel.Surname;
+            person.LastName = _viewModel.LastName;
             person.AllowedCameras = new Collection<Guid>();
             foreach (var cam in _viewModel.SelectedCameras)
             {

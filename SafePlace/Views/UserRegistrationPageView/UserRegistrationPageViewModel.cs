@@ -158,16 +158,16 @@ namespace SafePlace.Views.UserRegistrationPageView
             }
         }
 
-        private string _surname;
-        public string Surname
+        private string _lastName;
+        public string LastName
         {
             get
             {
-                return _surname;
+                return _lastName;
             }
             set
             {
-                _surname = value;
+                _lastName = value;
                 NotifyPropertyChanged();
             }
         }
