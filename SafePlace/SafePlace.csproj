@@ -137,6 +137,10 @@
     </Compile>
     <Compile Include="Views\SettingsPageView\SettingsPagePresenter.cs" />
     <Compile Include="Views\SettingsPageView\SettingsPageViewModel.cs" />
+    <Page Include="Resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HomePageView\HomePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

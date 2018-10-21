@@ -13,19 +13,13 @@
     <!--Putting data templates to page resources in case the template needs to be reused elsewhere.
     Defined templates are reachable from the context if this page. It can be made reachable out of this context-->
     <Page.Resources>
-        <DataTemplate x:Key="imageTemplate">
-            <Image Source="/Images/camera.png" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Image.RenderTransform>
-                    <TransformGroup>
-                        <TranslateTransform X="{Binding Path=PositionX}" Y="{Binding Path=PositionY}"/>
-                    </TransformGroup>
-                </Image.RenderTransform>
-                <e:Interaction.Behaviors>
-                    <behaviors:ImageClickBehavior Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl},
-                                        Path=DataContext.CameraClickCommand}" />
-                </e:Interaction.Behaviors>
-            </Image>
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/SafePlace;component/Resources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!--Insert resources intended for this view here.-->
+        </ResourceDictionary>
+
     </Page.Resources>
     <Grid Margin="10 10 10 10" >
         <Grid.RowDefinitions>
@@ -42,7 +36,7 @@
             <Grid x:Name="FloorGrid">
                 <Image Source="{Binding CurrentFloorImage}" x:Name="FloorMap" Grid.RowSpan="2"/>
 
-                <ItemsControl ItemsSource="{Binding Path=Cameras}" ItemTemplate="{StaticResource imageTemplate}">
+                <ItemsControl ItemsSource="{Binding Path=Cameras}" ItemTemplate="{StaticResource CameraTemplate}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <Grid/>
