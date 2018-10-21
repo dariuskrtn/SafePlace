@@ -131,11 +131,6 @@
     <Compile Include="Views\HomePageView\HomePageViewModel.cs" />
     <Compile Include="Views\MainWindowView\MainWindowPresenter.cs" />
     <Compile Include="Views\MainWindowView\MainWindowViewModel.cs" />
-    <Compile Include="Views\SettingsPageView\CameraAddPopUp\CameraAddPopUpPresenter.cs" />
-    <Compile Include="Views\SettingsPageView\CameraAddPopUp\CameraAddPopUpView.xaml.cs">
-      <DependentUpon>CameraAddPopUpView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SettingsPageView\CameraAddPopUp\CameraAddPopUpViewModel.cs" />
     <Compile Include="Views\SettingsPageView\SettingsPageView.xaml.cs">
       <DependentUpon>SettingsPageView.xaml</DependentUpon>
     </Compile>
@@ -157,10 +152,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\SettingsPageView\CameraAddPopUp\CameraAddPopUpView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\SettingsPageView\SettingsPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

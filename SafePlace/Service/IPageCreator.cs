@@ -12,6 +12,5 @@ namespace SafePlace.Service
     {
         Page CreateHomePage();
         Page CreateSettingsPage();
-        Window CreateCameraAddPopUp();
     }
 }

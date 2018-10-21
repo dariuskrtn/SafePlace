@@ -13,7 +13,7 @@
     <!-- Template for camera icons -->    
     <Page.Resources>
         <DataTemplate x:Key="imageTemplate">
-            <Image Source="/Images/camera.png" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Image Source="/Images/camera.png" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <TranslateTransform X="{Binding Path=PositionX}" Y="{Binding Path=PositionY}"/>
@@ -26,6 +26,7 @@
                 </e:Interaction.Behaviors>
             </Image>
         </DataTemplate>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Page.Resources>
 
     <Grid Name="mainGrid">
@@ -139,7 +140,14 @@
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>
-
+                        <!--A preview camera. Becomes visible on click, invisible after comfirming or canceling new camera.-->
+                        <Image Source="/Images/camera.png" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left"
+                               Visibility="{Binding NewCameraVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Image.RenderTransform>
+                                <TranslateTransform X="{Binding PositionX}" Y="{Binding PositionY}"/>
+                            </Image.RenderTransform>
+                        </Image>
+                               
                     </Grid>
                 </ScrollViewer>
             </Grid>

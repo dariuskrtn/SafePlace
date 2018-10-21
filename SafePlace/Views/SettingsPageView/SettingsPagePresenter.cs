@@ -2,7 +2,6 @@
 using SafePlace.Models;
 using SafePlace.Service;
 using SafePlace.Utilities;
-using SafePlace.Views.SettingsPageView.CameraAddPopUp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -28,7 +27,6 @@ namespace SafePlace.Views.SettingsPageView
         private ILogger _logger;
         private IFloorService _floorService;
         private Floor _floor;
-        private readonly Window _cameraAddPopUpView;
         private ICameraService _cameraService;
 
         public SettingsPagePresenter(SettingsPageViewModel viewModel, IMainService mainService)
@@ -37,13 +35,12 @@ namespace SafePlace.Views.SettingsPageView
             _mainService = mainService;
             GetServices(_mainService);
             BuildViewModel();
-            _cameraAddPopUpView = _mainService.GetPageCreatorInstance().CreateCameraAddPopUp();
         }
 
         private void BuildViewModel()
         {
             BuildButttonsCommands();
-
+            _viewModel.NewCameraVisibility = false;
             // New floor later will be created when pressed addFloor button, for now this button do not exist
             _floor = _floorService.CreateEmptyFloor();
             _viewModel.FloorImage = _floor.FloorMap;
@@ -152,11 +149,13 @@ namespace SafePlace.Views.SettingsPageView
             _floor.AddCamera(newCamera);
             _viewModel.CameraCollection.Add(newCamera);
             _viewModel.ShowPopUp = false;
+            _viewModel.NewCameraVisibility = false;
             ClearPopUp();
         }
         private void PopUp_OnCancelButtonClicked()
         {
             _viewModel.ShowPopUp = false;
+            _viewModel.NewCameraVisibility = false;
             ClearPopUp();
         }
 
@@ -181,6 +180,7 @@ namespace SafePlace.Views.SettingsPageView
         public void OnFloorImageClicked(Object click)
         {
             Point point = (Point)click;
+            _viewModel.NewCameraVisibility = true;
             _viewModel.PositionX = (int)point.X;
             _viewModel.PositionY = (int)point.Y;
             _logger.LogInfo($"Click detected at {point.X}, {point.Y}");

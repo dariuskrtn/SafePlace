@@ -1,6 +1,5 @@
 ﻿using SafePlace.Views.HomePageView;
 using SafePlace.Views.SettingsPageView;
-using SafePlace.Views.SettingsPageView.CameraAddPopUp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,14 +48,5 @@ namespace SafePlace.Service
             return settingsPageView;
         }
 
-        public Window CreateCameraAddPopUp()
-        {
-            var cameraAddPopUpViewModel = new CameraAddPopUpViewModel();
-
-            var cameraAddPopUpView = new CameraAddPopUpView();
-            cameraAddPopUpView.DataContext = cameraAddPopUpViewModel;
-
-            return cameraAddPopUpView;
-        }
     }
 }

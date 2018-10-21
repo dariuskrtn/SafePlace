@@ -18,6 +18,8 @@ namespace SafePlace.Views.SettingsPageView
 
         public ObservableCollection<Camera> CameraCollection { set; get; } = new ObservableCollection<Camera>();
 
+        
+
         private BitmapImage _floorImage;
         public BitmapImage FloorImage
         {
@@ -165,6 +167,19 @@ namespace SafePlace.Views.SettingsPageView
 
         #region pop up properties
         //Binding to the pop up contents.
+        private bool _newCameraVisibility;
+        public bool NewCameraVisibility
+        {
+            get
+            {
+                return _newCameraVisibility;
+            }
+            set
+            {
+                _newCameraVisibility = value;
+                NotifyPropertyChanged();
+            }
+        }
         private string _cameraName;
         public string CameraName
         {
