@@ -7,9 +7,13 @@
       xmlns:local="clr-namespace:SafePlace.Views.UserRegistrationPageView"
       xmlns:webcam="clr-namespace:WebEye.Controls.Wpf;assembly=WebEye.Controls.Wpf.WebCameraControl"
       xmlns:behaviors="clr-namespace:SafePlace.Behaviors"
+      xmlns:converters="clr-namespace:SafePlace.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="UserRegistrationPageView">
+    <Page.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
+    </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -103,6 +107,7 @@
                     </ComboBox>
                 </Grid>
             </GroupBox>
+            <Label Grid.Column="0" Grid.Row="8"  Content="Saving. Please wait." Visibility="{Binding IsSaving, Converter={StaticResource booleanToVisibilityConverter } }" ></Label>
             <Button VerticalAlignment="Center" Grid.Column="0" Grid.Row="6" Content="Save Person" Command="{Binding SavePersonCommand}" />
         </Grid>
     </Grid>

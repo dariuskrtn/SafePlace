@@ -42,6 +42,21 @@ namespace SafePlace.Views.UserRegistrationPageView
                 NotifyPropertyChanged();
             }
         }
+
+        private bool _isSaving;
+        public bool IsSaving
+        {
+            get
+            {
+                return _isSaving;
+            }
+            set
+            {
+                _isSaving = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         private WebCameraId _webCameraId;
         public WebCameraId WebCameraId
         {
