@@ -15,6 +15,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using SafePlace.Utilities;
 
 namespace SafePlace.Views.SettingsPageView
 {
@@ -28,6 +29,9 @@ namespace SafePlace.Views.SettingsPageView
         private IFloorService _floorService;
         private Floor _floor;
         private ICameraService _cameraService;
+        private bool _isCameraNew; //othervise existing camera is being edited
+        private Camera _activeCamera; //Camera we are working now with.
+        
 
         public SettingsPagePresenter(SettingsPageViewModel viewModel, IMainService mainService)
         {
@@ -65,6 +69,8 @@ namespace SafePlace.Views.SettingsPageView
             _viewModel.DeleteButtonClickCommand = new RelayCommand(e => OnDeleteButtonClicked());
             _viewModel.FloorImageClickCommand = new RelayCommand(o => OnFloorImageClicked(o));
 
+            _viewModel.CameraClickCommand = new RelayCommand(e => OnCameraIconClicked(e));
+
             _viewModel.CameraAddCommand = new RelayCommand(e => PopUp_OnComfirmButtonClicked());
             _viewModel.CameraCancelCommand = new RelayCommand(e => PopUp_OnCancelButtonClicked());
         }
@@ -72,6 +78,8 @@ namespace SafePlace.Views.SettingsPageView
         //-------------------------------------------------------------
         // Main settings window code
         //------------------------------------------------------------
+
+
 
         #region Buttons Commands
 
@@ -82,6 +90,7 @@ namespace SafePlace.Views.SettingsPageView
 
         private void OnAddCameraButtonClicked()
         {
+            _isCameraNew = true;
             _viewModel.ShowPopUp = true;
         }
 
@@ -111,6 +120,8 @@ namespace SafePlace.Views.SettingsPageView
 
         #endregion
 
+
+
         //Open file dialog, select image and assign to _viewModel
         private void SelectFile()
         {
@@ -137,6 +148,21 @@ namespace SafePlace.Views.SettingsPageView
             _viewModel.FloorImage = _floor.FloorMap;
         }
 
+        // Mouse click on camera icon invekes this
+        private void OnCameraIconClicked(object e)
+        {
+            Camera relatedCamera = e as Camera;
+            setPopUpFromCamera(relatedCamera);
+            _isCameraNew = false;
+            _viewModel.ShowPopUp = true;
+            _activeCamera = relatedCamera;
+        }
+
+        public void ReloadCollection<T>(System.Collections.ObjectModel.ObservableCollection<T> observableColl, IList<T> list)
+        {
+            observableColl.Clear();
+            list.ToList().ForEach(o => observableColl.Add(o));
+        }
 
         //-------------------------------------------------------------
         // Pop-up code
@@ -146,9 +172,20 @@ namespace SafePlace.Views.SettingsPageView
 
         private void PopUp_OnComfirmButtonClicked()
         {
-            Camera newCamera = CameraFromPopUp();
-            _floor.AddCamera(newCamera);
-            _viewModel.CameraCollection.Add(newCamera);
+            if (_isCameraNew)
+            {
+                Camera newCamera = _cameraService.CreateCamera();
+                UpdateCameraFromUI(newCamera);
+                _floor.AddCamera(newCamera);
+                _viewModel.CameraCollection.Add(newCamera);
+            }
+            else
+            {
+                Camera cameraInstance = _floor.Cameras.GetFloorCamera(_activeCamera.Guid);
+                UpdateCameraFromUI(cameraInstance);
+                ReloadCollection(_viewModel.CameraCollection, _floor.Cameras);
+            }
+            
             _viewModel.ShowPopUp = false;
             _viewModel.IsNewCameraShown = false;
             ClearPopUp();
@@ -162,16 +199,25 @@ namespace SafePlace.Views.SettingsPageView
 
         #endregion
 
-        public Camera CameraFromPopUp()
+        
+        private void UpdateCameraFromUI(Camera camera)
         {
-            Camera newCamera = _cameraService.CreateCamera();
-            newCamera.Name = _viewModel.CameraName;
-            newCamera.PositionX = _viewModel.PositionX;
-            newCamera.PositionY = _viewModel.PositionY;
-            newCamera.IPAddress = _viewModel.IPAdress;
-            return newCamera;
+            //Camera newCamera = _cameraService.CreateCamera();
+            camera.Name = _viewModel.CameraName;
+            camera.IPAddress = _viewModel.IPAdress;
+            camera.PositionX = _viewModel.PositionX;
+            camera.PositionY = _viewModel.PositionY;
         }
-        public void ClearPopUp()
+
+        private void setPopUpFromCamera(Camera camera)
+        {
+            _viewModel.CameraName = camera.Name;
+            _viewModel.IPAdress = camera.IPAddress;
+            _viewModel.PositionX = camera.PositionX;
+            _viewModel.PositionY = camera.PositionY;
+        }
+
+        private void ClearPopUp()
         {
             _viewModel.CameraName = _viewModel.IPAdress = "";
             _viewModel.PositionX = _viewModel.PositionY = 0;

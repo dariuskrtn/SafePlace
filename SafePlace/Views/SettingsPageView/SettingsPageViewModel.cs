@@ -18,8 +18,6 @@ namespace SafePlace.Views.SettingsPageView
 
         public ObservableCollection<Camera> CameraCollection { set; get; } = new ObservableCollection<Camera>();
 
-        
-
         private BitmapImage _floorImage;
         public BitmapImage FloorImage
         {
@@ -75,6 +73,20 @@ namespace SafePlace.Views.SettingsPageView
             set
             {
                 _floorImageClickCommand = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private ICommand _cameraClickCommand;
+        public ICommand CameraClickCommand
+        {
+            get
+            {
+                return _cameraClickCommand;
+            }
+            set
+            {
+                _cameraClickCommand = value;
                 NotifyPropertyChanged();
             }
         }
@@ -167,6 +179,8 @@ namespace SafePlace.Views.SettingsPageView
 
         #region pop up properties
         //Binding to the pop up contents.
+
+        // Indicates if blue camera is shown
         private bool _isNewCameraShown;
         public bool IsNewCameraShown
         {

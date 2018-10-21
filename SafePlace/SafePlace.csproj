@@ -122,6 +122,7 @@
     <Compile Include="Service\MainService.cs" />
     <Compile Include="Service\PageCreator.cs" />
     <Compile Include="Service\PersonService.cs" />
+    <Compile Include="Utilities\ExtensionMethods.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="Views\HomePageView\HomePagePresenter.cs" />
