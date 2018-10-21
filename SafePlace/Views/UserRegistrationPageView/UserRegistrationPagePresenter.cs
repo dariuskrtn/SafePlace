@@ -4,8 +4,10 @@ using SafePlace.Utilities;
 using SafePlace.WpfComponents;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SafePlace.Views.UserRegistrationPageView
@@ -16,12 +18,14 @@ namespace SafePlace.Views.UserRegistrationPageView
         private readonly IMainService _mainService;
         private readonly ICameraService _cameraService;
         private readonly IPersonService _personService;
+        private readonly IFaceRecognitionService _recognitionService;
         public UserRegistrationPagePresenter(UserRegistrationPageViewModel viewModel, IMainService mainService)
         {
             _viewModel = viewModel;
             _mainService = mainService;
             _cameraService = mainService.GetCameraServiceInstance();
             _personService = mainService.GetPersonServiceInstance();
+            _recognitionService = mainService.GetFaceRecognitionServiceInstance();
 
             BuildViewModel();
         }
@@ -30,6 +34,7 @@ namespace SafePlace.Views.UserRegistrationPageView
         {
             _viewModel.RequiredImagesCount = 10;
             _viewModel.IsCapturing = true;
+            _viewModel.IsSaving = false;
 
             _viewModel.RecordImageCommand = new RelayCommand(_ => SaveRecordCommand(), _ => SaveRecordCommandAllowed());
             _viewModel.SavePersonCommand = new RelayCommand(_ => SavePersonCommand(), _ => SavePersonCommandAllowed());
@@ -63,13 +68,36 @@ namespace SafePlace.Views.UserRegistrationPageView
 
         private bool SavePersonCommandAllowed()
         {
-            return !String.IsNullOrWhiteSpace(_viewModel.Name) &&
-                   !String.IsNullOrWhiteSpace(_viewModel.Surname) &&
+            return !_viewModel.IsSaving &&
+                   !String.IsNullOrWhiteSpace(_viewModel.Name) &&
+                   !String.IsNullOrWhiteSpace(_viewModel.LastName) &&
                    _viewModel.RequiredImagesCount == _viewModel.CurrentImagesCount;
         }
         private void SavePersonCommand()
         {
+            var person = _personService.CreatePerson();
+            person.Name = _viewModel.Name;
+            person.LastName = _viewModel.LastName;
+            person.AllowedCameras = new Collection<Guid>();
+            foreach (var cam in _viewModel.SelectedCameras)
+            {
+                person.AllowedCameras.Add(cam.Guid);
+            }
 
+            new Thread(_ => RegisterPersonFace(person)).Start();
+        }
+
+        private async void RegisterPersonFace(Person person)
+        {
+            _viewModel.IsSaving = true;
+            person.Guid = await _recognitionService.RegisterFace(person.Name);
+            foreach (var img in _viewModel.Recordings)
+            {
+                await _recognitionService.AddFaceImage(person.Guid, img);
+            }
+            _recognitionService.TrainAI();
+
+            _viewModel.IsSaving = false;
         }
     }
 }

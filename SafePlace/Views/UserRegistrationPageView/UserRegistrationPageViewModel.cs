@@ -42,6 +42,21 @@ namespace SafePlace.Views.UserRegistrationPageView
                 NotifyPropertyChanged();
             }
         }
+
+        private bool _isSaving;
+        public bool IsSaving
+        {
+            get
+            {
+                return _isSaving;
+            }
+            set
+            {
+                _isSaving = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         private WebCameraId _webCameraId;
         public WebCameraId WebCameraId
         {
@@ -143,16 +158,16 @@ namespace SafePlace.Views.UserRegistrationPageView
             }
         }
 
-        private string _surname;
-        public string Surname
+        private string _lastName;
+        public string LastName
         {
             get
             {
-                return _surname;
+                return _lastName;
             }
             set
             {
-                _surname = value;
+                _lastName = value;
                 NotifyPropertyChanged();
             }
         }
