@@ -178,7 +178,10 @@ namespace SafePlace.Views.SettingsPageView
             
         public void OnFloorImageClicked(Object click)
         {
-
+            Point point = (Point)click;
+            _viewModel.PositionX = (int)point.X;
+            _viewModel.PositionY = (int)point.Y;
+            _logger.LogInfo($"Click detected at {point.X}, {point.Y}");
         }
     }
 }
