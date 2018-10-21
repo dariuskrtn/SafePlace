@@ -10,6 +10,7 @@ namespace SafePlace.Service
     interface ICameraService
     {
         Camera GetCamera(Guid guid);
+        IEnumerable<Camera> GetAllCameras();
         Camera CreateCamera();
     }
 }

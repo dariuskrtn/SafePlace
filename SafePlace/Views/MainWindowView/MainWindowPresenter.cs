@@ -28,6 +28,8 @@ namespace SafePlace.Views.MainWindowView
             _viewModel.DisplayPage = _pageCreator.CreateHomePage();
             _viewModel.HomePageCommand = new RelayCommand(e => OpenHomePageCommand());
             _viewModel.SettingsPageCommand = new RelayCommand(e => OpenSettingsPageCommand());
+            _viewModel.UserRegistrationPageCommand = new RelayCommand(e => OpenUserRegistrationPageCommand());
+            
 
         }
 
@@ -39,6 +41,10 @@ namespace SafePlace.Views.MainWindowView
         private void OpenSettingsPageCommand()
         {
             _viewModel.DisplayPage = _pageCreator.CreateSettingsPage();
+        }
+        private void OpenUserRegistrationPageCommand()
+        {
+            _viewModel.DisplayPage = _pageCreator.CreateUserRegistrationPage();
         }
     }
 }

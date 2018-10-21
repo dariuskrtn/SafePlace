@@ -12,5 +12,6 @@ namespace SafePlace.Service
         Task<Guid> RegisterFace(string name);
         Task<bool> AddFaceImage(Guid guid, Bitmap image);
         Task<IEnumerable<Guid>> DetectFaces(Bitmap image);
+        void TrainAI();
     }
 }

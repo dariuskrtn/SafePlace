@@ -1,5 +1,6 @@
 ﻿using SafePlace.Views.HomePageView;
 using SafePlace.Views.SettingsPageView;
+using SafePlace.Views.UserRegistrationPageView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,5 +49,15 @@ namespace SafePlace.Service
             return settingsPageView;
         }
 
+        public Page CreateUserRegistrationPage()
+        {
+            var userRegistrationViewModel = new UserRegistrationPageViewModel();
+            var userRegistrationPresenter = new UserRegistrationPagePresenter(userRegistrationViewModel, _mainService);
+
+            var userRegistrationPageView = new UserRegistrationPageView();
+            userRegistrationPageView.DataContext = userRegistrationViewModel;
+
+            return userRegistrationPageView;
+        }
     }
 }

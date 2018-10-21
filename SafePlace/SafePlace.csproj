@@ -94,6 +94,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="WebEye.Controls.Wpf.WebCameraControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebEye.Controls.Wpf.WebCameraControl.1.0.3\lib\net40\WebEye.Controls.Wpf.WebCameraControl.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -104,7 +107,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Behaviors\FloorImageClickBehavior.cs" />
+    <Compile Include="Behaviors\CameraMultiComboboxBehavior.cs" />
     <Compile Include="Behaviors\ImageClickBehavior.cs" />
+    <Compile Include="Behaviors\MultiComboboxBehavior.cs" />
+    <Compile Include="Behaviors\WebCameraBehavior.cs" />
+    <Compile Include="Behaviors\FloorViewBehavior.cs" />
     <Compile Include="Models\Camera.cs" />
     <Compile Include="Models\Floor.cs" />
     <Compile Include="Models\Person.cs" />
@@ -141,6 +148,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="Views\UserRegistrationPageView\UserRegistrationPagePresenter.cs" />
+    <Compile Include="Views\UserRegistrationPageView\UserRegistrationPageView.xaml.cs">
+      <DependentUpon>UserRegistrationPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserRegistrationPageView\UserRegistrationPageViewModel.cs" />
+    <Compile Include="WpfComponents\MultiComboboxItem.cs" />
     <Page Include="Views\HomePageView\HomePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -158,6 +171,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\SettingsPageView\SettingsPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserRegistrationPageView\UserRegistrationPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

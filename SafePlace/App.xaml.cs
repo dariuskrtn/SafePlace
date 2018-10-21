@@ -37,6 +37,7 @@ namespace SafePlace
             for (int i = 0; i < coords.Length; i += 2)
             {
                 Camera newCamera = mainService.GetCameraServiceInstance().CreateCamera();
+                newCamera.Name = coords[i] + "";
                 newCamera.PositionX = coords[i];
                 newCamera.PositionY = coords[i + 1];
                 floor.Cameras.Add(newCamera);
