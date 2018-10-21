@@ -163,7 +163,7 @@ namespace SafePlace.Views.SettingsPageView
         public Camera CameraFromPopUp()
         {
             Camera newCamera = _cameraService.CreateCamera();
-            newCamera.Name = _viewModel.Name;
+            newCamera.Name = _viewModel.CameraName;
             newCamera.PositionX = _viewModel.PositionX;
             newCamera.PositionY = _viewModel.PositionY;
             newCamera.IPAddress = _viewModel.IPAdress;
@@ -171,7 +171,7 @@ namespace SafePlace.Views.SettingsPageView
         }
         public void ClearPopUp()
         {
-            _viewModel.Name = _viewModel.IPAdress = "";
+            _viewModel.CameraName = _viewModel.IPAdress = "";
             _viewModel.PositionX = _viewModel.PositionY = 0;
         }
         ///x, y are click position coordinates in relation to the image.

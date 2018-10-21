@@ -157,16 +157,16 @@ namespace SafePlace.Views.SettingsPageView
 
         #region pop up properties
         //Binding to the pop up contents.
-        private string _name;
-        public string Name
+        private string _cameraName;
+        public string CameraName
         {
             get
             {
-                return _name;
+                return _cameraName;
             }
             set
             {
-                _name = value;
+                _cameraName = value;
                 NotifyPropertyChanged();
             }
         }
