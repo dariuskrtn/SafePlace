@@ -102,11 +102,13 @@ namespace SafePlace.Views.HomePageView
             });
         }
 
+        //loads all floors list on the left on main page
         private void LoadFloorList()
         {
             _floors = _floorService.GetFloorList().ToList();
         }
        
+        //Loads floor to look at in home page
         public void LoadFloor(Floor NewFloor)
         {
             _viewModel.CurrentFloorImage = NewFloor.FloorMap;

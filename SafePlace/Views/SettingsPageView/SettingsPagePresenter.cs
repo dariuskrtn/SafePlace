@@ -148,7 +148,9 @@ namespace SafePlace.Views.SettingsPageView
 
         private void PopUp_OnComfirmButtonClicked()
         {
-            _floor.AddCamera(CameraFromPopUp());
+            Camera newCamera = CameraFromPopUp();
+            _floor.AddCamera(newCamera);
+            _viewModel.CameraCollection.Add(newCamera);
             _viewModel.ShowPopUp = false;
             ClearPopUp();
         }

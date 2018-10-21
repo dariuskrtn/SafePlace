@@ -1,6 +1,8 @@
-﻿using SafePlace.ViewModels;
+﻿using SafePlace.Models;
+using SafePlace.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,9 @@ namespace SafePlace.Views.SettingsPageView
     class SettingsPageViewModel : BaseViewModel
     {
 
+        #region Settings page properties
+
+        public ObservableCollection<Camera> CameraCollection { set; get; } = new ObservableCollection<Camera>();
 
         private BitmapImage _floorImage;
         public BitmapImage FloorImage
@@ -41,6 +46,7 @@ namespace SafePlace.Views.SettingsPageView
             }
         }
 
+        // Not sure if name is good, sounds like a method
         private bool _showPopUp;
         public bool ShowPopUp
         {
@@ -54,6 +60,8 @@ namespace SafePlace.Views.SettingsPageView
                 NotifyPropertyChanged();
             }
         }
+
+        #endregion
 
         private ICommand _floorImageClickCommand;
         public ICommand FloorImageClickCommand
