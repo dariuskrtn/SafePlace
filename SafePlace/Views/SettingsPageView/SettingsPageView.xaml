@@ -10,23 +10,16 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsPageView">
 
-    <!-- Template for camera icons -->    
+        
     <Page.Resources>
-        <DataTemplate x:Key="imageTemplate">
-            <Image Source="/Images/camera.png" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Image.RenderTransform>
-                    <TransformGroup>
-                        <TranslateTransform X="{Binding Path=PositionX}" Y="{Binding Path=PositionY}"/>
-                    </TransformGroup>
-                </Image.RenderTransform>
-                <e:Interaction.Behaviors>
-                    <!-- Begavior is not correct for noe -->
-                    <behaviors:ImageClickBehavior Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl},
-                                        Path=DataContext.CameraClickCommand}" />
-                </e:Interaction.Behaviors>
-            </Image>
-        </DataTemplate>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/SafePlace;component/Resources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!--Insert resources intended for this view here.-->
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        </ResourceDictionary>
+        
     </Page.Resources>
 
     <Grid Name="mainGrid">
@@ -133,7 +126,7 @@
                                         Path=DataContext.FloorImageClickCommand}" />
                             </e:Interaction.Behaviors>
                         </Image>
-                        <ItemsControl ItemsSource="{Binding Path=CameraCollection}" ItemTemplate="{StaticResource imageTemplate}">
+                        <ItemsControl ItemsSource="{Binding Path=CameraCollection}" ItemTemplate="{StaticResource CameraTemplate}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <Grid/>
