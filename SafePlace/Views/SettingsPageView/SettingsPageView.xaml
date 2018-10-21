@@ -18,7 +18,7 @@
             </ResourceDictionary.MergedDictionaries>
             <!--Insert resources intended for this view here.-->
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        </ResourceDictionary>
+        
         
         
 
@@ -61,7 +61,7 @@
             </Setter>
         </Style>
 
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        </ResourceDictionary>
     </Page.Resources>
 
     <Grid Name="mainGrid">
