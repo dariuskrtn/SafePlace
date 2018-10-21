@@ -57,6 +57,9 @@
                 <Image Source="/Images/down.png"/>
             </Button>
             <ListView x:Name="FloorsList" Margin="0 15 10 50" ItemsSource="{Binding Floors}" SelectedIndex="{Binding CurrentFloor, Mode=TwoWay}">
+                <e:Interaction.Behaviors>
+                    <behaviors:FloorViewBehavior Command="{Binding FloorListClickCommand}"/>
+                </e:Interaction.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding FloorName}"/>

@@ -15,7 +15,6 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using SafePlace.Utilities;
 
 namespace SafePlace.Views.SettingsPageView
 {
