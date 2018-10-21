@@ -167,16 +167,16 @@ namespace SafePlace.Views.SettingsPageView
 
         #region pop up properties
         //Binding to the pop up contents.
-        private bool _newCameraVisibility;
-        public bool NewCameraVisibility
+        private bool _isNewCameraShown;
+        public bool IsNewCameraShown
         {
             get
             {
-                return _newCameraVisibility;
+                return _isNewCameraShown;
             }
             set
             {
-                _newCameraVisibility = value;
+                _isNewCameraShown = value;
                 NotifyPropertyChanged();
             }
         }

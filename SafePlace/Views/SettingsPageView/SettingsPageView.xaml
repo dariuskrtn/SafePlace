@@ -141,8 +141,8 @@
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>
                         <!--A preview camera. Becomes visible on click, invisible after comfirming or canceling new camera.-->
-                        <Image Source="/Images/camera.png" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left"
-                               Visibility="{Binding NewCameraVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Image Source="/Images/camera_blue.png" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left"
+                               Visibility="{Binding IsNewCameraShown, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Image.RenderTransform>
                                 <TranslateTransform X="{Binding PositionX}" Y="{Binding PositionY}"/>
                             </Image.RenderTransform>

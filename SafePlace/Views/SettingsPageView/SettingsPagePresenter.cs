@@ -33,6 +33,7 @@ namespace SafePlace.Views.SettingsPageView
         {
             _viewModel = viewModel;
             _mainService = mainService;
+            _synchronisationContext = mainService.GetSynchronizationContext();
             GetServices(_mainService);
             BuildViewModel();
         }
@@ -40,7 +41,7 @@ namespace SafePlace.Views.SettingsPageView
         private void BuildViewModel()
         {
             BuildButttonsCommands();
-            _viewModel.NewCameraVisibility = false;
+            _viewModel.IsNewCameraShown = false;
             // New floor later will be created when pressed addFloor button, for now this button do not exist
             _floor = _floorService.CreateEmptyFloor();
             _viewModel.FloorImage = _floor.FloorMap;
@@ -126,11 +127,11 @@ namespace SafePlace.Views.SettingsPageView
                 return;
             }
 
-            updateFloorImage(openDialog.FileName);
+            UpdateFloorImage(openDialog.FileName);
         }
 
         // updates image both in floor object as well as on screen
-        private void updateFloorImage(String imagePath)
+        private void UpdateFloorImage(String imagePath)
         {
             _floor.FloorMap = new BitmapImage(new Uri(imagePath));
             _viewModel.FloorImage = _floor.FloorMap;
@@ -149,13 +150,13 @@ namespace SafePlace.Views.SettingsPageView
             _floor.AddCamera(newCamera);
             _viewModel.CameraCollection.Add(newCamera);
             _viewModel.ShowPopUp = false;
-            _viewModel.NewCameraVisibility = false;
+            _viewModel.IsNewCameraShown = false;
             ClearPopUp();
         }
         private void PopUp_OnCancelButtonClicked()
         {
             _viewModel.ShowPopUp = false;
-            _viewModel.NewCameraVisibility = false;
+            _viewModel.IsNewCameraShown = false;
             ClearPopUp();
         }
 
@@ -180,7 +181,7 @@ namespace SafePlace.Views.SettingsPageView
         public void OnFloorImageClicked(Object click)
         {
             Point point = (Point)click;
-            _viewModel.NewCameraVisibility = true;
+            _viewModel.IsNewCameraShown = true;
             _viewModel.PositionX = (int)point.X;
             _viewModel.PositionY = (int)point.Y;
             _logger.LogInfo($"Click detected at {point.X}, {point.Y}");
