@@ -15,16 +15,9 @@ namespace SafePlace.Service
 
         public Floor CreateFloor()
         {
-            var floor = new Floor();
-            floor.Guid = Guid.NewGuid();
-            floor.Cameras = new List<Camera>();
-
-            var img = new BitmapImage(new Uri("/Images/Floor.png", UriKind.Relative));
-            floor.FloorMap = img;
-
-            floors.Add(floor.Guid, floor);
-            return floor;
+            return CreateFloor("/Images/Floor.png");
         }
+        
         public Floor CreateFloor(string Path)
         {
             var floor = new Floor();
@@ -36,6 +29,18 @@ namespace SafePlace.Service
 
             floors.Add(floor.Guid, floor);
             return floor;
+        }
+
+        public Floor CreateFloor(string path, string floorName)
+        {
+            var floor = CreateFloor(path);
+            floor.FloorName = floorName;
+            return floor;
+        }
+
+        public Floor CreateEmptyFloor(string name)
+        {
+            return CreateFloor("/Images/no_image_icon.png", name);
         }
 
         public Floor GetFloor(Guid guid)

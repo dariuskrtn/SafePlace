@@ -112,6 +112,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\FloorImageClickBehavior.cs" />
     <Compile Include="Behaviors\CameraMultiComboboxBehavior.cs" />
     <Compile Include="Behaviors\ImageClickBehavior.cs" />
     <Compile Include="Behaviors\IPCameraBehavior.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Service\MainService.cs" />
     <Compile Include="Service\PageCreator.cs" />
     <Compile Include="Service\PersonService.cs" />
+    <Compile Include="Utilities\ExtensionMethods.cs" />
     <Compile Include="Service\WindowCreator.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -156,6 +158,10 @@
     </Compile>
     <Compile Include="Views\SettingsPageView\SettingsPagePresenter.cs" />
     <Compile Include="Views\SettingsPageView\SettingsPageViewModel.cs" />
+    <Page Include="Resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Compile Include="Views\UserRegistrationPageView\UserRegistrationPagePresenter.cs" />
     <Compile Include="Views\UserRegistrationPageView\UserRegistrationPageView.xaml.cs">
       <DependentUpon>UserRegistrationPageView.xaml</DependentUpon>
@@ -226,7 +232,7 @@
     <Resource Include="Images\people.png" />
     <Resource Include="Images\person.png" />
     <Resource Include="Images\settings.png" />
-    <Resource Include="Images\Small-Office-Floor-Plan.jpg" />
+    <Resource Include="Images\small_office_floor_plan.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Floor2.png" />
@@ -236,7 +242,16 @@
     <Resource Include="Images\up.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\placeholder.png" />
+    <Resource Include="Images\Placeholder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\no_image_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\camera_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\pointer.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

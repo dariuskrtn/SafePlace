@@ -24,7 +24,6 @@ namespace SafePlace.Models
         //Currently when put into the grid container of floor and camera images, the camera appears in the middle.
         public int PositionX { get; set; }
         public int PositionY { get; set; }
-        public TransformGroup Transform { get; set; }
         #endregion
                    
 
