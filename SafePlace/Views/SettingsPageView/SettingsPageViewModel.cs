@@ -17,6 +17,7 @@ namespace SafePlace.Views.SettingsPageView
         #region Settings page properties
 
         public ObservableCollection<Camera> CameraCollection { set; get; } = new ObservableCollection<Camera>();
+        public ObservableCollection<Floor> FloorCollection { set; get; } = new ObservableCollection<Floor>();
 
         private BitmapImage _floorImage;
         public BitmapImage FloorImage

@@ -40,11 +40,11 @@ namespace SafePlace.Views.SettingsPageView
         public SettingsPagePresenter(SettingsPageViewModel viewModel, IMainService mainService)
         {
             _viewModel = viewModel;
+            _newFloorName = _defaultFloorName;
             _mainService = mainService;
             _synchronisationContext = mainService.GetSynchronizationContext();
             GetServices(_mainService);
             BuildViewModel();
-            _newFloorName = _defaultFloorName;
         }
 
         private void BuildViewModel()

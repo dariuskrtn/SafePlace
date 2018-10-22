@@ -130,30 +130,33 @@
                 
                 <!-- Here will show up uploaded floor image-->
                 <ScrollViewer Grid.Row="1">
-                    <Grid>
-                        <Image Source="{Binding FloorImage}">
-                            <e:Interaction.Behaviors>
+                    <Viewbox>
+                        <Grid>
+                            <Image Source="{Binding FloorImage}">
+                                <e:Interaction.Behaviors>
 
-                                <behaviors:FloorImageClickBehavior Command="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer},
+                                    <behaviors:FloorImageClickBehavior Command="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer},
                                         Path=DataContext.FloorImageClickCommand}" />
-                            </e:Interaction.Behaviors>
-                        </Image>
-                        <ItemsControl ItemsSource="{Binding Path=CameraCollection}" ItemTemplate="{StaticResource CameraTemplate}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <Grid/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                        <!--A preview camera. Becomes visible on click, invisible after comfirming or canceling new camera.-->
-                        <Image Source="/Images/camera_blue.png" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left"
+                                </e:Interaction.Behaviors>
+                            </Image>
+                            <ItemsControl ItemsSource="{Binding Path=CameraCollection}" ItemTemplate="{StaticResource CameraTemplate}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <Grid/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                            <!--A preview camera. Becomes visible on click, invisible after comfirming or canceling new camera.-->
+                            <Image Source="/Images/camera_blue.png" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left"
                                Visibility="{Binding IsNewCameraShown, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <Image.RenderTransform>
-                                <TranslateTransform X="{Binding PositionX}" Y="{Binding PositionY}"/>
-                            </Image.RenderTransform>
-                        </Image>
+                                <Image.RenderTransform>
+                                    <TranslateTransform X="{Binding PositionX}" Y="{Binding PositionY}"/>
+                                </Image.RenderTransform>
+                            </Image>
 
-                    </Grid>
+                        </Grid>
+                    </Viewbox>
+                    
                 </ScrollViewer>
             </Grid>
 
