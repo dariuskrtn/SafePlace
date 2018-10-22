@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace SafePlace.Behaviors
 {
+    //Seems Like WPF doesn't support generics, so in order to use MultiCombobox we need to define new class for each type.
     class CameraMultiComboboxBehavior : MultiComboboxBehavior<Camera>
     {
     }

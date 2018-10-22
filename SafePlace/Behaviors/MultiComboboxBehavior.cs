@@ -10,6 +10,7 @@ using System.Windows.Interactivity;
 
 namespace SafePlace.Behaviors
 {
+    //Generic behavior implementing multiple choice in Combobox component
     class MultiComboboxBehavior<T> : Behavior<CheckBox>
     {
         public static readonly DependencyProperty SelectedItemsProperty = DependencyProperty.Register(
