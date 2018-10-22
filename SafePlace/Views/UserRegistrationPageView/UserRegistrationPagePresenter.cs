@@ -45,6 +45,7 @@ namespace SafePlace.Views.UserRegistrationPageView
 
         private void PopulateCameras()
         {
+            //Get all registered cameras and add them to combobox for multiple selection.
             foreach (Camera cam in _cameraService.GetAllCameras())
             {
                 _viewModel.Cameras.Add(new MultiComboboxItem<Camera>() { Item = cam, Name = cam.Name, SelectedItems = _viewModel.SelectedCameras });
@@ -87,6 +88,7 @@ namespace SafePlace.Views.UserRegistrationPageView
             new Thread(_ => RegisterPersonFace(person)).Start();
         }
 
+        //Async call to face recognition service to save new persons face into the database.
         private async void RegisterPersonFace(Person person)
         {
             _viewModel.IsSaving = true;

@@ -35,6 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.2.2.5\lib\AForge.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video, Version=2.2.5.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Video.2.2.5\lib\AForge.Video.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Controls, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SDK.Expression.Blend.1.0.0\lib\net45\Microsoft.Expression.Controls.dll</HintPath>
     </Reference>
@@ -109,6 +115,7 @@
     <Compile Include="Behaviors\FloorImageClickBehavior.cs" />
     <Compile Include="Behaviors\CameraMultiComboboxBehavior.cs" />
     <Compile Include="Behaviors\ImageClickBehavior.cs" />
+    <Compile Include="Behaviors\IPCameraBehavior.cs" />
     <Compile Include="Behaviors\MultiComboboxBehavior.cs" />
     <Compile Include="Behaviors\WebCameraBehavior.cs" />
     <Compile Include="Behaviors\FloorViewBehavior.cs" />
@@ -126,12 +133,19 @@
     <Compile Include="Service\IMainService.cs" />
     <Compile Include="Service\IPageCreator.cs" />
     <Compile Include="Service\IPersonService.cs" />
+    <Compile Include="Service\IWindowCreator.cs" />
     <Compile Include="Service\MainService.cs" />
     <Compile Include="Service\PageCreator.cs" />
     <Compile Include="Service\PersonService.cs" />
     <Compile Include="Utilities\ExtensionMethods.cs" />
+    <Compile Include="Service\WindowCreator.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="Views\CameraWindowView\CameraWindow.xaml.cs">
+      <DependentUpon>CameraWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CameraWindowView\CameraWindowPresenter.cs" />
+    <Compile Include="Views\CameraWindowView\CameraWindowViewModel.cs" />
     <Compile Include="Views\HomePageView\HomePagePresenter.cs" />
     <Compile Include="Views\HomePageView\HomePageView.xaml.cs">
       <DependentUpon>HomePageView.xaml</DependentUpon>
@@ -154,6 +168,10 @@
     </Compile>
     <Compile Include="Views\UserRegistrationPageView\UserRegistrationPageViewModel.cs" />
     <Compile Include="WpfComponents\MultiComboboxItem.cs" />
+    <Page Include="Views\CameraWindowView\CameraWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HomePageView\HomePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
