@@ -18,5 +18,14 @@
             </e:Interaction.Behaviors>
         </Image>
     </DataTemplate>
+    <Style x:Key="FloorListStyle" TargetType="{x:Type ListView}">
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Text="{Binding FloorName}"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     
 </ResourceDictionary>

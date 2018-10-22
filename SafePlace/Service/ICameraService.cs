@@ -12,5 +12,6 @@ namespace SafePlace.Service
         Camera GetCamera(Guid guid);
         IEnumerable<Camera> GetAllCameras();
         Camera CreateCamera();
+        Camera CreateCamera(int x, int y);
     }
 }

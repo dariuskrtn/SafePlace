@@ -25,6 +25,22 @@ namespace SafePlace.Service
             cameras.Add(camera.Guid, camera);
             return camera;
         }
+        public Camera CreateCamera(int x, int y)
+        {
+            var camera = new Camera()
+            {
+                Guid = Guid.NewGuid(),
+                //Test data for implementing ItemSource, which takes items from ObservableCollection<Person>
+                IdentifiedPeople = new List<Person>() {
+                    new Person() { Name = "John", LastName = "Johnson" },
+                    new Person() { Name = "John", LastName = "Seenhim" }
+                },
+                PositionX = x,
+                PositionY = y,
+            };
+            cameras.Add(camera.Guid, camera);
+            return camera;
+        }
 
         public IEnumerable<Camera> GetAllCameras()
         {
