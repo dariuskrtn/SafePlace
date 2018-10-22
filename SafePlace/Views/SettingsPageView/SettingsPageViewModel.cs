@@ -207,16 +207,16 @@ namespace SafePlace.Views.SettingsPageView
                 NotifyPropertyChanged();
             }
         }
-        private string _IPAdress;
-        public string IPAdress
+        private string _IPAddress;
+        public string IPAddress
         {
             get
             {
-                return _IPAdress;
+                return _IPAddress;
             }
             set
             {
-                _IPAdress = value;
+                _IPAddress = value;
                 NotifyPropertyChanged();
             }
         }

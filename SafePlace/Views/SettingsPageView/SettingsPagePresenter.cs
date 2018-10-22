@@ -21,6 +21,8 @@ namespace SafePlace.Views.SettingsPageView
 {
     class SettingsPagePresenter
     {
+        //Name for an empty floor.
+        private const string _defaultFloorName = "Input floor name here";
 
         private SettingsPageViewModel _viewModel;
         private readonly IMainService _mainService;
@@ -29,9 +31,11 @@ namespace SafePlace.Views.SettingsPageView
         private IFloorService _floorService;
         private Floor _floor;
         private ICameraService _cameraService;
-        private bool _isCameraNew; //othervise existing camera is being edited
-        private Camera _activeCamera; //Camera we are working now with.
-        
+        //If _isCameraNew equals true, we're creating a camera. Else we're editing an existing one.
+        private bool _isCameraNew;
+        //Camera we are currently working now with.
+        private Camera _activeCamera;
+        private string _newFloorName;
 
         public SettingsPagePresenter(SettingsPageViewModel viewModel, IMainService mainService)
         {
@@ -40,6 +44,7 @@ namespace SafePlace.Views.SettingsPageView
             _synchronisationContext = mainService.GetSynchronizationContext();
             GetServices(_mainService);
             BuildViewModel();
+            _newFloorName = _defaultFloorName;
         }
 
         private void BuildViewModel()
@@ -47,7 +52,7 @@ namespace SafePlace.Views.SettingsPageView
             BuildButttonsCommands();
             _viewModel.IsNewCameraShown = false;
             // New floor later will be created when pressed addFloor button, for now this button do not exist
-            _floor = _floorService.CreateEmptyFloor();
+            _floor = _floorService.CreateEmptyFloor(_newFloorName);
             _viewModel.FloorImage = _floor.FloorMap;
             _viewModel.FloorName = _floor.FloorName;
         }
@@ -61,18 +66,18 @@ namespace SafePlace.Views.SettingsPageView
 
         private void BuildButttonsCommands()
         {
-            _viewModel.EditButtonClickCommand = new RelayCommand(e => OnEditButtonClicked());
-            _viewModel.AddCameraButtonClickCommand = new RelayCommand(e => OnAddCameraButtonClicked());
-            _viewModel.ChooseImageButtonClickCommand = new RelayCommand(e => OnChooseImageButtonClicked());
-            _viewModel.FloorButtonClickCommand = new RelayCommand(e => OnFloorButtonClicked());
-            _viewModel.CancelButtonClickCommand = new RelayCommand(e => OnCancelButtonClicked());
-            _viewModel.DeleteButtonClickCommand = new RelayCommand(e => OnDeleteButtonClicked());
-            _viewModel.FloorImageClickCommand = new RelayCommand(o => OnFloorImageClicked(o));
+            _viewModel.EditButtonClickCommand = new RelayCommand(e => EditButtonCommand());
+            _viewModel.AddCameraButtonClickCommand = new RelayCommand(e => AddCameraButtonCommand());
+            _viewModel.ChooseImageButtonClickCommand = new RelayCommand(e => ChooseImageButtonCommand());
+            _viewModel.FloorButtonClickCommand = new RelayCommand(e => FloorButtonCommand());
+            _viewModel.CancelButtonClickCommand = new RelayCommand(e => CancelButtonCommand());
+            _viewModel.DeleteButtonClickCommand = new RelayCommand(e => DeleteButtonCommand());
+            _viewModel.FloorImageClickCommand = new RelayCommand(o => FloorImageClickCommand(o));
 
-            _viewModel.CameraClickCommand = new RelayCommand(e => OnCameraIconClicked(e));
+            _viewModel.CameraClickCommand = new RelayCommand(e => CameraIconClickCommand(e));
 
-            _viewModel.CameraAddCommand = new RelayCommand(e => PopUp_OnComfirmButtonClicked());
-            _viewModel.CameraCancelCommand = new RelayCommand(e => PopUp_OnCancelButtonClicked());
+            _viewModel.CameraAddCommand = new RelayCommand(e => PopUp_ComfirmButtonCommand());
+            _viewModel.CameraCancelCommand = new RelayCommand(e => PopUp_CancelButtonCommand());
         }
 
         //-------------------------------------------------------------
@@ -83,37 +88,37 @@ namespace SafePlace.Views.SettingsPageView
 
         #region Buttons Commands
 
-        private void OnEditButtonClicked()
+        private void EditButtonCommand()
         {
 
         }
 
-        private void OnAddCameraButtonClicked()
+        private void AddCameraButtonCommand()
         {
             _isCameraNew = true;
             _viewModel.ShowPopUp = true;
         }
 
         // Choose and Change image is the same button
-        private void OnChooseImageButtonClicked()
+        private void ChooseImageButtonCommand()
         {
             SelectFile();
         }
 
         //Floor button - Add floor, Edit floor and Save (Depending on settings page state) 
         // Consider this button as "save button" for now
-        private void OnFloorButtonClicked()
+        private void FloorButtonCommand()
         {
             _floor.FloorName = _viewModel.FloorName;
         }
 
         // CAncel and Restore is the same button
-        private void OnCancelButtonClicked()
+        private void CancelButtonCommand()
         {
             
         }
 
-        private void OnDeleteButtonClicked()
+        private void DeleteButtonCommand()
         {
             
         }
@@ -149,10 +154,10 @@ namespace SafePlace.Views.SettingsPageView
         }
 
         // Mouse click on camera icon invekes this
-        private void OnCameraIconClicked(object e)
+        private void CameraIconClickCommand(object e)
         {
             Camera relatedCamera = e as Camera;
-            setPopUpFromCamera(relatedCamera);
+            SetPopUpFromCamera(relatedCamera);
             _isCameraNew = false;
             _viewModel.ShowPopUp = true;
             _activeCamera = relatedCamera;
@@ -170,7 +175,7 @@ namespace SafePlace.Views.SettingsPageView
 
         #region Buttons
 
-        private void PopUp_OnComfirmButtonClicked()
+        private void PopUp_ComfirmButtonCommand()
         {
             if (_isCameraNew)
             {
@@ -190,7 +195,7 @@ namespace SafePlace.Views.SettingsPageView
             _viewModel.IsNewCameraShown = false;
             ClearPopUp();
         }
-        private void PopUp_OnCancelButtonClicked()
+        private void PopUp_CancelButtonCommand()
         {
             _viewModel.ShowPopUp = false;
             _viewModel.IsNewCameraShown = false;
@@ -204,27 +209,27 @@ namespace SafePlace.Views.SettingsPageView
         {
             //Camera newCamera = _cameraService.CreateCamera();
             camera.Name = _viewModel.CameraName;
-            camera.IPAddress = _viewModel.IPAdress;
+            camera.IPAddress = _viewModel.IPAddress;
             camera.PositionX = _viewModel.PositionX;
             camera.PositionY = _viewModel.PositionY;
         }
 
-        private void setPopUpFromCamera(Camera camera)
+        private void SetPopUpFromCamera(Camera camera)
         {
             _viewModel.CameraName = camera.Name;
-            _viewModel.IPAdress = camera.IPAddress;
+            _viewModel.IPAddress = camera.IPAddress;
             _viewModel.PositionX = camera.PositionX;
             _viewModel.PositionY = camera.PositionY;
         }
 
         private void ClearPopUp()
         {
-            _viewModel.CameraName = _viewModel.IPAdress = "";
+            _viewModel.CameraName = _viewModel.IPAddress = "";
             _viewModel.PositionX = _viewModel.PositionY = 0;
         }
         ///x, y are click position coordinates in relation to the image.
             
-        public void OnFloorImageClicked(Object click)
+        public void FloorImageClickCommand(Object click)
         {
             Point point = (Point)click;
             _viewModel.IsNewCameraShown = true;
