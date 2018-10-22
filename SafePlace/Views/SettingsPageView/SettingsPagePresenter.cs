@@ -15,6 +15,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Collections.ObjectModel;
 
 namespace SafePlace.Views.SettingsPageView
 {
@@ -157,7 +158,7 @@ namespace SafePlace.Views.SettingsPageView
             _activeCamera = relatedCamera;
         }
 
-        public void ReloadCollection<T>(System.Collections.ObjectModel.ObservableCollection<T> observableColl, IList<T> list)
+        public void ReloadCollection<T>(ObservableCollection<T> observableColl, IList<T> list)
         {
             observableColl.Clear();
             list.ToList().ForEach(o => observableColl.Add(o));
