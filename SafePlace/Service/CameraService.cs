@@ -25,7 +25,8 @@ namespace SafePlace.Service
             cameras.Add(camera.Guid, camera);
             return camera;
         }
-        public Camera CreateCamera(int x, int y)
+        //A more convenient method for creating camera instances for preview cameras during editing or creation of new cameras.
+        public Camera CreateCamera(int x, int y, bool createCamera)
         {
             var camera = new Camera()
             {
@@ -38,7 +39,7 @@ namespace SafePlace.Service
                 PositionX = x,
                 PositionY = y,
             };
-            cameras.Add(camera.Guid, camera);
+            if (createCamera) cameras.Add(camera.Guid, camera);
             return camera;
         }
 
@@ -51,6 +52,11 @@ namespace SafePlace.Service
         {
             if (cameras.ContainsKey(guid)) return cameras[guid];
             return null;
+        }
+        //Method for removing cameras. Returns true if the camera was found.
+        public bool RemoveCamera(Guid guid)
+        {
+            return cameras.Remove(guid);
         }
     }
 }

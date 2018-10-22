@@ -12,6 +12,7 @@ namespace SafePlace.Service
         Camera GetCamera(Guid guid);
         IEnumerable<Camera> GetAllCameras();
         Camera CreateCamera();
-        Camera CreateCamera(int x, int y);
+        bool RemoveCamera(Guid guid);
+        Camera CreateCamera(int x, int y, bool isCameraPermanent);
     }
 }
