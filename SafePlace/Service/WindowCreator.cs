@@ -13,7 +13,7 @@ namespace SafePlace.Service
         public void CreateCameraWindow(Camera camera)
         {
             var viewModel = new CameraWindowViewModel();
-            var settingsPagePresenter = new CameraWindowPresenter(viewModel, camera);
+            var presenter = new CameraWindowPresenter(viewModel, camera);
 
             var view = new CameraWindow();
             view.DataContext = viewModel;

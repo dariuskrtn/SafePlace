@@ -15,19 +15,23 @@ namespace SafePlace.Behaviors
 {
     class WebCameraBehavior : Behavior<WebCameraControl>
     {
-
+        //If this is set to true, Camera tries to capture webcam and shows it on associatedObject
         public static readonly DependencyProperty CapturingProperty = DependencyProperty.Register(
             "Capturing", typeof(bool), typeof(WebCameraBehavior), new PropertyMetadata(false, OnCapturingChanged));
 
+        //Takes a frame recording and adds it to RecordingsCollection when set to true.
         public static readonly DependencyProperty RecordingProperty = DependencyProperty.Register(
             "Recording", typeof(bool), typeof(WebCameraBehavior), new PropertyMetadata(false, OnRecordingChanged));
 
+        //Source camera from where to take image stream.
         public static readonly DependencyProperty WebCameraIdProperty = DependencyProperty.Register(
             "WebCameraId", typeof(WebCameraId), typeof(WebCameraBehavior), new PropertyMetadata(null, OnWebCameraIdChanged));
 
+        //On Registered adds collection of available WebCameraIds to this collection.
         public static readonly DependencyProperty WebCamerasCollectionProperty = DependencyProperty.Register(
             "WebCamerasCollection", typeof(ICollection<WebCameraId>), typeof(WebCameraBehavior), new PropertyMetadata(null, OnWebCamerasCollectionChanged));
 
+        //Collection where recordings are saved.
         public static readonly DependencyProperty RecordingsCollectionProperty = DependencyProperty.Register(
             "RecordingsCollection", typeof(ICollection<Bitmap>), typeof(WebCameraBehavior), new PropertyMetadata(null));
 
@@ -69,8 +73,6 @@ namespace SafePlace.Behaviors
             get { return (int)GetValue(FramerateProperty); }
             set { SetValue(FramerateProperty, value); }
         }
-
-        private bool _threadRunning = false;
 
         protected override void OnAttached()
         {

@@ -16,6 +16,7 @@ namespace SafePlace.Views.CameraWindowView
         {
             _viewModel = viewModel;
             _camera = camera;
+            //New MJPEGStream from IPAddress to get IP Camera frames.
             _viewModel.Stream = new MJPEGStream(_camera.IPAddress);
         }
     }

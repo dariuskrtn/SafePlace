@@ -18,6 +18,7 @@ namespace SafePlace.Behaviors
         public static readonly DependencyProperty MJPEGStreamProperty = DependencyProperty.Register(
             "Stream", typeof(MJPEGStream), typeof(IPCameraBehavior), new PropertyMetadata(null, OnStreamAttached));
 
+        //Ip Camera Frame stream
         public MJPEGStream Stream
         {
             get { return (MJPEGStream)GetValue(MJPEGStreamProperty); }
@@ -48,10 +49,12 @@ namespace SafePlace.Behaviors
         {
             Dispatcher.Invoke(() =>
             {
+                //Refreshes Image with new frame from camera.
                 AssociatedObject.Source = Convert(eventArgs.Frame);
             });
         }
 
+        //Converts Bitmap to BitmapSource for WPF usage.
         public BitmapSource Convert(Bitmap bitmap)
         {
             var bitmapData = bitmap.LockBits(
