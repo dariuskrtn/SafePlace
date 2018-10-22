@@ -1,4 +1,5 @@
-﻿using SafePlace.Models;
+﻿using AForge.Video;
+using SafePlace.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace SafePlace.Views.CameraWindowView
         {
             _viewModel = viewModel;
             _camera = camera;
+            _viewModel.Stream = new MJPEGStream(_camera.IPAddress);
         }
     }
 }

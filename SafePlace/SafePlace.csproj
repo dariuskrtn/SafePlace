@@ -114,6 +114,7 @@
     </ApplicationDefinition>
     <Compile Include="Behaviors\CameraMultiComboboxBehavior.cs" />
     <Compile Include="Behaviors\ImageClickBehavior.cs" />
+    <Compile Include="Behaviors\IPCameraBehavior.cs" />
     <Compile Include="Behaviors\MultiComboboxBehavior.cs" />
     <Compile Include="Behaviors\WebCameraBehavior.cs" />
     <Compile Include="Behaviors\FloorViewBehavior.cs" />
