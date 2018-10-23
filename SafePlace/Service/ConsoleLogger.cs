@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SafePlace.Service
 {
-    class ConsoleLogger : ILogger
+    public class ConsoleLogger : ILogger
     {
 
         public void LogInfo(string message)

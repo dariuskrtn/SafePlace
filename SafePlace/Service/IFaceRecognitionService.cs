@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SafePlace.Service
 {
-    interface IFaceRecognitionService
+    public interface IFaceRecognitionService
     {
         Task<Guid> RegisterFace(string name);
         Task<bool> AddFaceImage(Guid guid, Bitmap image);

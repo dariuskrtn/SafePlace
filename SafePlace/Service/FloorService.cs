@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 
 namespace SafePlace.Service
 {
-    class FloorService : IFloorService
+    public class FloorService : IFloorService
     {
         private Dictionary<Guid, Floor> floors = new Dictionary<Guid, Floor>();
 

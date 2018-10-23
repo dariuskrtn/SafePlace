@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SafePlace.Service
 {
-    interface IWindowCreator
+    public interface IWindowCreator
     {
         void CreateCameraWindow(Camera camera);
     }

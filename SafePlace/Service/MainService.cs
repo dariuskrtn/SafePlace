@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SafePlace.Service
 {
-    class MainService : IMainService
+    public class MainService : IMainService
     {
         private ILogger _logger;
         private IPageCreator _pageCreator;

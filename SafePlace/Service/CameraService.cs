@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SafePlace.Service
 {
-    class CameraService : ICameraService
+    public class CameraService : ICameraService
     {
         private Dictionary<Guid, Camera> cameras = new Dictionary<Guid, Camera>();
 
@@ -26,7 +26,7 @@ namespace SafePlace.Service
             return camera;
         }
         //A more convenient method for creating camera instances for preview cameras during editing or creation of new cameras.
-        public Camera CreateCamera(int x, int y, bool createCamera)
+        public Camera CreateCamera(bool isCameraPermanent, int x = 0, int y = 0)
         {
             var camera = new Camera()
             {
@@ -39,7 +39,7 @@ namespace SafePlace.Service
                 PositionX = x,
                 PositionY = y,
             };
-            if (createCamera) cameras.Add(camera.Guid, camera);
+            if (isCameraPermanent) cameras.Add(camera.Guid, camera);
             return camera;
         }
 

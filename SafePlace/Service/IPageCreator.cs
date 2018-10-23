@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace SafePlace.Service
 {
-    interface IPageCreator
+    public interface IPageCreator
     {
         Page CreateHomePage();
         Page CreateSettingsPage();

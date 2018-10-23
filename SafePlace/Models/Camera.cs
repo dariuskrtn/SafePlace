@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 /// </summary>
 namespace SafePlace.Models
 {
-    class Camera
+    public class Camera
     {
         #region Fields
         public Guid Guid { get; set; }

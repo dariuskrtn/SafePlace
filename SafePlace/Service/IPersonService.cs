@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SafePlace.Service
 {
-    interface IPersonService
+    public interface IPersonService
     {
         Person GetPerson(Guid guid);
         Person CreatePerson();

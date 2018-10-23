@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SafePlace.Service
 {
-    class FaceRecognitionService : IFaceRecognitionService
+    public class FaceRecognitionService : IFaceRecognitionService
     {
         private readonly string _groupId;
         private readonly FaceServiceClient _faceServiceClient;
