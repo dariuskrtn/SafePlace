@@ -45,14 +45,22 @@
                                 <ColumnDefinition Width="30*" />
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
-                            <Label VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Content="IP adress:" />
-                            <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="0" Text="{Binding Path=EditedCamera.IPAddress, UpdateSourceTrigger=PropertyChanged}" />
-                            <Label VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Content="Name:" />
-                                <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" Text="{Binding EditedCamera.Name, UpdateSourceTrigger=PropertyChanged}" />
-                            <Label VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Content="Position x:" />
-                                <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" Text="{Binding EditedCamera.PositionX, UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label VerticalAlignment="Center" Grid.Row="6" Grid.Column="1" Content="Position y:" />
-                                <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="6" Text="{Binding EditedCamera.PositionY, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Content="IP adress:"/>
+                            <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="0" 
+                                     Text="{Binding EditedCamera.IPAddress, UpdateSourceTrigger=PropertyChanged}"
+                                     IsReadOnly="{Binding IsEditModeOff}"/>
+                            <Label VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Content="Name:"/>
+                            <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" 
+                                     Text="{Binding EditedCamera.Name, UpdateSourceTrigger=PropertyChanged}"
+                                     IsReadOnly="{Binding IsEditModeOff}"/>
+                            <Label VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Content="Position x:"/>
+                            <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" 
+                                     Text="{Binding EditedCamera.PositionX, UpdateSourceTrigger=PropertyChanged}"
+                                     IsReadOnly="{Binding IsEditModeOff}"/>
+                            <Label VerticalAlignment="Center" Grid.Row="6" Grid.Column="1" Content="Position y:"/>
+                            <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="6" 
+                                     Text="{Binding EditedCamera.PositionY, UpdateSourceTrigger=PropertyChanged}"
+                                     IsReadOnly="{Binding IsEditModeOff}"/>
                             <Button Grid.Row="8" Grid.Column="1" Content="Cancel" Command="{Binding CameraCancelCommand}"/>
                             <Button Grid.Row="8" Grid.Column="3" Content="Comfirm" Command="{Binding CameraAddCommand}"/>
                         </Grid>
