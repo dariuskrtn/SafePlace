@@ -1,6 +1,7 @@
 ﻿using SafePlace.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace SafePlace.Service
         private IPersonService _personService;
         private IFaceRecognitionService _faceRecognitionService;
         private IWindowCreator _windowCreator;
+        private Collection<ICameraAnalyzeService> _analyzeServices = new Collection<ICameraAnalyzeService>();
 
 
         //Simple lock object to avoid multiple threads creating different class instances.
@@ -121,9 +123,16 @@ namespace SafePlace.Service
             }
         }
 
-        public ICameraAnalyzeService CreateCameraAnalyzeServiceInstance(Camera camera)
+        public IEnumerable<ICameraAnalyzeService> GetAnalyzeServices()
         {
-            return new CameraAnalyzeService(GetFaceRecognitionServiceInstance(), camera) { RequestPeriod = 3000 };
+            return _analyzeServices.AsEnumerable();
+        }
+
+        public void CreateCameraAnalyzeService(Camera camera)
+        {
+            var analyzer = new CameraAnalyzeService(GetFaceRecognitionServiceInstance(), camera) { RequestPeriod = 2000 };
+            analyzer.Start();
+            _analyzeServices.Add(analyzer);
         }
     }
 }
