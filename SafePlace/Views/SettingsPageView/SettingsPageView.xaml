@@ -130,17 +130,22 @@
             <!--Picture and floor name-->
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="20*"/>
                 </Grid.RowDefinitions>
             
                 <!-- Name input -->
-                <Viewbox>
-                    <TextBox Width="auto" Text="{Binding FloorName, Mode=TwoWay}" IsReadOnly="{Binding IsEditModeOff}" Grid.Row="0"  ClipToBounds="True" BorderThickness="1" />
-                </Viewbox>
                 
+                    <Viewbox Grid.Row="0" MaxHeight="20">
+                            <TextBlock Width="auto" Text="{Binding InvalidNameNotification}" Foreground="#FF0000" />
+                    </Viewbox>
+                    <Viewbox Grid.Row="1" HorizontalAlignment="Center">
+                        <TextBox Width="auto" Text="{Binding FloorName, Mode=TwoWay}" IsReadOnly="{Binding IsEditModeOff}" Grid.Row="0"  ClipToBounds="True" BorderThickness="1" />
+                </Viewbox>
+
                 <!-- Here will show up uploaded floor image-->
-                <Viewbox Grid.Row="1" VerticalAlignment="Top">
+                <Viewbox Grid.Row="2" VerticalAlignment="Top">
 
                     <Grid>
                         <Image Source="{Binding FloorImage}">

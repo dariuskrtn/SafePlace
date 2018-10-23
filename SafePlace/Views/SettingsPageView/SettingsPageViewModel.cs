@@ -48,6 +48,20 @@ namespace SafePlace.Views.SettingsPageView
             }
         }
 
+        private string _invalidNameNotification = "";
+        public string InvalidNameNotification
+        {
+            get
+            {
+                return _invalidNameNotification;
+            }
+            set
+            {
+                _invalidNameNotification = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         private string _floorName;
         public string FloorName
         {
@@ -224,7 +238,7 @@ namespace SafePlace.Views.SettingsPageView
             }
         }
         // Indicates if blue camera is shown
-        private bool _isEditModeOff;
+        private bool _isEditModeOff = true;
         public bool IsEditModeOff
         {
             get

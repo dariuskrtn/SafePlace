@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 
 namespace SafePlace.Views.SettingsPageView
 {
@@ -40,7 +41,7 @@ namespace SafePlace.Views.SettingsPageView
         private bool _isCameraNew;
         //So that we don't repeat code, this variable is linked to its opposite in the viewmodel. Its opposite makes textboxes read-only.
         //If edit mode is off, text boxes should be read only.
-        private bool _isEditModeOn;
+        private bool _isEditModeOn = false;
         public bool IsEditModeOn
         {
             set
@@ -81,7 +82,6 @@ namespace SafePlace.Views.SettingsPageView
         private void BuildViewModel()
         {
             UploadFirstFloor();
-            IsEditModeOn = false;
             BuildButttonsCommands();
             _viewModel.IsNewCameraShown = false;
             _viewModel.EditedCamera = _cameraService.CreateCamera(false, 0, 0);
@@ -147,12 +147,15 @@ namespace SafePlace.Views.SettingsPageView
         {
             if (true == _isEditModeOn)
             {
+                if (false == CheckIfNameIsValid())
+                    return;
                 UpdateFloorFromUI(_floor);
                 IsEditModeOn = false;
-                //_viewModel.IsEditModeOff = true;
             }
             else if (true == _isAddFloorModeOn)
             {
+                if (false == !CheckIfNameIsValid())
+                    return;
                 UpdateFloorFromUI(_floor);
                 _floorService.Add(_floor);
                 _isAddFloorModeOn = false;
@@ -301,8 +304,20 @@ namespace SafePlace.Views.SettingsPageView
         {
             _viewModel.EditedCamera = null;
         }
+        
+
+        private bool CheckIfNameIsValid()
+        {
+            bool isValid = Regex.IsMatch(_viewModel.FloorName, @"^[a-zA-Z_]+\d*$");
+            if (true == isValid)
+            {
+                _viewModel.InvalidNameNotification = "";
+            }
+            else _viewModel.InvalidNameNotification = "Please input valid name!";
+            return isValid;
+        }
+
         ///x, y are click position coordinates in relation to the image.
-            
         public void FloorImageClickCommand(Object click)
         {
             if (!IsEditModeOn) return;
@@ -317,5 +332,7 @@ namespace SafePlace.Views.SettingsPageView
             _viewModel.IsNewCameraShown = true;
             _logger.LogInfo($"Click detected at {point.X}, {point.Y}");
         }
+
+
     }
 }
