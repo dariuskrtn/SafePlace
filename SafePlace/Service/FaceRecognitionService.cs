@@ -14,6 +14,8 @@ namespace SafePlace.Service
 {
     class FaceRecognitionService : IFaceRecognitionService
     {
+        private readonly object _lock = new object();
+
         private readonly IPersonService _personService;
         private readonly string _groupId;
         private readonly List<FaceServiceClient> _faceServiceClients = new List<FaceServiceClient>();
@@ -34,8 +36,11 @@ namespace SafePlace.Service
 
         private FaceServiceClient GetNextClient()
         {
-            clientId = (clientId + 1) % _faceServiceClients.Count;
-            return _faceServiceClients[clientId];
+            lock (_lock)
+            {
+                clientId = (clientId + 1) % _faceServiceClients.Count;
+                return _faceServiceClients[clientId];
+            }
         }
 
         //Required only for the first time to register user group.
