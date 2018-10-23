@@ -51,6 +51,8 @@ namespace SafePlace.Views.SettingsPageView
         {
             BuildButttonsCommands();
             _viewModel.IsNewCameraShown = false;
+            _viewModel.EditedCamera = _cameraService.CreateCamera(0, 0, false);
+            ReloadCollection(_viewModel.FloorCollection, _floorService.GetFloorList().ToList());
             // New floor later will be created when pressed addFloor button, for now this button do not exist
             _floor = _floorService.CreateEmptyFloor(_newFloorName);
             _viewModel.FloorImage = _floor.FloorMap;
@@ -67,13 +69,13 @@ namespace SafePlace.Views.SettingsPageView
         private void BuildButttonsCommands()
         {
             _viewModel.EditButtonClickCommand = new RelayCommand(e => EditButtonCommand());
-            _viewModel.AddCameraButtonClickCommand = new RelayCommand(e => AddCameraButtonCommand());
+            _viewModel.AddCameraButtonClickCommand = new RelayCommand(e => AddCameraButtonCommand(), e=> { return _viewModel.EditedCamera != null; });
             _viewModel.ChooseImageButtonClickCommand = new RelayCommand(e => ChooseImageButtonCommand());
             _viewModel.FloorButtonClickCommand = new RelayCommand(e => FloorButtonCommand());
             _viewModel.CancelButtonClickCommand = new RelayCommand(e => CancelButtonCommand());
             _viewModel.DeleteButtonClickCommand = new RelayCommand(e => DeleteButtonCommand());
             _viewModel.FloorImageClickCommand = new RelayCommand(o => FloorImageClickCommand(o));
-
+            _viewModel.FloorListClickCommand = new RelayCommand(o => FloorListClickCommand(o));
             _viewModel.CameraClickCommand = new RelayCommand(e => CameraIconClickCommand(e));
 
             _viewModel.CameraAddCommand = new RelayCommand(e => PopUp_ComfirmButtonCommand());
@@ -126,7 +128,15 @@ namespace SafePlace.Views.SettingsPageView
         #endregion
 
 
-
+        //Loads floor to look at in home page
+        public void LoadFloor(Floor NewFloor)
+        {
+            if (NewFloor == null)
+                return;
+            _viewModel.FloorImage = NewFloor.FloorMap;
+            ReloadCollection(_viewModel.CameraCollection, NewFloor.Cameras);
+            _viewModel.FloorName = NewFloor.FloorName;
+        }
         //Open file dialog, select image and assign to _viewModel
         private void SelectFile()
         {
@@ -152,7 +162,11 @@ namespace SafePlace.Views.SettingsPageView
             _floor.FloorMap = new BitmapImage(new Uri(imagePath));
             _viewModel.FloorImage = _floor.FloorMap;
         }
-
+        private void FloorListClickCommand(object e)
+        {
+            Floor newFloor = e as Floor;
+            LoadFloor(newFloor);
+        }
         // Mouse click on camera icon invekes this
         private void CameraIconClickCommand(object e)
         {
@@ -160,7 +174,12 @@ namespace SafePlace.Views.SettingsPageView
             SetPopUpFromCamera(relatedCamera);
             _isCameraNew = false;
             _viewModel.ShowPopUp = true;
+            _viewModel.IsNewCameraShown = true;
             _activeCamera = relatedCamera;
+            Camera cam = _cameraService.CreateCamera(relatedCamera.PositionX, relatedCamera.PositionY, false);
+            cam.IPAddress = relatedCamera.IPAddress;
+            cam.Name = relatedCamera.Name;
+            _viewModel.EditedCamera = cam;
         }
 
         public void ReloadCollection<T>(ObservableCollection<T> observableColl, IList<T> list)
@@ -179,18 +198,18 @@ namespace SafePlace.Views.SettingsPageView
         {
             if (_isCameraNew)
             {
-                Camera newCamera = _cameraService.CreateCamera();
-                UpdateCameraFromUI(newCamera);
-                _floor.AddCamera(newCamera);
-                _viewModel.CameraCollection.Add(newCamera);
+                _cameraService.AddCamera(_viewModel.EditedCamera);
+                _floor.AddCamera(_viewModel.EditedCamera);
+                _viewModel.CameraCollection.Add(_viewModel.EditedCamera);
             }
             else
             {
+
                 Camera cameraInstance = _floor.Cameras.GetFloorCamera(_activeCamera.Guid);
                 UpdateCameraFromUI(cameraInstance);
                 ReloadCollection(_viewModel.CameraCollection, _floor.Cameras);
             }
-            
+            _viewModel.EditedCamera = null;
             _viewModel.ShowPopUp = false;
             _viewModel.IsNewCameraShown = false;
             ClearPopUp();
@@ -208,33 +227,34 @@ namespace SafePlace.Views.SettingsPageView
         private void UpdateCameraFromUI(Camera camera)
         {
             //Camera newCamera = _cameraService.CreateCamera();
-            camera.Name = _viewModel.CameraName;
-            camera.IPAddress = _viewModel.IPAddress;
-            camera.PositionX = _viewModel.PositionX;
-            camera.PositionY = _viewModel.PositionY;
+            camera.PositionY = _viewModel.EditedCamera.PositionY;
+            camera.PositionX = _viewModel.EditedCamera.PositionX;
+            camera.Name = _viewModel.EditedCamera.Name;
+            camera.IPAddress = _viewModel.EditedCamera.IPAddress;
         }
 
         private void SetPopUpFromCamera(Camera camera)
         {
-            _viewModel.CameraName = camera.Name;
-            _viewModel.IPAddress = camera.IPAddress;
-            _viewModel.PositionX = camera.PositionX;
-            _viewModel.PositionY = camera.PositionY;
+            _viewModel.EditedCamera = camera;
         }
 
         private void ClearPopUp()
         {
-            _viewModel.CameraName = _viewModel.IPAddress = "";
-            _viewModel.PositionX = _viewModel.PositionY = 0;
+            _viewModel.EditedCamera = null;
         }
         ///x, y are click position coordinates in relation to the image.
             
         public void FloorImageClickCommand(Object click)
         {
             Point point = (Point)click;
+            //Camera camera = _cameraService.CreateCamera();
+            //properties have to be set to camera, before EditedCamera is set to camera.
+            //camera.PositionX = (int)point.X;
+            //camera.PositionY = (int)point.Y;
+            //_viewModel.EditedCamera = camera;
+            //Prievious 4 lines are equivalent to 1 after the comment.
+            _viewModel.EditedCamera = _cameraService.CreateCamera((int)point.X, (int)point.Y, false);
             _viewModel.IsNewCameraShown = true;
-            _viewModel.PositionX = (int)point.X;
-            _viewModel.PositionY = (int)point.Y;
             _logger.LogInfo($"Click detected at {point.X}, {point.Y}");
         }
     }
