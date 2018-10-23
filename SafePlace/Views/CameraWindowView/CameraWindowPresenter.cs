@@ -13,14 +13,12 @@ namespace SafePlace.Views.CameraWindowView
     {
         private readonly CameraWindowViewModel _viewModel;
         private readonly Camera _camera;
-        public CameraWindowPresenter(CameraWindowViewModel viewModel, Camera camera, ICameraAnalyzeService cameraAnalyzeService)
+        public CameraWindowPresenter(CameraWindowViewModel viewModel, Camera camera)
         {
             _viewModel = viewModel;
             _camera = camera;
             //New MJPEGStream from IPAddress to get IP Camera frames.
             _viewModel.Stream = new MJPEGStream(_camera.IPAddress);
-            cameraAnalyzeService.Start();
-
         }
     }
 }

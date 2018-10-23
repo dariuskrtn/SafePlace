@@ -33,6 +33,10 @@ namespace SafePlace
             //Fake data
             var floor = mainService.GetFloorServiceInstance().CreateFloor();
             floor.FloorName = "First floor";
+
+            var secondFloor = mainService.GetFloorServiceInstance().CreateFloor("/Images/Floor2.png");
+            secondFloor.FloorName = "Second floor";
+            /*
             int[] coords = {70, 56, 39, 594, 512, 550, 842, 550, 1148, 587, 1335, 33, 1066, 34, 864, 29, 387, 327, 771, 282}; 
             for (int i = 0; i < coords.Length; i += 2)
             {
@@ -42,8 +46,6 @@ namespace SafePlace
                 newCamera.PositionY = coords[i + 1];
                 floor.Cameras.Add(newCamera);
             }
-            var secondFloor = mainService.GetFloorServiceInstance().CreateFloor("/Images/Floor2.png");
-            secondFloor.FloorName = "Second floor";
             /*for (int i = 0; i < 25; i++)
             {
                 Camera newCamera = mainService.GetCameraServiceInstance().CreateCamera();
@@ -52,12 +54,29 @@ namespace SafePlace
                 newCamera.PositionY = (3 - i / 5) * 50;
                floor.Cameras.Add(newCamera);
             }*/
-
-
             var cam = mainService.GetCameraServiceInstance().CreateCamera();
             cam.IPAddress = "http://192.168.8.101:8081/video";
-            mainService.GetWindowCreatorInstance().CreateCameraWindow(cam);
+            cam.Name = "Main camera";
+            cam.PositionX = 70;
+            cam.PositionY = 56;
+            floor.Cameras.Add(cam);
+            mainService.CreateCameraAnalyzeService(cam);
 
+            cam = mainService.GetCameraServiceInstance().CreateCamera();
+            cam.IPAddress = "http://192.168.8.101:8082/video";
+            cam.Name = "Main camera the second";
+            cam.PositionX = 39;
+            cam.PositionY = 594;
+            floor.Cameras.Add(cam);
+            mainService.CreateCameraAnalyzeService(cam);
+
+            cam = mainService.GetCameraServiceInstance().CreateCamera();
+            cam.IPAddress = "http://192.168.8.101:8083/video";
+            cam.Name = "Main camera the third";
+            cam.PositionX = 100;
+            cam.PositionY = 100;
+            secondFloor.Cameras.Add(cam);
+            mainService.CreateCameraAnalyzeService(cam);
             //End of fake data
 
 
