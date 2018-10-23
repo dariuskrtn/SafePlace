@@ -53,11 +53,11 @@ namespace SafePlace
                floor.Cameras.Add(newCamera);
             }*/
 
-            /*
+
             var cam = mainService.GetCameraServiceInstance().CreateCamera();
-            cam.IPAddress = "http://192.168.8.102:8080/video";
+            cam.IPAddress = "http://192.168.8.101:8081/video";
             mainService.GetWindowCreatorInstance().CreateCameraWindow(cam);
-            */
+
             //End of fake data
 
 

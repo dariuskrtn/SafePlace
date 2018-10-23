@@ -121,9 +121,11 @@
     <Compile Include="Models\Camera.cs" />
     <Compile Include="Models\Floor.cs" />
     <Compile Include="Models\Person.cs" />
+    <Compile Include="Service\CameraAnalyzeService.cs" />
     <Compile Include="Service\CameraService.cs" />
     <Compile Include="Service\ConsoleLogger.cs" />
     <Compile Include="Service\FloorService.cs" />
+    <Compile Include="Service\ICameraAnalyzeService.cs" />
     <Compile Include="Service\ICameraService.cs" />
     <Compile Include="Service\IFloorService.cs" />
     <Compile Include="Service\FaceRecognitionService.cs" />

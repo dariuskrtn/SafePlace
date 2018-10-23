@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SafePlace.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -61,8 +62,9 @@ namespace SafePlace.Service
                         ConfigurationManager.AppSettings["azure-key"],
                         ConfigurationManager.AppSettings["azure-endpoint"],
                         ConfigurationManager.AppSettings["azure-group-id"],
-                        GetLoggerInstance());
+                        GetLoggerInstance(), GetPersonServiceInstance());
                 }
+                new Thread(async _ => await _faceRecognitionService.TrainAI()).Start();
                 return _faceRecognitionService;
             }
         }
@@ -113,10 +115,15 @@ namespace SafePlace.Service
             {
                 if (_windowCreator == null)
                 {
-                    _windowCreator = new WindowCreator();
+                    _windowCreator = new WindowCreator(this);
                 }
                 return _windowCreator;
             }
+        }
+
+        public ICameraAnalyzeService CreateCameraAnalyzeServiceInstance(Camera camera)
+        {
+            return new CameraAnalyzeService(GetFaceRecognitionServiceInstance(), camera) { RequestPeriod = 3000 };
         }
     }
 }
