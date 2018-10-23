@@ -92,12 +92,10 @@ namespace SafePlace.Views.UserRegistrationPageView
         private async void RegisterPersonFace(Person person)
         {
             _viewModel.IsSaving = true;
-            person.Guid = await _recognitionService.RegisterFace(person.Name);
-            foreach (var img in _viewModel.Recordings)
-            {
-                await _recognitionService.AddFaceImage(person.Guid, img);
-            }
-            _recognitionService.TrainAI();
+
+            await _recognitionService.RegisterPerson(person.Guid.ToString(), _viewModel.Recordings);
+
+            await _recognitionService.TrainAI();
 
             _viewModel.IsSaving = false;
         }

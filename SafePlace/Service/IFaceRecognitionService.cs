@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SafePlace.Models;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -9,9 +10,8 @@ namespace SafePlace.Service
 {
     interface IFaceRecognitionService
     {
-        Task<Guid> RegisterFace(string name);
-        Task<bool> AddFaceImage(Guid guid, Bitmap image);
-        Task<IEnumerable<Guid>> DetectFaces(Bitmap image);
-        void TrainAI();
+        Task<bool> TrainAI();
+        Task<IEnumerable<Person>> RecognizePeople(Bitmap image);
+        Task<bool> RegisterPerson(string guid, IEnumerable<Bitmap> images);
     }
 }

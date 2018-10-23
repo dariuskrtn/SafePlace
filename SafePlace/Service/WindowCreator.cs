@@ -10,10 +10,16 @@ namespace SafePlace.Service
 {
     class WindowCreator : IWindowCreator
     {
+        private readonly IMainService _mainService;
+
+        public WindowCreator(IMainService mainService)
+        {
+            _mainService = mainService;
+        }
         public void CreateCameraWindow(Camera camera)
         {
             var viewModel = new CameraWindowViewModel();
-            var presenter = new CameraWindowPresenter(viewModel, camera);
+            var presenter = new CameraWindowPresenter(viewModel, camera, _mainService.CreateCameraAnalyzeServiceInstance(camera));
 
             var view = new CameraWindow();
             view.DataContext = viewModel;
