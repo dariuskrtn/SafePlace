@@ -35,7 +35,6 @@ namespace SafePlace.Views.SettingsPageView
         //Camera we are currently working now with.
         private Camera _activeCamera;
         private string _newFloorName;
-        public Floor NewFloor;
 
         //Following bools describing the status should be merged into a single enum. 
         //If _isCameraNew equals true, we're creating a camera. Else we're editing an existing one.
@@ -86,7 +85,7 @@ namespace SafePlace.Views.SettingsPageView
 
         private void BuildButttonsCommands()
         {
-            _viewModel.EditButtonClickCommand = new RelayCommand(e => EditButtonCommand(), e => { return NewFloor != null; });
+            _viewModel.EditButtonClickCommand = new RelayCommand(e => EditButtonCommand(), e => { return !_isEditModeOn; });
             _viewModel.AddCameraButtonClickCommand = new RelayCommand(e => AddCameraButtonCommand(), e=> { return _viewModel.EditedCamera != null; });
             _viewModel.ChooseImageButtonClickCommand = new RelayCommand(e => ChooseImageButtonCommand());
             // Add/edit/save button.
@@ -97,7 +96,7 @@ namespace SafePlace.Views.SettingsPageView
             _viewModel.FloorListClickCommand = new RelayCommand(o => FloorListClickCommand(o));
             _viewModel.CameraClickCommand = new RelayCommand(e => CameraIconClickCommand(e));
 
-            _viewModel.CameraAddCommand = new RelayCommand(e => PopUp_ComfirmButtonCommand());
+            _viewModel.CameraAddCommand = new RelayCommand(e => PopUp_ComfirmButtonCommand(), e => { return _isEditModeOn; });
             _viewModel.CameraCancelCommand = new RelayCommand(e => PopUp_CancelButtonCommand());
         }
 
@@ -112,8 +111,8 @@ namespace SafePlace.Views.SettingsPageView
         private void EditButtonCommand()
         {
             //Can execute checks if newFloor is null.
-            NewFloor = null;
             _isEditModeOn = true;
+            _viewModel.IsEditModeOff = false;
         }
 
         private void AddCameraButtonCommand()
@@ -171,13 +170,14 @@ namespace SafePlace.Views.SettingsPageView
         }
 
         //Loads floor to look at in home page
-        public void LoadFloor(Floor NewFloor)
+        public void LoadFloor(Floor floor)
         {
-            if (NewFloor == null)
+            if (floor == null)
                 return;
-            _viewModel.FloorImage = NewFloor.FloorMap;
-            ReloadCollection(_viewModel.CameraCollection, NewFloor.Cameras);
-            _viewModel.FloorName = NewFloor.FloorName;
+            _floor = floor;
+            _viewModel.FloorImage = _floor.FloorMap;
+            ReloadCollection(_viewModel.CameraCollection, _floor.Cameras);
+            _viewModel.FloorName = _floor.FloorName;
         }
         //Open file dialog, select image and assign to _viewModel
         private void SelectFile()
@@ -204,12 +204,13 @@ namespace SafePlace.Views.SettingsPageView
             _floor.FloorMap = new BitmapImage(new Uri(imagePath));
             _viewModel.FloorImage = _floor.FloorMap;
         }
+        //We get a floor item from the list and load it if we're not editing.
         private void FloorListClickCommand(object e)
         {
             if (!_isEditModeOn)
             {
-                NewFloor = e as Floor;
-                LoadFloor(NewFloor);
+                Floor floor = e as Floor;
+                LoadFloor(floor);
             }
         }
         // Mouse click on camera icon invekes this
@@ -219,7 +220,7 @@ namespace SafePlace.Views.SettingsPageView
             SetPopUpFromCamera(relatedCamera);
             _isCameraNew = false;
             _viewModel.ShowPopUp = true;
-            _viewModel.IsNewCameraShown = true;
+            _viewModel.IsNewCameraShown = _isEditModeOn;
             _activeCamera = relatedCamera;
             Camera cam = _cameraService.CreateCamera(relatedCamera.PositionX, relatedCamera.PositionY, false);
             cam.IPAddress = relatedCamera.IPAddress;
@@ -291,6 +292,7 @@ namespace SafePlace.Views.SettingsPageView
             
         public void FloorImageClickCommand(Object click)
         {
+            if (!_isEditModeOn) return;
             Point point = (Point)click;
             //Camera camera = _cameraService.CreateCamera();
             //properties have to be set to camera, before EditedCamera is set to camera.

@@ -19,6 +19,7 @@
         </Image>
     </DataTemplate>
     <Style x:Key="FloorListStyle" TargetType="{x:Type ListView}">
+        
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>

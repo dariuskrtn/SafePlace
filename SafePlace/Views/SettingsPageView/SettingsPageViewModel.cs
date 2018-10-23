@@ -223,7 +223,21 @@ namespace SafePlace.Views.SettingsPageView
                 NotifyPropertyChanged();
             }
         }
-        
+        // Indicates if blue camera is shown
+        private bool _isEditModeOff;
+        public bool IsEditModeOff
+        {
+            get
+            {
+                return _isEditModeOff;
+            }
+            set
+            {
+                _isEditModeOff = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         private ICommand _cameraAddCommand;
         public ICommand CameraAddCommand
         {

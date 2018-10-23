@@ -61,7 +61,8 @@ namespace SafePlace.Views.HomePageView
         public void SetUpDisplayedFloor(int startingFloor)
         {
             //Setting the default starting floor's image.
-            ReloadObservableCollection(_viewModel.Floors, _floorService.GetFloorList().ToList());
+            var ReversedFloors = _floorService.GetFloorList().Reverse();
+            ReloadObservableCollection(_viewModel.Floors, ReversedFloors.ToList());
             _viewModel.CurrentFloor = startingFloor;
             LoadFloor(_floors[startingFloor]);
             _viewModel.CameraImage = new BitmapImage(new Uri("/Images/camera.png", UriKind.Relative));
