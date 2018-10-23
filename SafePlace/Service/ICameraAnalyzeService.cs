@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SafePlace.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,6 @@ namespace SafePlace.Service
     {
         void Start();
         void Stop();
+        IObservable<Camera> GetCameraUpdateObservable();
     }
 }

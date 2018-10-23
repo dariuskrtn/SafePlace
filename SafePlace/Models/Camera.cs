@@ -28,29 +28,6 @@ namespace SafePlace.Models
         public CameraStatus Status { get; set; }
         public TransformGroup Transform { get; set; }
         #endregion
-                   
-
-        #region Methods
-        /// <summary>
-        /// This method adds a person to the list of recognised people. A person should be displayed near
-        /// </summary>
-        /// <param name="recognisedPerson"></param>
-        public void AddPerson(Person recognisedPerson)
-        {
-            //Perhaps additional checking should be added to prevent various weird situations, such as 2 cameras constantly removing same people from each other
-            if (recognisedPerson == null) return;
-            if (recognisedPerson.Camera != null)
-            {
-                recognisedPerson.Camera.RemovePerson(recognisedPerson);
-            }
-            IdentifiedPeople.Add(recognisedPerson);
-            recognisedPerson.Camera = this;
-        }
-        public void RemovePerson(Person person)
-        {
-            IdentifiedPeople.Remove(person);
-        }
-        #endregion
 
     }
 }
