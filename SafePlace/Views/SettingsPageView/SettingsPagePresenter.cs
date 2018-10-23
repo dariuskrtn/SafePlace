@@ -31,11 +31,16 @@ namespace SafePlace.Views.SettingsPageView
         private IFloorService _floorService;
         private Floor _floor;
         private ICameraService _cameraService;
-        //If _isCameraNew equals true, we're creating a camera. Else we're editing an existing one.
-        private bool _isCameraNew;
+        
         //Camera we are currently working now with.
         private Camera _activeCamera;
         private string _newFloorName;
+        public Floor NewFloor;
+
+        //Following bools describing the status should be merged into a single enum. 
+        //If _isCameraNew equals true, we're creating a camera. Else we're editing an existing one.
+        private bool _isCameraNew;
+        private bool _isEditModeOn;
 
         public SettingsPagePresenter(SettingsPageViewModel viewModel, IMainService mainService)
         {
@@ -68,9 +73,10 @@ namespace SafePlace.Views.SettingsPageView
 
         private void BuildButttonsCommands()
         {
-            _viewModel.EditButtonClickCommand = new RelayCommand(e => EditButtonCommand());
+            _viewModel.EditButtonClickCommand = new RelayCommand(e => EditButtonCommand(), e => { return NewFloor != null; });
             _viewModel.AddCameraButtonClickCommand = new RelayCommand(e => AddCameraButtonCommand(), e=> { return _viewModel.EditedCamera != null; });
             _viewModel.ChooseImageButtonClickCommand = new RelayCommand(e => ChooseImageButtonCommand());
+            // Add/edit/save button.
             _viewModel.FloorButtonClickCommand = new RelayCommand(e => FloorButtonCommand());
             _viewModel.CancelButtonClickCommand = new RelayCommand(e => CancelButtonCommand());
             _viewModel.DeleteButtonClickCommand = new RelayCommand(e => DeleteButtonCommand());
@@ -92,7 +98,9 @@ namespace SafePlace.Views.SettingsPageView
 
         private void EditButtonCommand()
         {
-
+            //Can execute checks if newFloor is null.
+            NewFloor = null;
+            _isEditModeOn = true;
         }
 
         private void AddCameraButtonCommand()
@@ -112,6 +120,7 @@ namespace SafePlace.Views.SettingsPageView
         private void FloorButtonCommand()
         {
             _floor.FloorName = _viewModel.FloorName;
+            _isEditModeOn = false;
         }
 
         // CAncel and Restore is the same button
@@ -164,8 +173,11 @@ namespace SafePlace.Views.SettingsPageView
         }
         private void FloorListClickCommand(object e)
         {
-            Floor newFloor = e as Floor;
-            LoadFloor(newFloor);
+            if (!_isEditModeOn)
+            {
+                NewFloor = e as Floor;
+                LoadFloor(NewFloor);
+            }
         }
         // Mouse click on camera icon invekes this
         private void CameraIconClickCommand(object e)

@@ -103,7 +103,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Button Content="Edit selected floor"              Margin="0 5"/>
+                    <Button Content="Edit selected floor" Command="{Binding EditButtonClickCommand}"  Margin="0 5"/>
                     <Button  Command="{Binding AddCameraButtonClickCommand}" Grid.Row="1"      Margin="0 5" TextBlock.TextAlignment="Center">
                         <StackPanel>
 
