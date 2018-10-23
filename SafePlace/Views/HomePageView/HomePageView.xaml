@@ -39,7 +39,7 @@
                 <Grid x:Name="FloorGrid">
                     <Image Source="{Binding CurrentFloorImage}" x:Name="FloorMap" Grid.RowSpan="2"/>
 
-                    <ItemsControl ItemsSource="{Binding Path=Cameras}" ItemTemplate="{StaticResource CameraTemplate}">
+                    <ItemsControl ItemsSource="{Binding Path=Cameras}" ItemTemplate="{StaticResource EllipseCameraTemplate}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <Grid/>
@@ -70,7 +70,7 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <DataGrid Margin="0 0 10 0"  HorizontalAlignment="Left" Height="200" AutoGenerateColumns="False" ItemsSource="{Binding SpottedPeople}" 
+            <DataGrid Margin="0 0 10 0"  HorizontalAlignment="Left" Height="200" AutoGenerateColumns="False" ItemsSource="{Binding SelectedCamera.IdentifiedPeople}" 
                   ScrollViewer.CanContentScroll="True"  ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"
                        BorderBrush="Black">
                 <DataGrid.Resources>

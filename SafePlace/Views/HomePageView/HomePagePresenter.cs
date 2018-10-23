@@ -12,6 +12,8 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System.Collections.ObjectModel;
+using System.Reactive.Linq;
+using SafePlace.ViewModels;
 
 namespace SafePlace.Views.HomePageView
 {
@@ -27,7 +29,7 @@ namespace SafePlace.Views.HomePageView
         private ILogger _logger;
         private IFloorService _floorService;
 
-        private IList<Floor> _floors;
+
 
         private string[] Names = { "Joseph", "Johan", "John", "Jack", "Joe", "Johnattan", "Jacob", "Jason", "Jennifer", "Jay" };
         private string[] LastNames = { "Peugeot", "Ferrari", "Harrari", "Smith", "Sans", "Rutherford", "Boore", "Huxley", "Jacksondaughter", "Joestar"};
@@ -40,9 +42,7 @@ namespace SafePlace.Views.HomePageView
             GetServices(_mainService);
             LoadFloorList();
             BuildViewModel();
-            //Random number generator for random data generating
-            Random = new Random();
-
+            BuildSubscriptions();
         }
 
         private void GetServices(IMainService mainService)
@@ -54,27 +54,55 @@ namespace SafePlace.Views.HomePageView
 
         private void BuildViewModel()
         {
-            SetUpDisplayedFloor(0);
             BuildCommands();
+            _viewModel.CameraImage = new BitmapImage(new Uri("/Images/camera.png", UriKind.Relative));
+            _viewModel.CurrentFloor = 0;
+            LoadFloor(_viewModel.Floors[0]);
         }
 
-        public void SetUpDisplayedFloor(int startingFloor)
+        private void BuildSubscriptions()
         {
-            //Setting the default starting floor's image.
-            ReloadObservableCollection(_viewModel.Floors, _floorService.GetFloorList().ToList());
-            _viewModel.CurrentFloor = startingFloor;
-            LoadFloor(_floors[startingFloor]);
-            _viewModel.CameraImage = new BitmapImage(new Uri("/Images/camera.png", UriKind.Relative));
+            Observable.Merge(_mainService.GetAnalyzeServices().Select(analyzer => analyzer.GetCameraUpdateObservable())).Subscribe(cam =>
+            {
+                CameraViewModel viewModelToChange = null;
+                foreach (var cameraViewModel in _viewModel.Cameras)
+                {
+                    if (cam.Guid == cameraViewModel.Guid) viewModelToChange = cameraViewModel;
+                }
+                if (viewModelToChange == null) return;
+                UpdateCameraViewModel(cam, viewModelToChange);
+            });
+        }
+        
+        public void UpdateCameraViewModel(Camera camera, CameraViewModel viewModel)
+        {
+            _mainService.GetSynchronizationContext().Send(_ =>
+            {
+                viewModel.Status = camera.Status;
+                viewModel.IdentifiedPeople.Clear();
+                foreach(Person person in camera.IdentifiedPeople)
+                {
+                    viewModel.IdentifiedPeople.Add(person);
+                }
+            }, null);
+        }
+
+        public void LoadFloorList()
+        {
+            foreach (var floor in _floorService.GetFloorList())
+            {
+                _viewModel.Floors.Add(floor);
+            }
         }
 
         public void BuildCommands()
         {
             _viewModel.FloorUpCommand = new RelayCommand(e =>
             {
-                if (_viewModel.CurrentFloor < _floors.IndexOf(_floors.Last()))
+                if (_viewModel.CurrentFloor < _viewModel.Floors.IndexOf(_viewModel.Floors.Last()))
                 {
                     _viewModel.CurrentFloor++;
-                    LoadFloor(_floors[_viewModel.CurrentFloor]);
+                    LoadFloor(_viewModel.Floors[_viewModel.CurrentFloor]);
                 }
             });
             _viewModel.FloorDownCommand = new RelayCommand(e =>
@@ -82,7 +110,7 @@ namespace SafePlace.Views.HomePageView
                 if (_viewModel.CurrentFloor > 0)
                 {
                     _viewModel.CurrentFloor--;
-                    LoadFloor(_floors[_viewModel.CurrentFloor]);
+                    LoadFloor(_viewModel.Floors[_viewModel.CurrentFloor]);
                 }
             });
             _viewModel.FloorListClickCommand = new RelayCommand(floor =>
@@ -93,37 +121,26 @@ namespace SafePlace.Views.HomePageView
             });
 
             _viewModel.CameraClickCommand = new RelayCommand(o => {
-                Camera RelatedCamera = o as Camera;
-                //Adding more dummy data
-                RelatedCamera.IdentifiedPeople.Add(new Person() { Name = Names[Random.Next(0, 9)], LastName = LastNames[Random.Next(0, 9)] });
-                //If we create a new observable list from the IdentifiedPeople list, the link between UIElement ItemControl and the list will be destroyed.
-                //So currently we reload it with new items
-                ReloadObservableCollection(_viewModel.SpottedPeople, RelatedCamera.IdentifiedPeople);
-                _logger.LogInfo($"You clicked on camera with the Guid of: {RelatedCamera.Guid.ToString()}");
+                CameraViewModel RelatedCamera = o as CameraViewModel;
+                _viewModel.SelectedCamera = RelatedCamera;
             });
-        }
-
-        //loads all floors list on the left on main page
-        private void LoadFloorList()
-        {
-            _floors = _floorService.GetFloorList().ToList();
         }
        
         //Loads floor to look at in home page
-        public void LoadFloor(Floor NewFloor)
+        public void LoadFloor(Floor newFloor)
         {
-            if (NewFloor == null)
+            if (newFloor == null)
                 return;
-            _viewModel.CurrentFloorImage = NewFloor.FloorMap;
-            ReloadObservableCollection(_viewModel.Cameras, NewFloor.Cameras);
-            _viewModel.SpottedPeople.Clear();
-            _viewModel.FloorName = NewFloor.FloorName;
-        }
-
-        public void ReloadObservableCollection<T>(ObservableCollection<T> observableColl, IList<T> list)
-        {
-            observableColl.Clear();
-            list.ToList().ForEach(o => observableColl.Add(o));
+            _viewModel.CurrentFloorImage = newFloor.FloorMap;
+            _viewModel.FloorName = newFloor.FloorName;
+            _viewModel.Cameras.Clear();
+            foreach(var cam in newFloor.Cameras)
+            {
+                var cameraViewModel = new CameraViewModel { Status = cam.Status, PositionX = cam.PositionX, PositionY = cam.PositionY, Guid = cam.Guid };
+                foreach (var person in cam.IdentifiedPeople) cameraViewModel.IdentifiedPeople.Add(person);
+                cameraViewModel.IdentifiedPeople.Add(new Person("t1", "t2"));
+                _viewModel.Cameras.Add(cameraViewModel);
+            }
         }
     }
 }

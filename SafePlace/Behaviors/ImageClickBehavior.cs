@@ -11,38 +11,37 @@ using System.Windows.Interactivity;
 
 namespace SafePlace.Behaviors
 {
-    class ImageClickBehavior : Behavior<Image>
+    class ImageClickBehavior : Behavior<UIElement>
     {
 
-        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
-        "Command", typeof(ICommand), typeof(ImageClickBehavior), new PropertyMetadata(null));
+            public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
+            "Command", typeof(ICommand), typeof(ImageClickBehavior), new PropertyMetadata(null));
 
-        public ICommand Command
-        {
-            get { return (ICommand)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }
-        }
+            public ICommand Command
+            {
+                get { return (ICommand)GetValue(CommandProperty); }
+                set { SetValue(CommandProperty, value); }
+            }
 
-        protected override void OnAttached()
-        {
-            base.OnAttached();
-            AssociatedObject.MouseLeftButtonDown += OnMouseLeftButtonDown;
-        }
+            protected override void OnAttached()
+            {
+                base.OnAttached();
+                AssociatedObject.MouseLeftButtonDown += OnMouseLeftButtonDown;
+            }
 
-        protected override void OnDetaching()
-        {
-            base.OnDetaching();
-            AssociatedObject.MouseLeftButtonDown -= OnMouseLeftButtonDown;
+            protected override void OnDetaching()
+            {
+                base.OnDetaching();
+                AssociatedObject.MouseLeftButtonDown -= OnMouseLeftButtonDown;
 
-        }
+            }
 
-        private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (Command == null) return;
-            Image ClickedImage = e.Source as Image;
-            Camera RelatedCamera = ClickedImage.DataContext as Camera;
-            if (Command.CanExecute(e)) Command.Execute(RelatedCamera);
-        }
+            private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+            {
+                if (Command == null) return;
+                Image ClickedImage = e.Source as Image;
+                if (Command.CanExecute(e)) Command.Execute(ClickedImage.DataContext);
+            }
 
     }
 }

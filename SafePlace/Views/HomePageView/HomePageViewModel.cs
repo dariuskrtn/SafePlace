@@ -15,8 +15,7 @@ namespace SafePlace.Views.HomePageView
 {
     class HomePageViewModel : BaseViewModel
     {
-        public ObservableCollection<Camera> Cameras { set; get; } = new ObservableCollection<Camera>();
-        public ObservableCollection<Person> SpottedPeople { set; get; } = new ObservableCollection<Person>();
+        public ObservableCollection<CameraViewModel> Cameras { set; get; } = new ObservableCollection<CameraViewModel>();
         public ObservableCollection<Floor> Floors { set; get; } = new ObservableCollection<Floor>();
         //Is displayed above the floor plan.
         private string _floorName;
@@ -29,6 +28,19 @@ namespace SafePlace.Views.HomePageView
             set
             {
                 _floorName = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private CameraViewModel _selectedCamera;
+        public CameraViewModel SelectedCamera
+        {
+            get
+            {
+                return _selectedCamera;
+            }
+            set
+            {
+                _selectedCamera = value;
                 NotifyPropertyChanged();
             }
         }
