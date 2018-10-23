@@ -139,6 +139,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\CameraClickBehavior.cs" />
     <Compile Include="Behaviors\FloorImageClickBehavior.cs" />
     <Compile Include="Behaviors\CameraMultiComboboxBehavior.cs" />
     <Compile Include="Behaviors\ImageClickBehavior.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Service\WindowCreator.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\CameraViewModel.cs" />
     <Compile Include="Views\CameraWindowView\CameraWindow.xaml.cs">
       <DependentUpon>CameraWindow.xaml</DependentUpon>
     </Compile>

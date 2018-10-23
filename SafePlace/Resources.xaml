@@ -18,5 +18,18 @@
             </e:Interaction.Behaviors>
         </Image>
     </DataTemplate>
-    
+    <DataTemplate x:Key="EllipseCameraTemplate">
+        <Ellipse Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"
+                 Width="30" Stroke="Gray" Fill="Black" StrokeThickness="3">
+            <Ellipse.RenderTransform>
+                <TransformGroup>
+                    <TranslateTransform X="{Binding Path=PositionX}" Y="{Binding Path=PositionY}"/>
+                </TransformGroup>
+            </Ellipse.RenderTransform>
+            <e:Interaction.Behaviors>
+                <behaviors:CameraClickBehavior Command="{Binding RelativeSource={RelativeSource                     AncestorType=ItemsControl}, Path=DataContext.CameraClickCommand}" />
+            </e:Interaction.Behaviors>
+        </Ellipse>
+    </DataTemplate>
+
 </ResourceDictionary>
