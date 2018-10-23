@@ -14,5 +14,6 @@ namespace SafePlace.Service
         Camera CreateCamera();
         bool RemoveCamera(Guid guid);
         Camera CreateCamera(int x, int y, bool isCameraPermanent);
+        void AddCamera(Camera camera);
     }
 }

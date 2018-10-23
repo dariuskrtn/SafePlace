@@ -78,7 +78,20 @@ namespace SafePlace.Views.SettingsPageView
         }
 
         #endregion
-
+        private ICommand _floorListClickCommand;
+        public ICommand FloorListClickCommand
+        {
+            //We could write this: get => _floorListClickCommand;
+            get
+            {
+                return _floorListClickCommand;
+            }
+            set
+            {
+                _floorListClickCommand = value;
+                NotifyPropertyChanged();
+            }
+        }
         private ICommand _floorImageClickCommand;
         public ICommand FloorImageClickCommand
         {
@@ -240,6 +253,7 @@ namespace SafePlace.Views.SettingsPageView
             }
 
         }
+
         #endregion
     }
 

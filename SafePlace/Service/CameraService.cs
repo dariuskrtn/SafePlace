@@ -33,7 +33,7 @@ namespace SafePlace.Service
                 Guid = Guid.NewGuid(),
                 //Test data for implementing ItemSource, which takes items from ObservableCollection<Person>
                 IdentifiedPeople = new List<Person>() {
-                    new Person() { Name = "John", LastName = "Johnson" },
+                    new Person() { Name = "Peter", LastName = "Peterson" },
                     new Person() { Name = "John", LastName = "Seenhim" }
                 },
                 PositionX = x,
@@ -57,6 +57,10 @@ namespace SafePlace.Service
         public bool RemoveCamera(Guid guid)
         {
             return cameras.Remove(guid);
+        }
+        public void AddCamera(Camera camera)
+        {
+            cameras.Add(camera.Guid, camera);
         }
     }
 }
