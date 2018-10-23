@@ -134,7 +134,7 @@ namespace SafePlace.Views.SettingsPageView
             OpenFileDialog openDialog = new OpenFileDialog();
             openDialog.Title = "Open Image";
             // Image filters  
-            openDialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
+            openDialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png;";
 
             if (openDialog.ShowDialog() == false)
             {
