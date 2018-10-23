@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SafePlace.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,7 @@ namespace SafePlace.Models
         //Currently when put into the grid container of floor and camera images, the camera appears in the middle.
         public int PositionX { get; set; }
         public int PositionY { get; set; }
+        public CameraStatus Status { get; set; }
         public TransformGroup Transform { get; set; }
         #endregion
                    
