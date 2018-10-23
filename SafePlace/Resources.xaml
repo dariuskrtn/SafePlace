@@ -2,9 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:SafePlace"
                     xmlns:e="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-                    xmlns:behaviors="clr-namespace:SafePlace.Behaviors">
+                    xmlns:behaviors="clr-namespace:SafePlace.Behaviors"
+                    xmlns:converters="clr-namespace:SafePlace.Converters">
 
     <!-- Template for camera icons -->
+    <converters:StatusToColorConverter  x:Key="statusToColorConverter"/>
     <DataTemplate x:Key="CameraTemplate">
         <Image Source="/Images/camera.png" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Image.RenderTransform>
@@ -20,7 +22,7 @@
     </DataTemplate>
     <DataTemplate x:Key="EllipseCameraTemplate">
         <Ellipse Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"
-                 Width="30" Stroke="Gray" Fill="Black" StrokeThickness="3">
+                 Width="30" Stroke="Gray" Fill="{Binding Status, Converter={StaticResource statusToColorConverter}}" StrokeThickness="3">
             <Ellipse.RenderTransform>
                 <TransformGroup>
                     <TranslateTransform X="{Binding Path=PositionX}" Y="{Binding Path=PositionY}"/>
