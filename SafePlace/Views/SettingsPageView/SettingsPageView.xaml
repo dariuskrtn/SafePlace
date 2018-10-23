@@ -136,7 +136,7 @@
             
                 <!-- Name input -->
                 <Viewbox>
-                    <TextBox Width="auto" Text="{Binding FloorName, Mode=TwoWay}" Grid.Row="0"  ClipToBounds="True" BorderThickness="1" />
+                    <TextBox Width="auto" Text="{Binding FloorName, Mode=TwoWay}" IsReadOnly="{Binding IsEditModeOff}" Grid.Row="0"  ClipToBounds="True" BorderThickness="1" />
                 </Viewbox>
                 
                 <!-- Here will show up uploaded floor image-->
