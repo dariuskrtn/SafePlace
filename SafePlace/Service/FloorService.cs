@@ -13,6 +13,13 @@ namespace SafePlace.Service
     {
         private Dictionary<Guid, Floor> floors = new Dictionary<Guid, Floor>();
 
+        public void Add(Floor floor)
+        {
+            if (null == floor)
+                return;
+            floors.Add(floor.Guid, floor);
+        }
+
         public Floor CreateFloor()
         {
             return CreateFloor("/Images/Floor.png");
@@ -27,7 +34,6 @@ namespace SafePlace.Service
             var img = new BitmapImage(new Uri(Path, UriKind.Relative));
             floor.FloorMap = img;
 
-            floors.Add(floor.Guid, floor);
             return floor;
         }
 

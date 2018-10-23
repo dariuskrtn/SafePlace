@@ -22,7 +22,7 @@ namespace SafePlace.Views.SettingsPageView
     class SettingsPagePresenter
     {
         //Name for an empty floor.
-        private const string _defaultFloorName = "Input floor name here";
+        private const string DefaultFloorName = "Input floor name here";
 
         private SettingsPageViewModel _viewModel;
         private readonly IMainService _mainService;
@@ -40,26 +40,39 @@ namespace SafePlace.Views.SettingsPageView
         //Following bools describing the status should be merged into a single enum. 
         //If _isCameraNew equals true, we're creating a camera. Else we're editing an existing one.
         private bool _isCameraNew;
-        private bool _isEditModeOn;
+        private bool _isEditModeOn = false;
+        private bool _isAddFloorModeOn = false;
+      //  private bool _is 
 
         public SettingsPagePresenter(SettingsPageViewModel viewModel, IMainService mainService)
         {
             _viewModel = viewModel;
-            _newFloorName = _defaultFloorName;
+            _newFloorName = DefaultFloorName;
             _mainService = mainService;
             _synchronisationContext = mainService.GetSynchronizationContext();
             GetServices(_mainService);
             BuildViewModel();
+           
+        }
+
+        private void UploadFirstFloor()
+        {
+            _floor = _floorService.GetFloorList().FirstOrDefault();
+            
+            if (null != _floor)
+                return;
+            
+            _floor = _floorService.CreateEmptyFloor(DefaultFloorName);
+            _isAddFloorModeOn = true;
         }
 
         private void BuildViewModel()
         {
+            UploadFirstFloor();
             BuildButttonsCommands();
             _viewModel.IsNewCameraShown = false;
             _viewModel.EditedCamera = _cameraService.CreateCamera(0, 0, false);
             ReloadCollection(_viewModel.FloorCollection, _floorService.GetFloorList().ToList());
-            // New floor later will be created when pressed addFloor button, for now this button do not exist
-            _floor = _floorService.CreateEmptyFloor(_newFloorName);
             _viewModel.FloorImage = _floor.FloorMap;
             _viewModel.FloorName = _floor.FloorName;
         }
@@ -119,8 +132,23 @@ namespace SafePlace.Views.SettingsPageView
         // Consider this button as "save button" for now
         private void FloorButtonCommand()
         {
-            _floor.FloorName = _viewModel.FloorName;
-            _isEditModeOn = false;
+            if (true == _isEditModeOn)
+            {
+                UpdateFloorFromUI(_floor);
+                _isEditModeOn = false;
+            }
+            else if (true == _isAddFloorModeOn)
+            {
+                UpdateFloorFromUI(_floor);
+                _floorService.Add(_floor);
+                _isAddFloorModeOn = false;
+            }
+            else
+            {
+                _floor = _floorService.CreateEmptyFloor(DefaultFloorName);
+                _isAddFloorModeOn = true;
+                LoadFloor(_floor);
+            } 
         }
 
         // CAncel and Restore is the same button
@@ -136,6 +164,11 @@ namespace SafePlace.Views.SettingsPageView
 
         #endregion
 
+        private void UpdateFloorFromUI(Floor floor)
+        {
+            floor.FloorName = _viewModel.FloorName;
+            floor.FloorMap = _viewModel.FloorImage;
+        }
 
         //Loads floor to look at in home page
         public void LoadFloor(Floor NewFloor)

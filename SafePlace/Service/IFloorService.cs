@@ -9,6 +9,7 @@ namespace SafePlace.Service
 {
     interface IFloorService
     {
+        void Add(Floor floor);
         Floor GetFloor(Guid guid);
         Floor CreateFloor();
         Floor CreateEmptyFloor(string name);
