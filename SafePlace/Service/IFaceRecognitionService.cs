@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SafePlace.Service
 {
-    interface IFaceRecognitionService
+    public interface IFaceRecognitionService
     {
         Task<bool> TrainAI();
         Task<IEnumerable<Person>> RecognizePeople(Bitmap image);

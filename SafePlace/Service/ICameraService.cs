@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace SafePlace.Service
 {
-    interface ICameraService
+    public interface ICameraService
     {
         Camera GetCamera(Guid guid);
         IEnumerable<Camera> GetAllCameras();
         Camera CreateCamera();
+        bool RemoveCamera(Guid guid);
+        Camera CreateCamera(bool isCameraPermanent, int x = 0, int y = 0);
+        void AddCamera(Camera camera);
     }
 }

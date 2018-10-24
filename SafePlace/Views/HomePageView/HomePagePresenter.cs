@@ -89,7 +89,7 @@ namespace SafePlace.Views.HomePageView
 
         public void LoadFloorList()
         {
-            foreach (var floor in _floorService.GetFloorList())
+            foreach (var floor in _floorService.GetFloorList().Reverse())
             {
                 _viewModel.Floors.Add(floor);
             }

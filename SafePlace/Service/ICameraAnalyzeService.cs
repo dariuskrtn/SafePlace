@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SafePlace.Service
 {
-    interface ICameraAnalyzeService
+    public interface ICameraAnalyzeService
     {
         void Start();
         void Stop();

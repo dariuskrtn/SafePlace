@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SafePlace.Models
 {
-    class Person
+    public class Person
     {
         public String Name { get; set; }
         public String LastName { get; set; }

@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 
 namespace SafePlace.Models
 {
-    class Floor
+    public class Floor
     {
         public Guid Guid { get; set; }
         public IList<Camera> Cameras { get; set; }

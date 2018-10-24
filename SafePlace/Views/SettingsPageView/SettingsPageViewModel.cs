@@ -17,7 +17,23 @@ namespace SafePlace.Views.SettingsPageView
         #region Settings page properties
 
         public ObservableCollection<Camera> CameraCollection { set; get; } = new ObservableCollection<Camera>();
+        public ObservableCollection<Floor> FloorCollection { set; get; } = new ObservableCollection<Floor>();
 
+        //If Camera does not implement INotifyPropertyChanged, changes to it after instance construction will not transfer to UI.
+        //Thus fields as position x and position y should be set inside the constructor or before setting a camera to the edited camera.
+        private Camera _editedCamera;
+        public Camera EditedCamera
+        {
+            get
+            {
+                return _editedCamera;
+            }
+            set
+            {
+                _editedCamera = value;
+                NotifyPropertyChanged();
+            }
+        }
         private BitmapImage _floorImage;
         public BitmapImage FloorImage
         {
@@ -28,6 +44,20 @@ namespace SafePlace.Views.SettingsPageView
             set
             {
                 _floorImage = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private string _invalidNameNotification = "";
+        public string InvalidNameNotification
+        {
+            get
+            {
+                return _invalidNameNotification;
+            }
+            set
+            {
+                _invalidNameNotification = value;
                 NotifyPropertyChanged();
             }
         }
@@ -62,7 +92,20 @@ namespace SafePlace.Views.SettingsPageView
         }
 
         #endregion
-
+        private ICommand _floorListClickCommand;
+        public ICommand FloorListClickCommand
+        {
+            //We could write this: get => _floorListClickCommand;
+            get
+            {
+                return _floorListClickCommand;
+            }
+            set
+            {
+                _floorListClickCommand = value;
+                NotifyPropertyChanged();
+            }
+        }
         private ICommand _floorImageClickCommand;
         public ICommand FloorImageClickCommand
         {
@@ -194,58 +237,21 @@ namespace SafePlace.Views.SettingsPageView
                 NotifyPropertyChanged();
             }
         }
-        private string _cameraName;
-        public string CameraName
+        // Indicates if blue camera is shown
+        private bool _isEditModeOff = true;
+        public bool IsEditModeOff
         {
             get
             {
-                return _cameraName;
+                return _isEditModeOff;
             }
             set
             {
-                _cameraName = value;
+                _isEditModeOff = value;
                 NotifyPropertyChanged();
             }
         }
-        private string _IPAddress;
-        public string IPAddress
-        {
-            get
-            {
-                return _IPAddress;
-            }
-            set
-            {
-                _IPAddress = value;
-                NotifyPropertyChanged();
-            }
-        }
-        private int _positionX;
-        public int PositionX
-        {
-            get
-            {
-                return _positionX;
-            }
-            set
-            {
-                _positionX = value;
-                NotifyPropertyChanged();
-            }
-        }
-        private int _positionY;
-        public int PositionY
-        {
-            get
-            {
-                return _positionY;
-            }
-            set
-            {
-                _positionY = value;
-                NotifyPropertyChanged();
-            }
-        }
+
         private ICommand _cameraAddCommand;
         public ICommand CameraAddCommand
         {
@@ -275,6 +281,7 @@ namespace SafePlace.Views.SettingsPageView
             }
 
         }
+
         #endregion
     }
 

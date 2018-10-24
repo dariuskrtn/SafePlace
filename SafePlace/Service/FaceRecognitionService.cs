@@ -12,7 +12,7 @@ using Models = SafePlace.Models;
 
 namespace SafePlace.Service
 {
-    class FaceRecognitionService : IFaceRecognitionService
+    public class FaceRecognitionService : IFaceRecognitionService
     {
         private readonly object _lock = new object();
 
