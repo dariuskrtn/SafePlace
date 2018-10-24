@@ -33,9 +33,11 @@ namespace SafePlace
             //Fake data
             var floor = mainService.GetFloorServiceInstance().CreateFloor();
             floor.FloorName = "First floor";
+            mainService.GetFloorServiceInstance().Add(floor);
 
             var secondFloor = mainService.GetFloorServiceInstance().CreateFloor("/Images/Floor2.png");
             secondFloor.FloorName = "Second floor";
+            mainService.GetFloorServiceInstance().Add(secondFloor);
             /*
             int[] coords = {70, 56, 39, 594, 512, 550, 842, 550, 1148, 587, 1335, 33, 1066, 34, 864, 29, 387, 327, 771, 282}; 
             for (int i = 0; i < coords.Length; i += 2)

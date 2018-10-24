@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:SafePlace.Views.SettingsPageView"
       xmlns:e="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:behaviors="clr-namespace:SafePlace.Behaviors"
+      xmlns:converters="clr-namespace:SafePlace.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsPageView">
@@ -13,16 +14,16 @@
         
     <Page.Resources>
         <ResourceDictionary>
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/SafePlace;component/Resources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <!--Insert resources intended for this view here.-->
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        
-        
-        
+            <converters:SettingsModesToReadOnlyConverter x:Key="settingsModesToReadOnlyConverter"/>
+            <converters:SettingsModesToFlootButtonTextConverter x:Key="settingsModesToFlootButtonTextConverter"/>
 
-        <Style  x:Key="PopupContentStyle" TargetType="{x:Type ContentControl}">
+            <Style  x:Key="PopupContentStyle" TargetType="{x:Type ContentControl}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
@@ -48,19 +49,19 @@
                             <Label VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Content="IP adress:"/>
                             <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="0" 
                                      Text="{Binding EditedCamera.IPAddress, UpdateSourceTrigger=PropertyChanged}"
-                                     IsReadOnly="{Binding IsEditModeOff}"/>
+                                     IsReadOnly="{Binding SettingsModes, Converter={StaticResource settingsModesToReadOnlyConverter}}"/>
                             <Label VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Content="Name:"/>
                             <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" 
                                      Text="{Binding EditedCamera.Name, UpdateSourceTrigger=PropertyChanged}"
-                                     IsReadOnly="{Binding IsEditModeOff}"/>
+                                     IsReadOnly="{Binding SettingsModes, Converter={StaticResource settingsModesToReadOnlyConverter}}"/>
                             <Label VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Content="Position x:"/>
                             <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" 
                                      Text="{Binding EditedCamera.PositionX, UpdateSourceTrigger=PropertyChanged}"
-                                     IsReadOnly="{Binding IsEditModeOff}"/>
+                                     IsReadOnly="{Binding SettingsModes, Converter={StaticResource settingsModesToReadOnlyConverter}}"/>
                             <Label VerticalAlignment="Center" Grid.Row="6" Grid.Column="1" Content="Position y:"/>
                             <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="6" 
                                      Text="{Binding EditedCamera.PositionY, UpdateSourceTrigger=PropertyChanged}"
-                                     IsReadOnly="{Binding IsEditModeOff}"/>
+                                     IsReadOnly="{Binding SettingsModes, Converter={StaticResource settingsModesToReadOnlyConverter}}"/>
                             <Button Grid.Row="8" Grid.Column="1" Content="Cancel" Command="{Binding CameraCancelCommand}"/>
                             <Button Grid.Row="8" Grid.Column="3" Content="Comfirm" Command="{Binding CameraAddCommand}"/>
                         </Grid>
@@ -166,7 +167,7 @@
                         <Image Source="/Images/camera_blue.png" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left"
                                Visibility="{Binding IsNewCameraShown, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Image.RenderTransform>
-                                <TranslateTransform X="{Binding Path=EditedCamera.PositionX}" Y="{Binding Path=EditedCamera.PositionY}"/>
+                                <TranslateTransform X="{Binding  Path=EditedCamera.PositionX}" Y="{Binding Path=EditedCamera.PositionY}"/>
                             </Image.RenderTransform>
                         </Image>
                     </Grid>
@@ -179,11 +180,11 @@
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/> 
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Content="Edit/Add/Save" x:Name="FloorButton" Command="{ Binding FloorButtonClickCommand}" Grid.Column="0" Margin="5 2"/>
-            <Button Content="Clear" Grid.Column="1" Margin="5 2"/>
+            <Button Content="{Binding SettingsModes, Converter={StaticResource settingsModesToFlootButtonTextConverter}}" x:Name="FloorButton" Command="{ Binding FloorButtonClickCommand}" Grid.Column="0" Margin="5 2"/>
+            <Button Content="Cancel" Grid.Column="1" Margin="5 2" Command="{Binding CancelButtonClickCommand}" />
             <Button Grid.Column="2" Margin="5 2" Command="{Binding DeleteButtonClickCommand}">
                 <TextBlock Text="Delete button"/>
  

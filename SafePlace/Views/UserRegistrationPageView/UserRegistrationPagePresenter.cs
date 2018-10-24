@@ -84,7 +84,6 @@ namespace SafePlace.Views.UserRegistrationPageView
             {
                 person.AllowedCameras.Add(cam.Guid);
             }
-
             new Thread(_ => RegisterPersonFace(person)).Start();
         }
 

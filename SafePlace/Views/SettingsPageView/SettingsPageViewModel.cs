@@ -1,4 +1,5 @@
-﻿using SafePlace.Models;
+﻿using SafePlace.Enums;
+using SafePlace.Models;
 using SafePlace.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -237,20 +238,34 @@ namespace SafePlace.Views.SettingsPageView
                 NotifyPropertyChanged();
             }
         }
-        // Indicates if blue camera is shown
-        private bool _isEditModeOff = true;
-        public bool IsEditModeOff
+
+        private SettingsModes _settingsModes;
+        public SettingsModes SettingsModes
         {
             get
             {
-                return _isEditModeOff;
+                return _settingsModes;
             }
             set
             {
-                _isEditModeOff = value;
+                _settingsModes = value;
                 NotifyPropertyChanged();
             }
         }
+
+        //private bool _isEditModeOff = true;
+        //public bool IsEditModeOff
+        //{
+        //    get
+        //    {
+        //        return _isEditModeOff;
+        //    }
+        //    set
+        //    {
+        //        _isEditModeOff = value;
+        //        NotifyPropertyChanged();
+        //    }
+        //}
 
         private ICommand _cameraAddCommand;
         public ICommand CameraAddCommand

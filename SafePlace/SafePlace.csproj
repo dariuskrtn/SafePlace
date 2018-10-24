@@ -147,8 +147,11 @@
     <Compile Include="Behaviors\MultiComboboxBehavior.cs" />
     <Compile Include="Behaviors\WebCameraBehavior.cs" />
     <Compile Include="Behaviors\FloorViewBehavior.cs" />
+    <Compile Include="Converters\SettingsModesToFlootButtonTextConverter.cs" />
+    <Compile Include="Converters\SettingsModesToReadOnlyConverter.cs" />
     <Compile Include="Converters\StatusToColorConverter.cs" />
     <Compile Include="Enums\CameraStatus.cs" />
+    <Compile Include="Enums\SettingsModes.cs" />
     <Compile Include="Models\Camera.cs" />
     <Compile Include="Models\Floor.cs" />
     <Compile Include="Models\Person.cs" />

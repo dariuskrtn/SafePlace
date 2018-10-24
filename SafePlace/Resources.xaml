@@ -7,6 +7,7 @@
 
     <!-- Template for camera icons -->
     <converters:StatusToColorConverter  x:Key="statusToColorConverter"/>
+    
     <DataTemplate x:Key="CameraTemplate">
         <Image Source="/Images/camera.png" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Image.RenderTransform>
