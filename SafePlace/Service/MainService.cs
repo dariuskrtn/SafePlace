@@ -130,7 +130,7 @@ namespace SafePlace.Service
 
         public void CreateCameraAnalyzeService(Camera camera)
         {
-            var analyzer = new CameraAnalyzeService(GetFaceRecognitionServiceInstance(), camera) { RequestPeriod = 2000 };
+            var analyzer = new CameraAnalyzeService(GetFaceRecognitionServiceInstance(), camera) { RequestPeriod = 3000 };
             analyzer.Start();
             _analyzeServices.Add(analyzer);
         }

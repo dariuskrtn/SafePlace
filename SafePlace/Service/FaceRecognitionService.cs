@@ -121,10 +121,16 @@ namespace SafePlace.Service
             var faceIds = await DetectFaces(image, client);
             var people = new Collection<Models.Person>();
             
+            if (faceIds != null)
             foreach (var faceId in faceIds)
             {
                 var res = await client.IdentifyAsync(_groupId, new Guid[] { faceId });
-                var candidate = res?[0].Candidates?[0].PersonId;
+                Guid? candidate = null;
+                
+                if (res?.Count()>0 && res[0].Candidates?.Count()>0)
+                {
+                    candidate = res[0].Candidates[0].PersonId;
+                }
                 if (candidate == null) continue;
                 var person = await client.GetPersonInPersonGroupAsync(_groupId, candidate.Value);
                 var personGuid = Guid.Parse(person.Name);
