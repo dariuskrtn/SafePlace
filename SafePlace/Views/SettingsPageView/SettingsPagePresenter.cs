@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
+using SafePlace.Enums;
 
 namespace SafePlace.Views.SettingsPageView
 {
@@ -25,56 +26,55 @@ namespace SafePlace.Views.SettingsPageView
         //Name for an empty floor.
         private const string DefaultFloorName = "Input floor name here";
 
-        private SettingsPageViewModel _viewModel;
         private readonly IMainService _mainService;
+        private SettingsPageViewModel _viewModel; 
         private SynchronizationContext _synchronisationContext;
         private ILogger _logger;
         private IFloorService _floorService;
-        private Floor _floor;
         private ICameraService _cameraService;
-        
+        private Floor _floor;
         //Camera we are currently working now with.
         private Camera _activeCamera;
-       
         //If _isCameraNew equals true, we're creating a camera. Else we're editing an existing one.
         private bool _isCameraNew;
-        //So that we don't repeat code, this variable is linked to its opposite in the viewmodel. Its opposite makes textboxes read-only.
-        //If edit mode is off, text boxes should be read only.
-        private bool _isEditModeOn = false;
-        public bool IsEditModeOn
+
+        private SettingsModes currentMode;
+        private SettingsModes _currentMode
         {
             set
             {
-                _isEditModeOn = value;
-                _viewModel.IsEditModeOff = !value;
+                currentMode = value;
+                _viewModel.SettingsModes = value;
             }
             get
             {
-                return _isEditModeOn;
+                return currentMode;
             }
         }
-        private bool _isAddFloorModeOn = false;
-      //  private bool _is 
-
+        
         public SettingsPagePresenter(SettingsPageViewModel viewModel, IMainService mainService)
         {
             _viewModel = viewModel;
             _mainService = mainService;
             _synchronisationContext = mainService.GetSynchronizationContext();
+            _currentMode = SettingsModes.Preview;
             GetServices(_mainService);
             BuildViewModel();
-           
+
         }
 
         private void UploadFirstFloor()
         {
             _floor = _floorService.GetFloorList().FirstOrDefault();
             ReloadCollection(_viewModel.CameraCollection, _floor.Cameras);
+            
             if (null != _floor)
+            {
                 return;
+            }
             
             _floor = _floorService.CreateEmptyFloor(DefaultFloorName);
-            _isAddFloorModeOn = true;
+            _currentMode = SettingsModes.CreatingNew;
         }
 
         private void BuildViewModel()
@@ -97,18 +97,19 @@ namespace SafePlace.Views.SettingsPageView
 
         private void BuildButttonsCommands()
         {
-            _viewModel.EditButtonClickCommand = new RelayCommand(e => EditButtonCommand(), e => { return !IsEditModeOn; });
-            _viewModel.AddCameraButtonClickCommand = new RelayCommand(e => AddCameraButtonCommand(), e=> { return _viewModel.EditedCamera != null && IsEditModeOn; });
-            _viewModel.ChooseImageButtonClickCommand = new RelayCommand(e => ChooseImageButtonCommand());
-            // Add/edit/save button.
+            _viewModel.EditButtonClickCommand = new RelayCommand(e => EditButtonCommand(), e => {return _currentMode == SettingsModes.Preview; });
+            // _current mode havo to be either editing or creating new floor
+            _viewModel.AddCameraButtonClickCommand = new RelayCommand(e => AddCameraButtonCommand(), e=> { return _viewModel.EditedCamera != null && (_currentMode == SettingsModes.CreatingNew || _currentMode == SettingsModes.Editing); });
+            _viewModel.ChooseImageButtonClickCommand = new RelayCommand(e => ChooseImageButtonCommand(), e=> { return _currentMode == SettingsModes.CreatingNew || _currentMode == SettingsModes.Editing; });
+            // AddFloor/save button
             _viewModel.FloorButtonClickCommand = new RelayCommand(e => FloorButtonCommand());
-            _viewModel.CancelButtonClickCommand = new RelayCommand(e => CancelButtonCommand());
-            _viewModel.DeleteButtonClickCommand = new RelayCommand(e => DeleteButtonCommand());
+            _viewModel.CancelButtonClickCommand = new RelayCommand(e => CancelButtonCommand(), e => { return _currentMode == SettingsModes.CreatingNew || _currentMode == SettingsModes.Editing; });
+            _viewModel.DeleteButtonClickCommand = new RelayCommand(e => DeleteButtonCommand(), e => {return _currentMode == SettingsModes.Editing; });
             _viewModel.FloorImageClickCommand = new RelayCommand(o => FloorImageClickCommand(o));
             _viewModel.FloorListClickCommand = new RelayCommand(o => FloorListClickCommand(o));
             _viewModel.CameraClickCommand = new RelayCommand(e => CameraIconClickCommand(e));
 
-            _viewModel.CameraAddCommand = new RelayCommand(e => PopUp_ComfirmButtonCommand(), e => { return IsEditModeOn; });
+            _viewModel.CameraAddCommand = new RelayCommand(e => PopUp_ComfirmButtonCommand(), e => { return _currentMode == SettingsModes.CreatingNew || _currentMode == SettingsModes.Editing; });
             _viewModel.CameraCancelCommand = new RelayCommand(e => PopUp_CancelButtonCommand());
         }
 
@@ -123,7 +124,7 @@ namespace SafePlace.Views.SettingsPageView
         private void EditButtonCommand()
         {
             //Can execute checks if newFloor is null.
-            IsEditModeOn = true;
+            _currentMode = SettingsModes.Editing;
             //_viewModel.IsEditModeOff = false;
         }
 
@@ -143,27 +144,29 @@ namespace SafePlace.Views.SettingsPageView
         // Consider this button as "save button" for now
         private void FloorButtonCommand()
         {
-            if (true == _isEditModeOn)
+            if (SettingsModes.Editing == _currentMode)
             {
                 if (false == CheckIfNameIsValid())
                     return;
                 UpdateFloorFromUI(_floor);
-                IsEditModeOn = false;
+                _currentMode = SettingsModes.Preview;
             }
-            else if (true == _isAddFloorModeOn)
+            else if (SettingsModes.CreatingNew == _currentMode)
             {
-                if (false == !CheckIfNameIsValid())
+                if (false == CheckIfNameIsValid())
                     return;
                 UpdateFloorFromUI(_floor);
                 _floorService.Add(_floor);
-                _isAddFloorModeOn = false;
+                _currentMode = SettingsModes.Preview;
+                ReloadCollection(_viewModel.FloorCollection, _floorService.GetFloorList().ToList());
             }
             else
             {
+                _currentMode = SettingsModes.CreatingNew;
                 _floor = _floorService.CreateEmptyFloor(DefaultFloorName);
-                _isAddFloorModeOn = true;
                 LoadFloor(_floor);
-            } 
+            }
+
         }
 
         // CAncel and Restore is the same button
@@ -222,7 +225,8 @@ namespace SafePlace.Views.SettingsPageView
         //We get a floor item from the list and load it if we're not editing.
         private void FloorListClickCommand(object e)
         {
-            if (!IsEditModeOn)
+            // Change floors possible only when in preview mode
+            if (SettingsModes.Preview == _currentMode)
             {
                 Floor floor = e as Floor;
                 LoadFloor(floor);
@@ -235,7 +239,7 @@ namespace SafePlace.Views.SettingsPageView
             SetPopUpFromCamera(relatedCamera);
             _isCameraNew = false;
             _viewModel.ShowPopUp = true;
-            _viewModel.IsNewCameraShown = IsEditModeOn;
+            _viewModel.IsNewCameraShown = _currentMode != SettingsModes.Preview;
             _activeCamera = relatedCamera;
             Camera cam = _cameraService.CreateCamera(false, relatedCamera.PositionX, relatedCamera.PositionY);
             cam.IPAddress = relatedCamera.IPAddress;
@@ -306,7 +310,7 @@ namespace SafePlace.Views.SettingsPageView
 
         private bool CheckIfNameIsValid()
         {
-            bool isValid = Regex.IsMatch(_viewModel.FloorName, @"^[a-zA-Z_]+\d*$");
+            bool isValid = Regex.IsMatch(_viewModel.FloorName, @"^[a-zA-Z_ ]+\d*$");
             if (true == isValid)
             {
                 _viewModel.InvalidNameNotification = "";
@@ -318,7 +322,10 @@ namespace SafePlace.Views.SettingsPageView
         ///x, y are click position coordinates in relation to the image.
         public void FloorImageClickCommand(Object click)
         {
-            if (!IsEditModeOn) return;
+            // We cant add cameras when in preview mode
+            if (SettingsModes.Preview == _currentMode)
+                return;
+
             Point point = (Point)click;
             //Camera camera = _cameraService.CreateCamera();
             //properties have to be set to camera, before EditedCamera is set to camera.

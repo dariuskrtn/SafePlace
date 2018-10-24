@@ -33,7 +33,6 @@ namespace SafePlace.Service
 
             var img = new BitmapImage(new Uri(Path, UriKind.Relative));
             floor.FloorMap = img;
-            Add(floor);
             return floor;
         }
 
