@@ -29,9 +29,20 @@
                 </TransformGroup>
             </Ellipse.RenderTransform>
             <e:Interaction.Behaviors>
-                <behaviors:CameraClickBehavior Command="{Binding RelativeSource={RelativeSource                     AncestorType=ItemsControl}, Path=DataContext.CameraClickCommand}" />
+                <behaviors:CameraClickBehavior Command="{Binding RelativeSource={RelativeSource 
+                    AncestorType=ItemsControl}, Path=DataContext.CameraClickCommand}" />
             </e:Interaction.Behaviors>
         </Ellipse>
     </DataTemplate>
+    <Style x:Key="FloorListStyle" TargetType="{x:Type ListView}">
+
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Text="{Binding FloorName}"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>

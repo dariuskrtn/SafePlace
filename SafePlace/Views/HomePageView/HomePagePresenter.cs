@@ -33,8 +33,7 @@ namespace SafePlace.Views.HomePageView
 
         private string[] Names = { "Joseph", "Johan", "John", "Jack", "Joe", "Johnattan", "Jacob", "Jason", "Jennifer", "Jay" };
         private string[] LastNames = { "Peugeot", "Ferrari", "Harrari", "Smith", "Sans", "Rutherford", "Boore", "Huxley", "Jacksondaughter", "Joestar"};
-        private Random Random;
-
+        
         public HomePagePresenter(HomePageViewModel viewModel, IMainService mainService)
         {
             _viewModel = viewModel;
@@ -89,7 +88,7 @@ namespace SafePlace.Views.HomePageView
 
         public void LoadFloorList()
         {
-            foreach (var floor in _floorService.GetFloorList().Reverse())
+            foreach (var floor in _floorService.GetFloorList())
             {
                 _viewModel.Floors.Add(floor);
             }

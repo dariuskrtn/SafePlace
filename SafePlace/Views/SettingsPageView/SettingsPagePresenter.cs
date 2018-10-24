@@ -35,8 +35,7 @@ namespace SafePlace.Views.SettingsPageView
         
         //Camera we are currently working now with.
         private Camera _activeCamera;
-        private string _newFloorName;
-
+       
         //If _isCameraNew equals true, we're creating a camera. Else we're editing an existing one.
         private bool _isCameraNew;
         //So that we don't repeat code, this variable is linked to its opposite in the viewmodel. Its opposite makes textboxes read-only.
@@ -60,7 +59,6 @@ namespace SafePlace.Views.SettingsPageView
         public SettingsPagePresenter(SettingsPageViewModel viewModel, IMainService mainService)
         {
             _viewModel = viewModel;
-            _newFloorName = DefaultFloorName;
             _mainService = mainService;
             _synchronisationContext = mainService.GetSynchronizationContext();
             GetServices(_mainService);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SafePlace.Enums
 {
-    enum CameraStatus
+    public enum CameraStatus
     {
         Offline,
         Empty,
