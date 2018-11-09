@@ -81,14 +81,17 @@ namespace SafePlace
             mainService.CreateCameraAnalyzeService(cam);
             //End of fake data
 
-
-
             var mainWindowViewModel = new MainWindowViewModel();
             var mainWindowPresenter = new MainWindowPresenter(mainWindowViewModel, mainService.GetPageCreatorInstance());
             var mainWindow = new MainWindow();
 
             mainWindow.DataContext = mainWindowViewModel;
             mainWindow.Show();
+
+
+            // DB testing
+            var DB = new DatabaseService();
+            DB.AddPerson(Guid.NewGuid(), "Jonas", "Petrauskas", Guid.NewGuid());
         }
     }
 }
