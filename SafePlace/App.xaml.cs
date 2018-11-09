@@ -4,6 +4,7 @@ using SafePlace.Service;
 using SafePlace.Views.MainWindowView;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
@@ -91,7 +92,11 @@ namespace SafePlace
 
             // DB testing
             var DB = new DatabaseService();
-            DB.AddPerson(Guid.NewGuid(), "Jonas", "Petrauskas", Guid.NewGuid());
+            DB.AddPerson(Guid.NewGuid(), "Jonas", "Petrauskas", new Collection<Guid> { Guid.NewGuid(), Guid.NewGuid() }, Guid.NewGuid());
+            DB.AddCamera(Guid.NewGuid(), "iPAdress", "name", 128, 256, Guid.NewGuid());
+            DB.AddFloor(Guid.NewGuid(), "xxx/xx/x", "name");
+            DB.AddPersonType(Guid.NewGuid(), "name", new Collection<Guid> {Guid.NewGuid(), Guid.NewGuid()});
+
         }
     }
 }
