@@ -14,6 +14,5 @@ namespace SafePlace.Service
         void AddFloor(Guid guid, string imagePath, string name);
         void AddPersonType(Guid guid, string name, ICollection<Guid> allowedCameras = null);
         void AddPersonTypeCameras(Guid guid, ICollection<Guid> allowedCameras);
-
     }
 }

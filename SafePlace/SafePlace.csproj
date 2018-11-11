@@ -174,7 +174,6 @@
     <Compile Include="Service\CameraAnalyzeService.cs" />
     <Compile Include="Service\CameraService.cs" />
     <Compile Include="Service\ConsoleLogger.cs" />
-    <Compile Include="Service\DatabaseService.cs" />
     <Compile Include="Service\FloorService.cs" />
     <Compile Include="Service\ICameraAnalyzeService.cs" />
     <Compile Include="Service\ICameraService.cs" />
