@@ -30,7 +30,7 @@ namespace SafePlace.DataBaseUtilioties
 
         public int? PositionY { get; set; }
 
-        public Guid? Floor { get; set; }
+        public Floor Floor { get; set; }
 
         public virtual ICollection<Person> People { set; get; }
 
