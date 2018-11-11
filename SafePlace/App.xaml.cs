@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using SafePlace.DataBaseUtilioties;
 using SafePlace.Models;
 using SafePlace.Service;
 using SafePlace.Views.MainWindowView;
@@ -7,6 +8,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
@@ -90,13 +93,66 @@ namespace SafePlace
             mainWindow.Show();
 
 
-            // DB testing
-            var DB = new DatabaseService();
-            DB.AddPerson(Guid.NewGuid(), "Jonas", "Petrauskas", new Collection<Guid> { Guid.NewGuid(), Guid.NewGuid() }, Guid.NewGuid());
-            DB.AddCamera(Guid.NewGuid(), "iPAdress", "name", 128, 256, Guid.NewGuid());
-            DB.AddFloor(Guid.NewGuid(), "xxx/xx/x", "name");
-            DB.AddPersonType(Guid.NewGuid(), "name", new Collection<Guid> {Guid.NewGuid(), Guid.NewGuid()});
+            // DB testing - unused
+            //var DB = new DatabaseService();
+            //DB.AddPerson(Guid.NewGuid(), "Jonas", "Petrauskas", new Collection<Guid> { Guid.NewGuid(), Guid.NewGuid() }, Guid.NewGuid());
+            //DB.AddCamera(Guid.NewGuid(), "iPAdress", "name", 128, 256, Guid.NewGuid());
+            //DB.AddFloor(Guid.NewGuid(), "xxx/xx/x", "name");
+            //DB.AddPersonType(Guid.NewGuid(), "name", new Collection<Guid> {Guid.NewGuid(), Guid.NewGuid()});
 
+            try
+            {
+                // Entity Framework testing
+                using (var db = new DataContext())
+                {
+                    // Create and save a new Blog
+                    Console.Write("Input user name:");
+                    var name = "zzz";
+
+                    Console.Write("Input user name:");
+                    var lastName = "yyy";
+
+                    Guid Guid = Guid.NewGuid();
+
+                    var person = new DataBaseUtilioties.Person {Guid = Guid, Name = name, LastName = lastName };
+                    db.People.Add(person);
+                    db.SaveChanges();
+
+                    //// Display all Blogs from the database
+                    //var query = from b in db.People
+                    //            orderby b.Name
+                    //            select b;
+
+                    //Console.WriteLine("All blogs in the database:");
+                    //foreach (var item in query)
+                    //{
+                    //    Console.WriteLine(item.Name);
+                    //}
+
+                    //Console.WriteLine("Press any key to exit...");
+                    //Console.ReadKey();
+                }
+            }
+            catch (DbEntityValidationException eas)
+            {
+                foreach (var eve in eas.EntityValidationErrors)
+                {
+                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+            catch (Exception x) {
+
+                Debug.WriteLine(x.ToString());
+            }
         }
+
     }
+    
 }
