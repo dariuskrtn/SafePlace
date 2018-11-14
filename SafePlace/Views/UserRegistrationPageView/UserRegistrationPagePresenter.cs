@@ -79,10 +79,10 @@ namespace SafePlace.Views.UserRegistrationPageView
             var person = _personService.CreatePerson();
             person.Name = _viewModel.Name;
             person.LastName = _viewModel.LastName;
-            person.AllowedCameras = new Collection<Guid>();
+            person.AllowedCameras = new Collection<Camera>();
             foreach (var cam in _viewModel.SelectedCameras)
             {
-                person.AllowedCameras.Add(cam.Guid);
+                person.AllowedCameras.Add(cam);
             }
             new Thread(_ => RegisterPersonFace(person)).Start();
         }

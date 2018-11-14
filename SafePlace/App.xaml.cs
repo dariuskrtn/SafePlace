@@ -1,5 +1,5 @@
 ﻿using Microsoft.Win32;
-using SafePlace.DataBaseUtilioties;
+using SafePlace.DB;
 using SafePlace.Models;
 using SafePlace.Service;
 using SafePlace.Views.MainWindowView;
@@ -36,11 +36,11 @@ namespace SafePlace
 
             //Fake data
             var floor = mainService.GetFloorServiceInstance().CreateFloor();
-            floor.FloorName = "First floor";
+            floor.Name = "First floor";
             mainService.GetFloorServiceInstance().Add(floor);
 
             var secondFloor = mainService.GetFloorServiceInstance().CreateFloor("/Images/Floor2.png");
-            secondFloor.FloorName = "Second floor";
+            secondFloor.Name = "Second floor";
             mainService.GetFloorServiceInstance().Add(secondFloor);
             /*
             int[] coords = {70, 56, 39, 594, 512, 550, 842, 550, 1148, 587, 1335, 33, 1066, 34, 864, 29, 387, 327, 771, 282}; 
@@ -102,7 +102,7 @@ namespace SafePlace
                     var name = "zzz";
                     var lastName = "yyy";
                     Guid Guid = Guid.NewGuid();
-                    var person = new DataBaseUtilioties.Person {Guid = Guid, Name = name, LastName = lastName };
+                    var person = new Person {Guid = Guid, Name = name, LastName = lastName };
                     db.People.Add(person);
                     db.SaveChanges();
                 }

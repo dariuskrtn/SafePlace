@@ -20,5 +20,16 @@ namespace SafePlace.Utilities
             }
             return null;
         }
+
+        public static Camera GetFloorCamera(this ICollection<Camera> cameraList, Guid guid)
+        {
+
+            foreach (Camera camera in cameraList)
+            {
+                if (guid.Equals(camera.Guid))
+                    return camera;
+            }
+            return null;
+        }
     }
 }

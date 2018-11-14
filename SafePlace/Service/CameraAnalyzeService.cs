@@ -78,7 +78,7 @@ namespace SafePlace.Service
                     {
                         _camera.Status = Enums.CameraStatus.Empty;
                     }
-                    else if (!_camera.IdentifiedPeople.Any(person => person.AllowedCameras.Contains(_camera.Guid)))
+                    else if (!_camera.IdentifiedPeople.Any(person => person.AllowedCameras.Contains(_camera)))
                     {
                         _camera.Status = Enums.CameraStatus.Error;
                     }
