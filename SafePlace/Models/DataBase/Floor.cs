@@ -1,4 +1,4 @@
-namespace SafePlace.DataBaseUtilioties
+namespace SafePlace.Models
 {
     using System;
     using System.Collections.Generic;
@@ -7,7 +7,7 @@ namespace SafePlace.DataBaseUtilioties
     using System.Data.Entity.Spatial;
 
     [Table("Floor", Schema = "Topas")]
-    public class Floor
+    public partial class Floor : Model
     {
 
         public Floor()
@@ -23,7 +23,7 @@ namespace SafePlace.DataBaseUtilioties
 
         [StringLength(64)]
         public string Name { get; set; }
-
+        
         public virtual ICollection<Camera> Cameras { get; set; }
     }
 }

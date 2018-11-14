@@ -1,4 +1,4 @@
-namespace SafePlace.DataBaseUtilioties
+namespace SafePlace.Models
 {
     using System;
     using System.Collections.Generic;
@@ -6,21 +6,19 @@ namespace SafePlace.DataBaseUtilioties
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Person", Schema = "Topas")]
-    public class Person
+    [Table("PersonType", Schema = "Topas")]
+    public partial class PersonType : Model
     {
+        public PersonType()
+        {
+            this.AllowedCameras = new HashSet<Camera>();
+        }
+
         [Key]
         public Guid Guid { get; set; }
 
-        [Required]
         [StringLength(64)]
         public string Name { get; set; }
-
-        [Required]
-        [StringLength(64)]
-        public string LastName { get; set; }
-
-        public Guid? PersonType { get; set; }
 
         public virtual ICollection<Camera> AllowedCameras { get; set; }
     }

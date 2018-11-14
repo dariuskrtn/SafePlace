@@ -1,4 +1,4 @@
-namespace SafePlace.DataBaseUtilioties
+namespace SafePlace.Models
 {
     using System;
     using System.Collections.Generic;
@@ -8,7 +8,7 @@ namespace SafePlace.DataBaseUtilioties
 
 
     [Table("Camera", Schema = "Topas")]
-    public class Camera
+    public partial class Camera : Model
     {
 
         public Camera()
@@ -26,9 +26,9 @@ namespace SafePlace.DataBaseUtilioties
         [StringLength(64)]
         public string Name { get; set; }
 
-        public int? PositionX { get; set; }
+        public int PositionX { get; set; }
 
-        public int? PositionY { get; set; }
+        public int PositionY { get; set; }
 
         public Floor Floor { get; set; }
 
