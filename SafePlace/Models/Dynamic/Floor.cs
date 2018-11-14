@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,12 +8,19 @@ using System.Windows.Media.Imaging;
 
 namespace SafePlace.Models
 {
-    public class Floor
+    
+    public partial class Floor
     {
-        public Guid Guid { get; set; }
-        public IList<Camera> Cameras { get; set; }
+
+        #region DB part contains
+        //public string Name { set; get; }
+        //public Guid Guid { get; set; }
+        //public IList<Camera> Cameras { get; set; }
+        #endregion
+
+        [NotMapped]
         public BitmapImage FloorMap { set; get; }
-        public string FloorName { set; get; }
+        
 
         /// <summary>
         /// A method which allows to add a camera to the list while setting up the floor.
@@ -24,7 +32,7 @@ namespace SafePlace.Models
         }
         public override string ToString()
         {
-            return FloorName;
+            return Name;
         }
     }
 }
