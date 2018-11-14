@@ -161,23 +161,25 @@
     <Compile Include="Converters\SettingsModesToFlootButtonTextConverter.cs" />
     <Compile Include="Converters\SettingsModesToReadOnlyConverter.cs" />
     <Compile Include="Converters\StatusToColorConverter.cs" />
-    <Compile Include="DB\Camera.cs" />
-    <Compile Include="DB\Floor.cs" />
-    <Compile Include="DB\Person.cs" />
-    <Compile Include="DB\PersonType.cs" />
+    <Compile Include="DBCommunication\DBCommunicator.cs" />
+    <Compile Include="Models\DataBase\Camera.cs" />
+    <Compile Include="Models\DataBase\Floor.cs" />
+    <Compile Include="Models\Model.cs" />
+    <Compile Include="Models\DataBase\Person.cs" />
+    <Compile Include="Models\DataBase\PersonType.cs" />
     <Compile Include="DB\DataContext.cs" />
     <Compile Include="Enums\CameraStatus.cs" />
     <Compile Include="Enums\SettingsModes.cs" />
-    <Compile Include="Models\Camera.cs" />
-    <Compile Include="Models\Floor.cs" />
-    <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\Dynamic\Camera.cs" />
+    <Compile Include="Models\Dynamic\Floor.cs" />
+    <Compile Include="Models\Dynamic\Person.cs" />
     <Compile Include="Service\CameraAnalyzeService.cs" />
     <Compile Include="Service\CameraService.cs" />
     <Compile Include="Service\ConsoleLogger.cs" />
     <Compile Include="Service\FloorService.cs" />
     <Compile Include="Service\ICameraAnalyzeService.cs" />
     <Compile Include="Service\ICameraService.cs" />
-    <Compile Include="Service\IDatabaseService.cs" />
+    <Compile Include="DBCommunication\IDBCommunicator.cs" />
     <Compile Include="Service\IFloorService.cs" />
     <Compile Include="Service\FaceRecognitionService.cs" />
     <Compile Include="Service\IFaceRecognitionService.cs" />
@@ -308,6 +310,7 @@
   <ItemGroup>
     <Resource Include="Images\pointer.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">

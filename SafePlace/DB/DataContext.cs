@@ -1,9 +1,10 @@
-namespace SafePlace.DataBaseUtilioties
+namespace SafePlace.DB
 {
     using System;
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using SafePlace.Models;
 
     public class DataContext : DbContext
     {
