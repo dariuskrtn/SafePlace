@@ -33,7 +33,7 @@
         
         <!--A view box containing the current floor's image and all the cameras-->
         <StackPanel Grid.Column="1">
-            <TextBlock Width="auto" Text="{Binding FloorName}" HorizontalAlignment="Center"
+            <TextBlock Width="auto" Text="{Binding Name}" HorizontalAlignment="Center"
                     FontSize="40" Height="auto" VerticalAlignment="Top"/>
             <Viewbox x:Name="FloorView" Grid.Column="1" VerticalAlignment="Top">
                 <Grid x:Name="FloorGrid">

@@ -40,7 +40,7 @@
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock Text="{Binding FloorName}"/>
+                    <TextBlock Text="{Binding Name}"/>
                 </DataTemplate>
             </Setter.Value>
         </Setter>
