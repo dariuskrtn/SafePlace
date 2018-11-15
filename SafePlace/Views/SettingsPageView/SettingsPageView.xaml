@@ -142,7 +142,7 @@
                             <TextBlock Width="auto" Text="{Binding InvalidNameNotification}" Foreground="#FF0000" />
                     </Viewbox>
                     <Viewbox Grid.Row="1" HorizontalAlignment="Center">
-                        <TextBox Width="auto" Text="{Binding FloorName, Mode=TwoWay}" IsReadOnly="{Binding IsEditModeOff}" Grid.Row="0"  ClipToBounds="True" BorderThickness="1" />
+                    <TextBox Width="auto" Text="{Binding FloorName, Mode=TwoWay}" IsReadOnly="{Binding SettingsModes, Converter={StaticResource settingsModesToReadOnlyConverter}}" Grid.Row="0"  ClipToBounds="True" BorderThickness="1" />
                 </Viewbox>
 
                 <!-- Here will show up uploaded floor image-->
