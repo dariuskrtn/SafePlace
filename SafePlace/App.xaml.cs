@@ -116,7 +116,5 @@ namespace SafePlace
                 mainService.GetLoggerInstance().LogError(x.ToString());
             }
         }
-
     }
-    
 }

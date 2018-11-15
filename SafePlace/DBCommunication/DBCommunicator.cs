@@ -17,7 +17,7 @@ namespace SafePlace.DBCommunication
         public void AddCamera(Camera camera)
         {
             // Would this give any use? I ques EF covers it?
-            //if (camera == null)
+             //if (camera == null)
             //    throw new NullReferenceException("Camera is not created.");
 
             using (DataContext dataContext = new DataContext())
@@ -89,11 +89,19 @@ namespace SafePlace.DBCommunication
         }
         #endregion
 
+        /// <summary>
+        /// Update any model which extends Model.cs
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="model"></param>
+
         public void Update<T> (T model) where T : Model
         { 
             using (DataContext dataContext = new DataContext())
             {
                 dataContext.Entry(model).CurrentValues.SetValues(model);
+                // SaveChanges() actually updates the database
+                dataContext.SaveChanges();
             }
         }
     }

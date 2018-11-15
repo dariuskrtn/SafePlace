@@ -156,7 +156,7 @@ namespace SafePlace.Views.SettingsPageView
                 if (false == CheckIfNameIsValid())
                     return;
                 UpdateFloorFromUI(_floor);
-                _floorService.Add(_floor);
+                _floorService.Add(_floor);          
                 _currentMode = SettingsModes.Preview;
                 ReloadCollection(_viewModel.FloorCollection, _floorService.GetFloorList().ToList());
             }
@@ -265,8 +265,6 @@ namespace SafePlace.Views.SettingsPageView
             {
                 _cameraService.AddCamera(_viewModel.EditedCamera);
                 _floor.AddCamera(_viewModel.EditedCamera);
-                var communicator = new DBCommunication.DBCommunicator();
-                communicator.AddCamera(_viewModel.EditedCamera);
                 _viewModel.CameraCollection.Add(_viewModel.EditedCamera);
             }
             else
