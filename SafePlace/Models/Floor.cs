@@ -7,7 +7,7 @@ namespace SafePlace.Models
     using System.Data.Entity.Spatial;
     using System.Windows.Media.Imaging;
 
-    [Table("Floor", Schema = "Topas")]
+    [Table("Floor")]
     public partial class Floor : Model
     {
 

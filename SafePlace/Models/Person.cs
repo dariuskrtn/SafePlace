@@ -6,7 +6,7 @@ namespace SafePlace.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Person", Schema = "Topas")]
+    [Table("Person")]
     public partial class Person : Model
     {
         #region database fields

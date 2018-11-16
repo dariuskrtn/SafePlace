@@ -8,7 +8,7 @@ namespace SafePlace.Models
     using System.Data.Entity.Spatial;
 
 
-    [Table("Camera", Schema = "Topas")]
+    [Table("Camera")]
     public partial class Camera : Model
     {
         #region database fiels

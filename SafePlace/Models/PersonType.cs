@@ -6,7 +6,7 @@ namespace SafePlace.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("PersonType", Schema = "Topas")]
+    [Table("PersonType")]
     public partial class PersonType : Model
     {
         public PersonType()

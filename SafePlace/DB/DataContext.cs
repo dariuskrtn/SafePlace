@@ -5,6 +5,7 @@ namespace SafePlace.DB
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using SafePlace.Models;
+    using System.Configuration;
 
     public class DataContext : DbContext
     {
@@ -26,7 +27,7 @@ namespace SafePlace.DB
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //Set default schema
-            modelBuilder.HasDefaultSchema("Topas");
+            modelBuilder.HasDefaultSchema(ConfigurationManager.AppSettings["default-schema"]);
 
             //Configure a Many-to-Many Relationship using Fluent API
             //Not nesessary, I didn;t do this for second Many-to-Many, EF can configre automatcally

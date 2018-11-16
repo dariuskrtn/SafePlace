@@ -99,8 +99,8 @@ namespace SafePlace
                 // Entity Framework testing
                 using (var db = new DataContext())
                 {
-                    var name = "zzz";
-                    var lastName = "yyy";
+                    var name = "DefaultSchema";
+                    var lastName = "Last";
                     Guid Guid = Guid.NewGuid();
                     var person = new Person {Guid = Guid, Name = name, LastName = lastName };
                     db.People.Add(person);
