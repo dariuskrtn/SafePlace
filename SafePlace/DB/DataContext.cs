@@ -25,7 +25,7 @@ namespace SafePlace.DB
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            // Set default schema
+            //Set default schema
             modelBuilder.HasDefaultSchema("Topas");
 
             //Configure a Many-to-Many Relationship using Fluent API

@@ -1,5 +1,6 @@
 namespace SafePlace.Models
 {
+    using SafePlace.Enums;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,7 @@ namespace SafePlace.Models
     [Table("Camera", Schema = "Topas")]
     public partial class Camera : Model
     {
-
+        #region database fiels
         public Camera()
         {
             this.People = new HashSet<Person>();
@@ -35,5 +36,14 @@ namespace SafePlace.Models
         public virtual ICollection<Person> People { set; get; }
 
         public virtual ICollection<PersonType> PersonTypes { set; get; }
+        #endregion
+
+        #region extra fields
+        //IdentifiedPeople will be used in the list, shown near a camera.
+        [NotMapped]
+        public IList<Person> IdentifiedPeople { get; set; }
+        [NotMapped]
+        public CameraStatus Status { get; set; }
+        #endregion
     }
 }
