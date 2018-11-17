@@ -1,18 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
-
 namespace SafePlace.Models
 {
-    public class Floor
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+    using System.Windows.Media.Imaging;
+
+    [Table("Floor")]
+    public partial class Floor : Model
     {
+
+        #region database fields
+
+        [Key]
         public Guid Guid { get; set; }
-        public IList<Camera> Cameras { get; set; }
+
+        [StringLength(255)]
+        public string ImagePath { get; set; }
+
+        [StringLength(64)]
+        public string Name { get; set; }
+        
+        public virtual ICollection<Camera> Cameras { get; set; }
+        #endregion
+        
+        #region extra stuff
+        public Floor()
+        {
+            this.Cameras = new HashSet<Camera>(); 
+        }
+
+        
+        [NotMapped]
         public BitmapImage FloorMap { set; get; }
-        public string FloorName { set; get; }
 
         /// <summary>
         /// A method which allows to add a camera to the list while setting up the floor.
@@ -24,7 +45,9 @@ namespace SafePlace.Models
         }
         public override string ToString()
         {
-            return FloorName;
+            return Name;
         }
+
+        #endregion
     }
 }

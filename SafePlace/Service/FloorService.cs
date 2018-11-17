@@ -39,7 +39,7 @@ namespace SafePlace.Service
         public Floor CreateFloor(string path, string floorName)
         {
             var floor = CreateFloor(path);
-            floor.FloorName = floorName;
+            floor.Name = floorName;
             return floor;
         }
 

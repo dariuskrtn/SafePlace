@@ -1,11 +1,15 @@
 ﻿using Microsoft.Win32;
+using SafePlace.DB;
 using SafePlace.Models;
 using SafePlace.Service;
 using SafePlace.Views.MainWindowView;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
@@ -32,11 +36,11 @@ namespace SafePlace
 
             //Fake data
             var floor = mainService.GetFloorServiceInstance().CreateFloor();
-            floor.FloorName = "First floor";
+            floor.Name = "First floor";
             mainService.GetFloorServiceInstance().Add(floor);
 
             var secondFloor = mainService.GetFloorServiceInstance().CreateFloor("/Images/Floor2.png");
-            secondFloor.FloorName = "Second floor";
+            secondFloor.Name = "Second floor";
             mainService.GetFloorServiceInstance().Add(secondFloor);
             /*
             int[] coords = {70, 56, 39, 594, 512, 550, 842, 550, 1148, 587, 1335, 33, 1066, 34, 864, 29, 387, 327, 771, 282}; 
@@ -81,14 +85,36 @@ namespace SafePlace
             mainService.CreateCameraAnalyzeService(cam);
             //End of fake data
 
-
-
             var mainWindowViewModel = new MainWindowViewModel();
             var mainWindowPresenter = new MainWindowPresenter(mainWindowViewModel, mainService.GetPageCreatorInstance());
             var mainWindow = new MainWindow();
 
             mainWindow.DataContext = mainWindowViewModel;
             mainWindow.Show();
+
+
+            // Connaction testing stuff, will remove when DB full implemented
+            try
+            {
+                // Entity Framework testing
+                using (var db = new DataContext())
+                {
+                    var name = "DefaultSchema";
+                    var lastName = "Last";
+                    Guid Guid = Guid.NewGuid();
+                    var person = new Person {Guid = Guid, Name = name, LastName = lastName };
+                    db.People.Add(person);
+                    db.SaveChanges();
+                }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                mainService.GetLoggerInstance().LogError(ex.ToString());
+                throw;
+            }
+            catch (Exception x) {
+                mainService.GetLoggerInstance().LogError(x.ToString());
+            }
         }
     }
 }

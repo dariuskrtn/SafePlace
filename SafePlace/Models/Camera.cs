@@ -1,32 +1,49 @@
-﻿using SafePlace.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-/// <summary>
-/// A class which represents any camera in a office building.
-/// </summary>
 namespace SafePlace.Models
 {
-    public class Camera
+    using SafePlace.Enums;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+
+    [Table("Camera")]
+    public partial class Camera : Model
     {
-        #region Fields
+        #region database fiels
+        public Camera()
+        {
+            this.People = new HashSet<Person>();
+            this.PersonTypes = new HashSet<PersonType>();
+        }
+
+        [Key]
         public Guid Guid { get; set; }
-        //IdentifiedPeople will be used in the list, shown near a camera.
-        public IList<Person> IdentifiedPeople { get; set; }
+
+        [StringLength(64)]
         public string IPAddress { get; set; }
+
+        [StringLength(64)]
         public string Name { get; set; }
-        //Position: X and Y mean the position of image's top left corner in relation to the top left corner of the floor image.
-        //Currently when put into the grid container of floor and camera images, the camera appears in the middle.
+
         public int PositionX { get; set; }
+
         public int PositionY { get; set; }
-        public CameraStatus Status { get; set; }
+
+        public Floor Floor { get; set; }
+
+        public virtual ICollection<Person> People { set; get; }
+
+        public virtual ICollection<PersonType> PersonTypes { set; get; }
         #endregion
 
+        #region extra fields
+        //IdentifiedPeople will be used in the list, shown near a camera.
+        [NotMapped]
+        public IList<Person> IdentifiedPeople { get; set; }
+        [NotMapped]
+        public CameraStatus Status { get; set; }
+        #endregion
     }
 }

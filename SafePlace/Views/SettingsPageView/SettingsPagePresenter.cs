@@ -85,7 +85,7 @@ namespace SafePlace.Views.SettingsPageView
             _viewModel.EditedCamera = _cameraService.CreateCamera(false, 0, 0);
             ReloadCollection(_viewModel.FloorCollection, _floorService.GetFloorList().ToList());
             _viewModel.FloorImage = _floor.FloorMap;
-            _viewModel.FloorName = _floor.FloorName;
+            _viewModel.FloorName = _floor.Name;
         }
 
         private void GetServices(IMainService mainService)
@@ -156,7 +156,7 @@ namespace SafePlace.Views.SettingsPageView
                 if (false == CheckIfNameIsValid())
                     return;
                 UpdateFloorFromUI(_floor);
-                _floorService.Add(_floor);
+                _floorService.Add(_floor);          
                 _currentMode = SettingsModes.Preview;
                 ReloadCollection(_viewModel.FloorCollection, _floorService.GetFloorList().ToList());
             }
@@ -184,7 +184,7 @@ namespace SafePlace.Views.SettingsPageView
 
         private void UpdateFloorFromUI(Floor floor)
         {
-            floor.FloorName = _viewModel.FloorName;
+            floor.Name = _viewModel.FloorName;
             floor.FloorMap = _viewModel.FloorImage;
         }
 
@@ -196,7 +196,7 @@ namespace SafePlace.Views.SettingsPageView
             _floor = floor;
             _viewModel.FloorImage = _floor.FloorMap;
             ReloadCollection(_viewModel.CameraCollection, _floor.Cameras);
-            _viewModel.FloorName = _floor.FloorName;
+            _viewModel.FloorName = _floor.Name;
         }
         //Open file dialog, select image and assign to _viewModel
         private void SelectFile()
@@ -247,7 +247,7 @@ namespace SafePlace.Views.SettingsPageView
             _viewModel.EditedCamera = cam;
         }
 
-        public void ReloadCollection<T>(ObservableCollection<T> observableColl, IList<T> list)
+        public void ReloadCollection<T>(ObservableCollection<T> observableColl, ICollection<T> list)
         {
             observableColl.Clear();
             list.ToList().ForEach(o => observableColl.Add(o));

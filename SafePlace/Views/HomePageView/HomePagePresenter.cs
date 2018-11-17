@@ -131,7 +131,7 @@ namespace SafePlace.Views.HomePageView
             if (newFloor == null)
                 return;
             _viewModel.CurrentFloorImage = newFloor.FloorMap;
-            _viewModel.FloorName = newFloor.FloorName;
+            _viewModel.FloorName = newFloor.Name;
             _viewModel.Cameras.Clear();
             foreach(var cam in newFloor.Cameras)
             {
