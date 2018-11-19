@@ -66,7 +66,7 @@ namespace SafePlace.Views.SettingsPageView
         private void UploadFirstFloor()
         {
             _floor = _floorService.GetFloorList().FirstOrDefault();
-            ReloadCollection(_viewModel.CameraCollection, _floor.Cameras);
+            ReloadCollection(_viewModel.CameraCollection, _floor?.Cameras);
             
             if (null != _floor)
             {
@@ -250,7 +250,7 @@ namespace SafePlace.Views.SettingsPageView
         public void ReloadCollection<T>(ObservableCollection<T> observableColl, ICollection<T> list)
         {
             observableColl.Clear();
-            list.ToList().ForEach(o => observableColl.Add(o));
+            list?.ToList().ForEach(o => observableColl.Add(o));
         }
 
         //-------------------------------------------------------------

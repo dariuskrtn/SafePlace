@@ -56,7 +56,8 @@ namespace SafePlace.Views.HomePageView
             BuildCommands();
             _viewModel.CameraImage = new BitmapImage(new Uri("/Images/camera.png", UriKind.Relative));
             _viewModel.CurrentFloor = 0;
-            LoadFloor(_viewModel.Floors[0]);
+            if (_viewModel.Floors.Count > 0)
+                LoadFloor(_viewModel.Floors[0]);
         }
 
         private void BuildSubscriptions()
