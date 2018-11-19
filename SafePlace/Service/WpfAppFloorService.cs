@@ -1,5 +1,4 @@
-﻿using SafePlace.DBCommunication;
-using SafePlace.Models;
+﻿using SafePlace.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,15 +9,15 @@ using System.Windows.Media.Imaging;
 
 namespace SafePlace.Service
 {
-    public class FloorService : IFloorService
+    public class WpfAppFloorService : IFloorService
     {
-        DBCommunicator _dBCommunicator = DBCommunicator.Instace;
+        private Dictionary<Guid, Floor> floors = new Dictionary<Guid, Floor>();
 
         public void Add(Floor floor)
         {
             if (null == floor)
                 return;
-            _dBCommunicator.AddFloor(floor);
+            floors.Add(floor.Guid, floor);
         }
 
         public Floor CreateFloor()
@@ -51,12 +50,13 @@ namespace SafePlace.Service
 
         public Floor GetFloor(Guid guid)
         {
-            return _dBCommunicator.GetFloor(guid);
+            if (floors.ContainsKey(guid)) return floors[guid];
+            return null;
         }
 
         public IEnumerable<Floor> GetFloorList()
         {
-            return _dBCommunicator.GetFloors();
+            return floors.Select(item => item.Value);
         }
     }
 }
