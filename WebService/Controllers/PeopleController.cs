@@ -24,7 +24,7 @@ namespace WebService.Controllers
         {
             var people = service.GetAllPeople();
             Person person = people.FirstOrDefault(aPerson => aPerson.Guid == id);
-            //If the camera is not in the DataBase, service returns error 404.
+            //If the person is not in the DataBase, service returns error 404.
             if (person == null) return NotFound();
             return Ok(person);
         }
