@@ -6,41 +6,42 @@ using System.Net.Http;
 using System.Web.Http;
 using SafePlace.Models;
 using SafePlace.Service;
+
 namespace WebService.Controllers
 {
-    public class CamerasController : ApiController
+    public class PeopleController : ApiController
     {
-        ICameraService service = new CameraService();
+        IPersonService service = new PersonService();
         // GET: api/Cameras
-        public IEnumerable<Camera> Get()
+        public IEnumerable<Person> Get()
         {
             // Returns nothing as CameraService does not communicate with DB in this branch.
-            return service.GetAllCameras();
+            return service.GetAllPeople();
         }
 
         // GET: api/Cameras/5
         public IHttpActionResult Get(Guid id)
         {
-            var cameras = service.GetAllCameras();
-            Camera cam = cameras.FirstOrDefault(camera => camera.Guid == id);
+            var people = service.GetAllPeople();
+            Person person = people.FirstOrDefault(aPerson => aPerson.Guid == id);
             //If the camera is not in the DataBase, service returns error 404.
-            if (cam == null) return NotFound();
-            return Ok(cam);
+            if (person == null) return NotFound();
+            return Ok(person);
         }
 
-        //To be implemented?:
+        //To implement?:
 
-        // POST: api/Cameras
+        // POST: api/People
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT: api/Cameras/5
+        // PUT: api/People/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE: api/Cameras/5
+        // DELETE: api/People/5
         public void Delete(int id)
         {
         }

@@ -10,6 +10,7 @@ namespace SafePlace.Service
     public interface IPersonService
     {
         Person GetPerson(Guid guid);
+        IEnumerable<Person> GetAllPeople();
         Person CreatePerson();
     }
 }

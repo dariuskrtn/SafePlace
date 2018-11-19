@@ -7,7 +7,7 @@ using SafePlace.Models;
 
 namespace SafePlace.Service
 {
-    class PersonService : IPersonService
+    public class PersonService : IPersonService
     {
         private Dictionary<Guid, Person> people = new Dictionary<Guid, Person>();
 
@@ -17,6 +17,12 @@ namespace SafePlace.Service
             person.Guid = Guid.NewGuid();
             people.Add(person.Guid, person);
             return person;
+        }
+
+        //This is intended to be implemented inside another branch.
+        public IEnumerable<Person> GetAllPeople()
+        {
+            throw new NotImplementedException();
         }
 
         public Person GetPerson(Guid guid)
