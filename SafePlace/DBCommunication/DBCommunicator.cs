@@ -11,13 +11,18 @@ using System.Reactive.Linq;
 namespace SafePlace.DBCommunication
 {
 
-    class DBCommunicator : IDBCommunicator
+    public sealed class DBCommunicator
     {
+        private static readonly Lazy<DBCommunicator> lazy = new Lazy<DBCommunicator>(() => new DBCommunicator());
+
+        public static DBCommunicator Instace { get { return lazy.Value; } }
+
+
         #region Add to DB
         public void AddCamera(Camera camera)
         {
             // Would this give any use? I ques EF covers it?
-             //if (camera == null)
+            //if (camera == null)
             //    throw new NullReferenceException("Camera is not created.");
 
             using (DataContext dataContext = new DataContext())
@@ -55,36 +60,67 @@ namespace SafePlace.DBCommunication
         }
         #endregion
 
-        #region Get from FB
-        public IDictionary<Guid, Camera> GetCameras()
+        #region Get from DB
+        public IEnumerable<Camera> GetCameras()
         {
             using (DataContext dataContext = new DataContext())
             {
-                return dataContext.Cameras.ToDictionary(e => e.Guid);
+                return dataContext.Cameras.AsEnumerable<Camera>(); ;
             }
         }
 
-        public IDictionary<Guid, Floor> GetFloors()
+        public IEnumerable<Floor> GetFloors()
         {
             using (DataContext dataContext = new DataContext())
             {
-                return dataContext.Floors.ToDictionary(e => e.Guid);
+                return dataContext.Floors.AsEnumerable<Floor>(); ;
             }
         }
 
-        public IDictionary<Guid, Person> GetPeople()
+        public IEnumerable<Person> GetPeople()
         {
             using (DataContext dataContext = new DataContext())
             {
-                return dataContext.People.ToDictionary(e => e.Guid);
+                return dataContext.People.AsEnumerable<Person>();
             }
         }
 
-        public IDictionary<Guid, PersonType> GetPersonTypes()
+        public IEnumerable<PersonType> GetPersonTypes()
         {
             using (DataContext dataContext = new DataContext())
             {
-                return dataContext.PersonTypes.ToDictionary(e => e.Guid);
+                return dataContext.PersonTypes.AsEnumerable<PersonType>(); ;
+            }
+        }
+
+        public Person GetPerson(Guid Guid)
+        {
+            using (DataContext dataContext = new DataContext())
+            {
+                return dataContext.People.Find(Guid);
+            }
+        }
+
+        public Floor GetFloor(Guid Guid)
+        {
+            using (DataContext dataContext = new DataContext())
+            {
+                return dataContext.Floors.Find(Guid);
+            }
+        }
+        public Camera Getcamera(Guid Guid)
+        {
+            using (DataContext dataContext = new DataContext())
+            {
+                return dataContext.Cameras.Find(Guid);
+            }
+        }
+
+        public PersonType GetPersonType(Guid Guid)
+        {
+            using (DataContext dataContext = new DataContext())
+            {
+                return dataContext.PersonTypes.Find(Guid);
             }
         }
         #endregion
@@ -95,8 +131,8 @@ namespace SafePlace.DBCommunication
         /// <typeparam name="T"></typeparam>
         /// <param name="model"></param>
 
-        public void Update<T> (T model) where T : Model
-        { 
+        public void Update<T>(T model) where T : Model
+        {
             using (DataContext dataContext = new DataContext())
             {
                 dataContext.Entry(model).CurrentValues.SetValues(model);
