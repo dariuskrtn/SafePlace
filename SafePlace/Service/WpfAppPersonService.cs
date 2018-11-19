@@ -1,38 +1,34 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SafePlace.DBCommunication;
 using SafePlace.Models;
 
 namespace SafePlace.Service
 {
-    class PersonService : IPersonService
+    class WpfAppPersonService : IPersonService
     {
-        DBCommunicator _dBCommunicator = DBCommunicator.Instace;
+        private Dictionary<Guid, Person> people = new Dictionary<Guid, Person>();
 
         public Person CreatePerson()
         {
             var person = new Person();
             person.Guid = Guid.NewGuid();
+            people.Add(person.Guid, person);
             return person;
-        }
-
-        public void AddPerson(Person person)
-        {
-            _dBCommunicator.AddPerson(person);
-        }
-
-        public Person GetPerson(Guid guid)
-        {
-            return _dBCommunicator.GetPerson(guid);
         }
 
         public IEnumerable<Person> GetPeople()
         {
-            return _dBCommunicator.GetPeople();
+            throw new NotImplementedException();
+        }
+
+        public Person GetPerson(Guid guid)
+        {
+            if (people.ContainsKey(guid)) return people[guid];
+            return null;
+            
         }
     }
 }
