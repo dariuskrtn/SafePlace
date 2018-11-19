@@ -61,19 +61,30 @@ namespace SafePlace.DBCommunication
         #endregion
 
         #region Get from DB
+        /// ToList() needed to invoke query, without if query is invoked when program tries to use
+        /// returned data what is imposible, because dataContext at that momemt is already disposed
+
         public IEnumerable<Camera> GetCameras()
         {
             using (DataContext dataContext = new DataContext())
             {
-                return dataContext.Cameras.AsEnumerable<Camera>(); ;
+                /// ToList deals with deferred excefution problem, (explained at the top af region)
+                return dataContext.Cameras.AsEnumerable<Camera>().ToList(); ;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Floor> GetFloors()
         {
             using (DataContext dataContext = new DataContext())
             {
-                return dataContext.Floors.AsEnumerable<Floor>(); ;
+                /// Include gets floors together - Eager loading (Without it it would be lazy loading, what means
+                /// related entities are not loaded)
+                /// /// ToList deals with deferred excefution problem, (explained at the top af region)
+                return dataContext.Floors.Include("cameras").AsEnumerable().ToList();
             }
         }
 
@@ -81,7 +92,8 @@ namespace SafePlace.DBCommunication
         {
             using (DataContext dataContext = new DataContext())
             {
-                return dataContext.People.AsEnumerable<Person>();
+                /// ToList deals with deferred excefution problem, (explained at the top af region)
+                return dataContext.People.AsEnumerable().ToList();
             }
         }
 
@@ -89,7 +101,8 @@ namespace SafePlace.DBCommunication
         {
             using (DataContext dataContext = new DataContext())
             {
-                return dataContext.PersonTypes.AsEnumerable<PersonType>(); ;
+                /// ToList deals with deferred excefution problem, (explained at the top af region)
+                return dataContext.PersonTypes.AsEnumerable().ToList();
             }
         }
 

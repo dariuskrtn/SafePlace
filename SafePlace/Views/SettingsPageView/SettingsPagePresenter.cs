@@ -264,7 +264,8 @@ namespace SafePlace.Views.SettingsPageView
             if (_isCameraNew)
             {
                 _cameraService.AddCamera(_viewModel.EditedCamera);
-                _floor.AddCamera(_viewModel.EditedCamera);
+                //Floor adds cameras
+                //_floor.AddCamera(_viewModel.EditedCamera);
                 _viewModel.CameraCollection.Add(_viewModel.EditedCamera);
             }
             else

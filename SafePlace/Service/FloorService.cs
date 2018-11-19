@@ -56,7 +56,7 @@ namespace SafePlace.Service
 
         public IEnumerable<Floor> GetFloorList()
         {
-            return _dBCommunicator.GetFloors();
+               return _dBCommunicator.GetFloors();
         }
     }
 }
