@@ -19,7 +19,7 @@ namespace WebService.Controllers
             return service.GetAllPeople();
         }
 
-        // GET: api/Cameras/5
+        // GET: api/Cameras/23005604-eb1b-11de-85ba-806d6172696f
         public IHttpActionResult Get(Guid id)
         {
             var people = service.GetAllPeople();

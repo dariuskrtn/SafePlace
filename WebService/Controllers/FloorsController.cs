@@ -18,7 +18,7 @@ namespace WebService.Controllers
             return service.GetFloorList();
         }
 
-        // GET: api/Floors/5
+        // GET: api/Floors/23005604-eb1b-11de-85ba-806d6172696f
         public IHttpActionResult Get(Guid id)
         {
             var floors = service.GetFloorList();
