@@ -1,5 +1,4 @@
-﻿using SafePlace.DBCommunication;
-using SafePlace.Models;
+﻿using SafePlace.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,15 +9,15 @@ using System.Windows.Media.Imaging;
 
 namespace SafePlace.Service
 {
-    public class FloorService : IFloorService
+    public class WpfAppFloorService : IFloorService
     {
-        DBCommunicator _dBCommunicator = DBCommunicator.Instace;
+        private Dictionary<Guid, Floor> floors = new Dictionary<Guid, Floor>();
 
         public void Add(Floor floor)
         {
             if (null == floor)
                 return;
-            _dBCommunicator.AddFloor(floor);
+            floors.Add(floor.Guid, floor);
         }
 
         public Floor CreateFloor()
@@ -31,7 +30,7 @@ namespace SafePlace.Service
             var floor = new Floor();
             floor.Guid = Guid.NewGuid();
             floor.Cameras = new List<Camera>();
-            floor.ImagePath = Path;
+
             var img = new BitmapImage(new Uri(Path, UriKind.Relative));
             floor.FloorMap = img;
             return floor;
@@ -51,18 +50,13 @@ namespace SafePlace.Service
 
         public Floor GetFloor(Guid guid)
         {
-            return _dBCommunicator.GetFloor(guid);
+            if (floors.ContainsKey(guid)) return floors[guid];
+            return null;
         }
 
         public IEnumerable<Floor> GetFloorList()
         {
-            var floors = _dBCommunicator.GetFloors();
-            foreach(var floor in floors)
-            {
-                if (floor.ImagePath != null) floor.FloorMap = new BitmapImage(new Uri(floor.ImagePath, UriKind.Relative));
-                else floor.FloorMap = new BitmapImage(new Uri("/Images/Placeholder.png", UriKind.Relative));
-            }
-            return floors;
+            return floors.Select(item => item.Value);
         }
     }
 }
