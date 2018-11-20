@@ -5,7 +5,7 @@ namespace SafePlace.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-
+    [Serializable]
     [Table("PersonType")]
     public partial class PersonType : Model
     {

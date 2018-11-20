@@ -35,6 +35,13 @@ namespace SafePlace
 
             var mainService = new MainService();
 
+            #region Fake data for DB in case we need to repopulate it.
+            var firstFloor = mainService.GetFloorServiceInstance().CreateFloor();
+            firstFloor.Name = "First floor";
+            var secondFloor = mainService.GetFloorServiceInstance().CreateFloor("/Images/Floor2.png");
+            secondFloor.Name = "Second floor";
+            #endregion
+
             //Fake data from DB
             var floors = mainService.GetFloorServiceInstance().GetFloorList().ToArray();
             if(floors.Length <2)
@@ -57,7 +64,7 @@ namespace SafePlace
             var cameras = mainService.GetCameraServiceInstance().GetAllCameras().ToArray();
             if (cameras.Length >= 3 && floors.Length >= 2)
             {
-                foreach (Camera cam in cameras) cam.IdentifiedPeople = new List<Person>();
+                foreach (Camera camer in cameras) camer.IdentifiedPeople = new List<Person>();
                 floors[0].AddCamera(cameras[0]);
                 floors[0].AddCamera(cameras[1]);
                 floors[1].AddCamera(cameras[2]);
@@ -66,6 +73,8 @@ namespace SafePlace
             {
                 mainService.CreateCameraAnalyzeService(camera);
             }
+
+            #region DB data repopulation
             //var cam = mainService.GetCameraServiceInstance().CreateCamera();
             //cam.IPAddress = "http://192.168.8.101:8081/video";
             //cam.Name = "Main camera";
@@ -89,7 +98,9 @@ namespace SafePlace
             //cam.PositionY = 100;
             //secondFloor.Cameras.Add(cam);
             //mainService.CreateCameraAnalyzeService(cam);
-
+            //mainService.GetFloorServiceInstance().Add(secondFloor);
+            //mainService.GetFloorServiceInstance().Add(firstFloor);
+            #endregion
             //End of fake data
 
             var mainWindowViewModel = new MainWindowViewModel();

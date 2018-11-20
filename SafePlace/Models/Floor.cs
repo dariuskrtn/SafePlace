@@ -6,7 +6,7 @@ namespace SafePlace.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
     using System.Windows.Media.Imaging;
-
+    [Serializable]
     [Table("Floor")]
     public partial class Floor : Model
     {

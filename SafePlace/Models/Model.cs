@@ -9,6 +9,7 @@ namespace SafePlace.Models
     /// <summary>
     /// Lets create generic methods for models
     /// </summary>
+    [Serializable]
     public abstract class Model
     {
        
