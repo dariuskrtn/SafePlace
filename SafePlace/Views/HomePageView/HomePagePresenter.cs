@@ -56,7 +56,8 @@ namespace SafePlace.Views.HomePageView
             BuildCommands();
             _viewModel.CameraImage = new BitmapImage(new Uri("/Images/camera.png", UriKind.Relative));
             _viewModel.CurrentFloor = 0;
-            LoadFloor(_viewModel.Floors[0]);
+            if (_viewModel.Floors.Count > 0)
+                LoadFloor(_viewModel.Floors[0]);
         }
 
         private void BuildSubscriptions()
@@ -136,6 +137,7 @@ namespace SafePlace.Views.HomePageView
             foreach(var cam in newFloor.Cameras)
             {
                 var cameraViewModel = new CameraViewModel { Status = cam.Status, PositionX = cam.PositionX, PositionY = cam.PositionY, Guid = cam.Guid };
+                if (cam.IdentifiedPeople == null) cam.IdentifiedPeople = new List<Person>();
                 foreach (var person in cam.IdentifiedPeople) cameraViewModel.IdentifiedPeople.Add(person);
                 cameraViewModel.IdentifiedPeople.Add(new Person("t1", "t2"));
                 _viewModel.Cameras.Add(cameraViewModel);

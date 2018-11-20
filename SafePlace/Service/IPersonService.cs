@@ -11,5 +11,6 @@ namespace SafePlace.Service
     {
         Person GetPerson(Guid guid);
         Person CreatePerson();
+        IEnumerable<Person> GetPeople();
     }
 }

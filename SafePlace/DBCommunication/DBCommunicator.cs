@@ -11,13 +11,18 @@ using System.Reactive.Linq;
 namespace SafePlace.DBCommunication
 {
 
-    class DBCommunicator : IDBCommunicator
+    public sealed class DBCommunicator
     {
+        private static readonly Lazy<DBCommunicator> lazy = new Lazy<DBCommunicator>(() => new DBCommunicator());
+
+        public static DBCommunicator Instace { get { return lazy.Value; } }
+
+
         #region Add to DB
         public void AddCamera(Camera camera)
         {
             // Would this give any use? I ques EF covers it?
-             //if (camera == null)
+            //if (camera == null)
             //    throw new NullReferenceException("Camera is not created.");
 
             using (DataContext dataContext = new DataContext())
@@ -55,36 +60,80 @@ namespace SafePlace.DBCommunication
         }
         #endregion
 
-        #region Get from FB
-        public IDictionary<Guid, Camera> GetCameras()
+        #region Get from DB
+        /// ToList() needed to invoke query, without if query is invoked when program tries to use
+        /// returned data what is imposible, because dataContext at that momemt is already disposed
+
+        public IEnumerable<Camera> GetCameras()
         {
             using (DataContext dataContext = new DataContext())
             {
-                return dataContext.Cameras.ToDictionary(e => e.Guid);
+                /// ToList deals with deferred excefution problem, (explained at the top af region)
+                return dataContext.Cameras.AsEnumerable<Camera>().ToList(); ;
             }
         }
 
-        public IDictionary<Guid, Floor> GetFloors()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Floor> GetFloors()
         {
             using (DataContext dataContext = new DataContext())
             {
-                return dataContext.Floors.ToDictionary(e => e.Guid);
+                /// Include gets floors together - Eager loading (Without it it would be lazy loading, what means
+                /// related entities are not loaded)
+                /// /// ToList deals with deferred excefution problem, (explained at the top af region)
+                return dataContext.Floors.Include("Cameras").AsEnumerable().ToList();
             }
         }
 
-        public IDictionary<Guid, Person> GetPeople()
+        public IEnumerable<Person> GetPeople()
         {
             using (DataContext dataContext = new DataContext())
             {
-                return dataContext.People.ToDictionary(e => e.Guid);
+                /// ToList deals with deferred excefution problem, (explained at the top af region)
+                return dataContext.People.AsEnumerable().ToList();
             }
         }
 
-        public IDictionary<Guid, PersonType> GetPersonTypes()
+        public IEnumerable<PersonType> GetPersonTypes()
         {
             using (DataContext dataContext = new DataContext())
             {
-                return dataContext.PersonTypes.ToDictionary(e => e.Guid);
+                /// ToList deals with deferred excefution problem, (explained at the top af region)
+                return dataContext.PersonTypes.AsEnumerable().ToList();
+            }
+        }
+
+        public Person GetPerson(Guid Guid)
+        {
+            using (DataContext dataContext = new DataContext())
+            {
+                return dataContext.People.Find(Guid);
+            }
+        }
+
+        public Floor GetFloor(Guid Guid)
+        {
+            using (DataContext dataContext = new DataContext())
+            {
+                return dataContext.Floors.Find(Guid);
+            }
+        }
+        public Camera Getcamera(Guid Guid)
+        {
+            using (DataContext dataContext = new DataContext())
+            {
+                return dataContext.Cameras.Find(Guid);
+            }
+        }
+
+        public PersonType GetPersonType(Guid Guid)
+        {
+            using (DataContext dataContext = new DataContext())
+            {
+                return dataContext.PersonTypes.Find(Guid);
             }
         }
         #endregion
@@ -95,8 +144,8 @@ namespace SafePlace.DBCommunication
         /// <typeparam name="T"></typeparam>
         /// <param name="model"></param>
 
-        public void Update<T> (T model) where T : Model
-        { 
+        public void Update<T>(T model) where T : Model
+        {
             using (DataContext dataContext = new DataContext())
             {
                 dataContext.Entry(model).CurrentValues.SetValues(model);
