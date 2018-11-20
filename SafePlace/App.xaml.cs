@@ -38,8 +38,10 @@ namespace SafePlace
             #region Fake data for DB in case we need to repopulate it.
             var firstFloor = mainService.GetFloorServiceInstance().CreateFloor();
             firstFloor.Name = "First floor";
+            firstFloor.Guid = new Guid("3f692a4a-9952-4ac2-93b1-3ae34daa9b5f");
             var secondFloor = mainService.GetFloorServiceInstance().CreateFloor("/Images/Floor2.png");
             secondFloor.Name = "Second floor";
+            secondFloor.Guid = new Guid("3f692a4a-9952-4ac2-93b1-3ae34daa9b5e");
             #endregion
 
             //Fake data from DB

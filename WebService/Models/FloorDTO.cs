@@ -15,11 +15,15 @@ namespace WebService.Models
 
         public string Name { get; set; }
 
+        public IEnumerable<CameraDTO> Cameras { get; set; }
+
+
         public FloorDTO(Floor floor)
         {
             Guid = floor.Guid;
             ImagePath = floor.ImagePath;
             Name = floor.Name;
+            Cameras = floor.Cameras.Select(cam => new CameraDTO(cam));
         }
     }
 }

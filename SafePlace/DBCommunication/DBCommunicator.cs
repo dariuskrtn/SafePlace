@@ -69,7 +69,7 @@ namespace SafePlace.DBCommunication
             using (DataContext dataContext = new DataContext())
             {
                 /// ToList deals with deferred excefution problem, (explained at the top af region)
-                return dataContext.Cameras.AsEnumerable<Camera>().ToList(); ;
+                return dataContext.Cameras.Include("People").Include("PersonTypes").AsEnumerable<Camera>().ToList(); ;
             }
         }
 
@@ -84,7 +84,7 @@ namespace SafePlace.DBCommunication
                     /// Include gets floors together - Eager loading (Without it it would be lazy loading, what means
                     /// related entities are not loaded)
                     /// /// ToList deals with deferred excefution problem, (explained at the top af region)
-                    return dataContext.Floors.AsEnumerable().ToList();
+                    return dataContext.Floors.Include("cameras").AsEnumerable().ToList();
                 }
         }
 

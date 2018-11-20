@@ -7,6 +7,8 @@ using System.Web.Http;
 using SafePlace.DB;
 using SafePlace.Models;
 using SafePlace.Service;
+using WebService.Models;
+
 namespace WebService.Controllers
 {
     public class CamerasController : ApiController
@@ -16,7 +18,7 @@ namespace WebService.Controllers
         public IHttpActionResult Get()
         {
             // Returns nothing as CameraService does not communicate with DB in this branch.
-            return Ok(service.GetAllCameras().Select(camera => camera.Guid));
+            return Ok(service.GetAllCameras().Select(camera => new CameraDTO(camera)));
         }
 
         // GET: api/Cameras/23005604-eb1b-11de-85ba-806d6172696f

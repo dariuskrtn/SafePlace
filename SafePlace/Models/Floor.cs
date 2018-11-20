@@ -6,6 +6,7 @@ namespace SafePlace.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
     using System.Windows.Media.Imaging;
+
     [Serializable]
     [Table("Floor")]
     public partial class Floor : Model
@@ -22,12 +23,12 @@ namespace SafePlace.Models
         [StringLength(64)]
         public string Name { get; set; }
 
+        public ICollection<Camera> Cameras { get; set; }
 
         #endregion
 
         #region extra stuff
-        [NotMapped]
-        public virtual ICollection<Camera> Cameras { get; set; }
+        
 
         public Floor()
         {

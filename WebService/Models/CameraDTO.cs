@@ -19,11 +19,11 @@ namespace WebService.Models
 
         public int PositionY { get; set; }
 
-        public Guid Floor { get; set; }
+        public Guid? Floor { get; set; }
 
-        //public virtual ICollection<Person> People { set; get; }
+        public ICollection<Person> People { set; get; }
 
-        //public virtual ICollection<PersonType> PersonTypes { set; get; }
+        public ICollection<PersonType> PersonTypes { set; get; }
 
         public CameraDTO(Camera cam)
         {
@@ -32,9 +32,9 @@ namespace WebService.Models
             Name = cam.Name;
             PositionX = cam.PositionX;
             PositionY = cam.PositionY;
-            Floor = cam.Floor.Guid;
-            //People = cam.People;
-            //PersonTypes = cam.PersonTypes;
+            Floor = cam.Floor?.Guid;
+            People = cam.People;
+            PersonTypes = cam.PersonTypes;
         }
     }
 }

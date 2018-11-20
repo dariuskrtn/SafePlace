@@ -33,9 +33,9 @@ namespace SafePlace.Models
 
         public Floor Floor { get; set; }
 
-        public virtual ICollection<Person> People { set; get; }
+        public ICollection<Person> People { set; get; }
 
-        public virtual ICollection<PersonType> PersonTypes { set; get; }
+        public ICollection<PersonType> PersonTypes { set; get; }
         #endregion
 
         #region extra fields
