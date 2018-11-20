@@ -56,7 +56,13 @@ namespace SafePlace.Service
 
         public IEnumerable<Floor> GetFloorList()
         {
-               return _dBCommunicator.GetFloors();
+            var floors = _dBCommunicator.GetFloors();
+            foreach(var floor in floors)
+            {
+                if (floor.ImagePath != null) floor.FloorMap = new BitmapImage(new Uri(floor.ImagePath, UriKind.Relative));
+                else floor.FloorMap = new BitmapImage(new Uri("/Images/Placeholder.png", UriKind.Relative));
+            }
+            return floors;
         }
     }
 }
