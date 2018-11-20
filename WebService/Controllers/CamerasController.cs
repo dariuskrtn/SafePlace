@@ -13,10 +13,10 @@ namespace WebService.Controllers
     {
         ICameraService service = new CameraService();
         // GET: api/Cameras
-        public IEnumerable<Camera> Get()
+        public IHttpActionResult Get()
         {
             // Returns nothing as CameraService does not communicate with DB in this branch.
-            return service.GetAllCameras();
+            return Ok(service.GetAllCameras().Select(camera => camera.Guid));
         }
 
         // GET: api/Cameras/23005604-eb1b-11de-85ba-806d6172696f

@@ -7,7 +7,7 @@ namespace SafePlace.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-
+    [Serializable]
     [Table("Camera")]
     public partial class Camera : Model
     {

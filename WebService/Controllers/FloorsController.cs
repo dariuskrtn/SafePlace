@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebService.Models;
 
 namespace WebService.Controllers
 {
@@ -13,9 +14,9 @@ namespace WebService.Controllers
     {
         IFloorService service = new FloorService();
         // GET: api/Floors
-        public IEnumerable<Floor> Get()
+        public IEnumerable<FloorDTO> Get()
         {
-            return service.GetFloorList();
+            return service.GetFloorList().Select(floor => new FloorDTO(floor));
         }
 
         // GET: api/Floors/23005604-eb1b-11de-85ba-806d6172696f

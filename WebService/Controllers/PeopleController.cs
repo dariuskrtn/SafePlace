@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using SafePlace.Models;
 using SafePlace.Service;
+using WebService.Models;
 
 namespace WebService.Controllers
 {
@@ -13,10 +14,10 @@ namespace WebService.Controllers
     {
         IPersonService service = new PersonService();
         // GET: api/Cameras
-        public IEnumerable<Person> Get()
+        public IEnumerable<PersonDTO> Get()
         {
-            // Returns nothing as CameraService does not communicate with DB in this branch.
-            return service.GetPeople();
+            var dbPeople = service.GetPeople();
+            return dbPeople.Select(person => new PersonDTO(person));
         }
 
         // GET: api/Cameras/23005604-eb1b-11de-85ba-806d6172696f
@@ -26,7 +27,7 @@ namespace WebService.Controllers
             Person person = people.FirstOrDefault(aPerson => aPerson.Guid == id);
             //If the person is not in the DataBase, service returns error 404.
             if (person == null) return NotFound();
-            return Ok(person);
+            return Ok(new PersonDTO(person));
         }
 
         //To implement?:
