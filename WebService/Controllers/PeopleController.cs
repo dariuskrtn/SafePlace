@@ -16,13 +16,13 @@ namespace WebService.Controllers
         public IEnumerable<Person> Get()
         {
             // Returns nothing as CameraService does not communicate with DB in this branch.
-            return service.GetAllPeople();
+            return service.GetPeople();
         }
 
         // GET: api/Cameras/23005604-eb1b-11de-85ba-806d6172696f
         public IHttpActionResult Get(Guid id)
         {
-            var people = service.GetAllPeople();
+            var people = service.GetPeople();
             Person person = people.FirstOrDefault(aPerson => aPerson.Guid == id);
             //If the person is not in the DataBase, service returns error 404.
             if (person == null) return NotFound();
