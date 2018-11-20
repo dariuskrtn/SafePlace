@@ -21,11 +21,14 @@ namespace SafePlace.Models
 
         [StringLength(64)]
         public string Name { get; set; }
-        
-        public virtual ICollection<Camera> Cameras { get; set; }
+
+
         #endregion
-        
+
         #region extra stuff
+        [NotMapped]
+        public virtual ICollection<Camera> Cameras { get; set; }
+
         public Floor()
         {
             this.Cameras = new HashSet<Camera>(); 

@@ -79,21 +79,13 @@ namespace SafePlace.DBCommunication
         /// <returns></returns>
         public IEnumerable<Floor> GetFloors()
         {
-            try
-            {
                 using (DataContext dataContext = new DataContext())
                 {
                     /// Include gets floors together - Eager loading (Without it it would be lazy loading, what means
                     /// related entities are not loaded)
                     /// /// ToList deals with deferred excefution problem, (explained at the top af region)
-                    return dataContext.Floors.Include("Cameras").AsEnumerable().ToList();
+                    return dataContext.Floors.AsEnumerable().ToList();
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-            return null;
         }
 
         public IEnumerable<Person> GetPeople()
