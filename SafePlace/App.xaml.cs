@@ -16,6 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace SafePlace
 {
@@ -34,40 +35,43 @@ namespace SafePlace
 
             var mainService = new MainService();
 
-            // We already have database, so fake date is not needen anymore, But I'm leaving it for now, if we will need 
-            //to quicly add some vorking fake data to our db
-            //Fake data
-            //var floor = mainService.GetFloorServiceInstance().CreateFloor();
-            //floor.Name = "First floor";
-            //mainService.GetFloorServiceInstance().Add(floor);
+            //Fake data from DB
+            var floors = mainService.GetFloorServiceInstance().GetFloorList().ToArray();
+            if(floors.Length <2)
+            {
+                mainService.GetLoggerInstance().LogError("Error 404, fake data in DB not found.");
+            }
+            
+            //A cycle through floors from db to change something if needed.
+            foreach(var floor in floors)
+            {
 
-            //var secondFloor = mainService.GetFloorServiceInstance().CreateFloor("/Images/Floor2.png");
-            //secondFloor.Name = "Second floor";
-            //mainService.GetFloorServiceInstance().Add(secondFloor);
-            ///*
+                if (floor.ImagePath != null)
+                {
+                    var img = new BitmapImage(new Uri(floor.ImagePath, UriKind.Relative));
+                    //floor.FloorMap = new BitmapImage(new Uri(floor.ImagePath, UriKind.Relative));
+                }
+                //else floor.FloorMap = new BitmapImage(new Uri("/Images/no_image_icon.png", UriKind.Relative));
+            }
             //int[] coords = {70, 56, 39, 594, 512, 550, 842, 550, 1148, 587, 1335, 33, 1066, 34, 864, 29, 387, 327, 771, 282}; 
-            //for (int i = 0; i < coords.Length; i += 2)
-            //{
-            //    Camera newCamera = mainService.GetCameraServiceInstance().CreateCamera();
-            //    newCamera.Name = coords[i] + "";
-            //    newCamera.PositionX = coords[i];
-            //    newCamera.PositionY = coords[i + 1];
-            //    floor.Cameras.Add(newCamera);
-            //}
-            ///*for (int i = 0; i < 25; i++)
-            //{
-            //    Camera newCamera = mainService.GetCameraServiceInstance().CreateCamera();
-            //    //Setting camera position, which relates to the translation transformation of an image in its container.
-            //    newCamera.PositionX = (3 - i % 5) * 200;
-            //    newCamera.PositionY = (3 - i / 5) * 50;
-            //   floor.Cameras.Add(newCamera);
-            //}*/
+            var cameras = mainService.GetCameraServiceInstance().GetAllCameras().ToArray();
+            if (cameras.Length >= 3 && floors.Length >= 2)
+            {
+                foreach (Camera cam in cameras) cam.IdentifiedPeople = new List<Person>();
+                floors[0].AddCamera(cameras[0]);
+                floors[0].AddCamera(cameras[1]);
+                floors[1].AddCamera(cameras[2]);
+            }
+            foreach (var camera in cameras)
+            {
+                mainService.CreateCameraAnalyzeService(camera);
+            }
             //var cam = mainService.GetCameraServiceInstance().CreateCamera();
             //cam.IPAddress = "http://192.168.8.101:8081/video";
             //cam.Name = "Main camera";
             //cam.PositionX = 70;
             //cam.PositionY = 56;
-            //floor.Cameras.Add(cam);
+            //firstFloor.Cameras.Add(cam);
             //mainService.CreateCameraAnalyzeService(cam);
 
             //cam = mainService.GetCameraServiceInstance().CreateCamera();
@@ -75,7 +79,7 @@ namespace SafePlace
             //cam.Name = "Main camera the second";
             //cam.PositionX = 39;
             //cam.PositionY = 594;
-            //floor.Cameras.Add(cam);
+            //firstFloor.Cameras.Add(cam);
             //mainService.CreateCameraAnalyzeService(cam);
 
             //cam = mainService.GetCameraServiceInstance().CreateCamera();
@@ -85,6 +89,7 @@ namespace SafePlace
             //cam.PositionY = 100;
             //secondFloor.Cameras.Add(cam);
             //mainService.CreateCameraAnalyzeService(cam);
+
             //End of fake data
 
             var mainWindowViewModel = new MainWindowViewModel();

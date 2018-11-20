@@ -137,6 +137,7 @@ namespace SafePlace.Views.HomePageView
             foreach(var cam in newFloor.Cameras)
             {
                 var cameraViewModel = new CameraViewModel { Status = cam.Status, PositionX = cam.PositionX, PositionY = cam.PositionY, Guid = cam.Guid };
+                if (cam.IdentifiedPeople == null) cam.IdentifiedPeople = new List<Person>();
                 foreach (var person in cam.IdentifiedPeople) cameraViewModel.IdentifiedPeople.Add(person);
                 cameraViewModel.IdentifiedPeople.Add(new Person("t1", "t2"));
                 _viewModel.Cameras.Add(cameraViewModel);
