@@ -65,7 +65,7 @@ namespace SafePlace.Service
 
         public void Update(Floor floor)
         {
-            //_dBCommunicator.Update(floor);
+            _dBCommunicator.Update(floor);
         }
 
         public Floor GetFloor(Guid guid)

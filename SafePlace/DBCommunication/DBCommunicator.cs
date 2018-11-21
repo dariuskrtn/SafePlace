@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reactive.Linq;
+using System.Data.Entity;
 
 namespace SafePlace.DBCommunication
 {
@@ -133,7 +134,7 @@ namespace SafePlace.DBCommunication
                 return dataContext.Floors.Find(Guid);
             }
         }
-        public Camera Getcamera(Guid Guid)
+        public Camera GetCamera(Guid Guid)
         {
             using (DataContext dataContext = new DataContext())
             {
@@ -153,16 +154,20 @@ namespace SafePlace.DBCommunication
         /// <summary>
         /// Update any model which extends Model.cs
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T"> T must be or extend Model.cs </typeparam>
         /// <param name="model"></param>
 
         public void Update<T>(T model) where T : Model
         {
             using (DataContext dataContext = new DataContext())
             {
-                
-                dataContext.Entry<T>(model).CurrentValues.SetValues(model);
-                // SaveChanges() actually updates the database
+                /*
+                 * This should work with Connected Scenario - when model is get and updated using the same DataContext
+                 * dataContext.Entry<T>(model).CurrentValues.SetValues(model);
+                */
+
+                //This works with Disconnected Scenario  model is get and updated using different DataContexts
+                dataContext.Entry(model).State = EntityState.Modified;
                 dataContext.SaveChanges();
             }
         }
