@@ -9,7 +9,7 @@ using SafePlace.Models;
 
 namespace SafePlace.Service
 {
-    public class PersonService : IPersonService
+    class PersonService : IPersonService
     {
         DBCommunicator _dBCommunicator = DBCommunicator.Instace;
 

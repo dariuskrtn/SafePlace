@@ -93,14 +93,8 @@ namespace SafePlace.Views.SettingsPageView
             _logger = mainService.GetLoggerInstance();
             _floorService = mainService.GetFloorServiceInstance();
             _cameraService = mainService.GetCameraServiceInstance();
-
-            //Annonymuos method
-            _floorService.FloorAddedToDB += delegate (object sender, AddFloorEventArgs e)
-                {
-                    ReloadCollection(_viewModel.FloorCollection, _floorService.GetFloorList().ToList());
-                };
         }
-     
+
         private void BuildButttonsCommands()
         {
             _viewModel.EditButtonClickCommand = new RelayCommand(e => EditButtonCommand(), e => { return _currentMode == SettingsModes.Preview; });
@@ -156,7 +150,6 @@ namespace SafePlace.Views.SettingsPageView
                     return;
                 UpdateFloorFromUI(_floor);
                 _currentMode = SettingsModes.Preview;
-                _floorService.Update(_floor);
             }
             else if (SettingsModes.CreatingNew == _currentMode)
             {
@@ -165,8 +158,7 @@ namespace SafePlace.Views.SettingsPageView
                 UpdateFloorFromUI(_floor);
                 _floorService.Add(_floor);
                 _currentMode = SettingsModes.Preview;
-                //Event now serponsible for this
-                //ReloadCollection(_viewModel.FloorCollection, _floorService.GetFloorList().ToList());
+                ReloadCollection(_viewModel.FloorCollection, _floorService.GetFloorList().ToList());
             }
             else
             {

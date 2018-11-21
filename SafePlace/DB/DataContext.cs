@@ -15,7 +15,7 @@ namespace SafePlace.DB
         }
 
         public virtual DbSet<Camera> Cameras { get; set; }
-        public DbSet<Floor> Floors { get; set; }
+        public virtual DbSet<Floor> Floors { get; set; }
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<PersonType> PersonTypes { get; set; }
 
