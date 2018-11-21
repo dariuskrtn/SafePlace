@@ -10,26 +10,14 @@ using System.Reactive.Linq;
 
 namespace SafePlace.DBCommunication
 {
-    
-    //public class AddToDBEventArgs <T> : EventArgs where T : Model
-    //{
-    //    public T _model;
-
-    //    public AddToDBEventArgs(T model)
-    //    {
-    //        _model = model;
-    //    }
-    //}
 
     public sealed class DBCommunicator
     {
-        //public event EventHandler<AddToDBEventArgs<Model>> NewDataInDB;
-
         private static readonly Lazy<DBCommunicator> lazy = new Lazy<DBCommunicator>(() => new DBCommunicator());
 
         public static DBCommunicator Instace { get { return lazy.Value; } }
 
-        
+
         #region Add to DB
         public void AddCamera(Camera camera)
         {
@@ -81,7 +69,7 @@ namespace SafePlace.DBCommunication
             using (DataContext dataContext = new DataContext())
             {
                 /// ToList deals with deferred excefution problem, (explained at the top af region)
-                return dataContext.Cameras.Include("People").Include("PersonTypes").AsEnumerable<Camera>().ToList(); ;
+                return dataContext.Cameras.AsEnumerable<Camera>().ToList(); ;
             }
         }
 
@@ -91,13 +79,13 @@ namespace SafePlace.DBCommunication
         /// <returns></returns>
         public IEnumerable<Floor> GetFloors()
         {
-                using (DataContext dataContext = new DataContext())
-                {
-                    /// Include gets floors together - Eager loading (Without it it would be lazy loading, what means
-                    /// related entities are not loaded)
-                    /// /// ToList deals with deferred excefution problem, (explained at the top af region)
-                    return dataContext.Floors.Include("cameras").AsEnumerable().ToList();
-                }
+            using (DataContext dataContext = new DataContext())
+            {
+                /// Include gets floors together - Eager loading (Without it it would be lazy loading, what means
+                /// related entities are not loaded)
+                /// /// ToList deals with deferred excefution problem, (explained at the top af region)
+                return dataContext.Floors.Include("Cameras").AsEnumerable().ToList();
+            }
         }
 
         public IEnumerable<Person> GetPeople()
@@ -160,8 +148,7 @@ namespace SafePlace.DBCommunication
         {
             using (DataContext dataContext = new DataContext())
             {
-                
-                dataContext.Entry<T>(model).CurrentValues.SetValues(model);
+                dataContext.Entry(model).CurrentValues.SetValues(model);
                 // SaveChanges() actually updates the database
                 dataContext.SaveChanges();
             }
