@@ -49,7 +49,7 @@ namespace SafePlace.Service
 
         public Camera GetCamera(Guid guid)
         {
-            return DBCommunicator.Instace.Getcamera(guid);
+            return DBCommunicator.Instace.GetCamera(guid);
         }
         //Method for removing cameras. Returns true if the camera was found.
         public bool RemoveCamera(Guid guid)

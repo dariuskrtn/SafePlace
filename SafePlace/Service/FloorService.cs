@@ -10,8 +10,21 @@ using System.Windows.Media.Imaging;
 
 namespace SafePlace.Service
 {
+    public class AddFloorEventArgs : EventArgs
+    {
+        public  Floor _floor;
+
+        public AddFloorEventArgs(Floor floor)
+        {
+            _floor = floor;
+        }
+    }
+
+
     public class FloorService : IFloorService
     {
+        public event EventHandler<AddFloorEventArgs> FloorAddedToDB;
+
         DBCommunicator _dBCommunicator = DBCommunicator.Instace;
 
         public void Add(Floor floor)
@@ -19,13 +32,14 @@ namespace SafePlace.Service
             if (null == floor)
                 return;
             _dBCommunicator.AddFloor(floor);
+            FloorAddedToDB(this, new AddFloorEventArgs(floor));
         }
 
         public Floor CreateFloor()
         {
             return CreateFloor("/Images/Floor.png");
         }
-        
+
         public Floor CreateFloor(string Path)
         {
             var floor = new Floor();
@@ -49,6 +63,11 @@ namespace SafePlace.Service
             return CreateFloor("/Images/no_image_icon.png", name);
         }
 
+        public void Update(Floor floor)
+        {
+            _dBCommunicator.Update(floor);
+        }
+
         public Floor GetFloor(Guid guid)
         {
             return _dBCommunicator.GetFloor(guid);
@@ -57,10 +76,23 @@ namespace SafePlace.Service
         public IEnumerable<Floor> GetFloorList()
         {
             var floors = _dBCommunicator.GetFloors();
+            if (floors == null)
+                return null;
             foreach(var floor in floors)
             {
-                if (floor.ImagePath != null) floor.FloorMap = new BitmapImage(new Uri(floor.ImagePath, UriKind.Relative));
-                else floor.FloorMap = new BitmapImage(new Uri("/Images/Placeholder.png", UriKind.Relative));
+                try
+                {
+                    if (!floor.ImagePath.StartsWith("/Images/"))
+                        floor.FloorMap = new BitmapImage(new Uri(floor.ImagePath, UriKind.Absolute));
+                    else if (floor.ImagePath != null)
+                        floor.FloorMap = new BitmapImage(new Uri(floor.ImagePath, UriKind.Relative));
+                    else
+                        floor.FloorMap = new BitmapImage(new Uri("/Images/Placeholder.png", UriKind.Relative));
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
             return floors;
         }
