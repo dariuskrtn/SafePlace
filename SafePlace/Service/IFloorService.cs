@@ -17,5 +17,6 @@ namespace SafePlace.Service
         Floor CreateEmptyFloor(string name);
         Floor CreateFloor(string path);
         IEnumerable<Floor> GetFloorList();
+        void Update(Floor floor);
     }
 }

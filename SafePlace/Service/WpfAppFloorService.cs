@@ -61,5 +61,10 @@ namespace SafePlace.Service
         {
             return floors.Select(item => item.Value);
         }
+
+        public void Update(Floor floor)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

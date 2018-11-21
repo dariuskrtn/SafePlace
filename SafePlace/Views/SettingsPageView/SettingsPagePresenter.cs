@@ -156,6 +156,7 @@ namespace SafePlace.Views.SettingsPageView
                     return;
                 UpdateFloorFromUI(_floor);
                 _currentMode = SettingsModes.Preview;
+                _floorService.Update(_floor);
             }
             else if (SettingsModes.CreatingNew == _currentMode)
             {

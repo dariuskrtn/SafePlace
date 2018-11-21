@@ -160,7 +160,8 @@ namespace SafePlace.DBCommunication
         {
             using (DataContext dataContext = new DataContext())
             {
-                dataContext.Entry(model).CurrentValues.SetValues(model);
+                
+                dataContext.Entry<T>(model).CurrentValues.SetValues(model);
                 // SaveChanges() actually updates the database
                 dataContext.SaveChanges();
             }

@@ -39,7 +39,7 @@ namespace SafePlace.Service
         {
             return CreateFloor("/Images/Floor.png");
         }
-        
+
         public Floor CreateFloor(string Path)
         {
             var floor = new Floor();
@@ -63,6 +63,11 @@ namespace SafePlace.Service
             return CreateFloor("/Images/no_image_icon.png", name);
         }
 
+        public void Update(Floor floor)
+        {
+            //_dBCommunicator.Update(floor);
+        }
+
         public Floor GetFloor(Guid guid)
         {
             return _dBCommunicator.GetFloor(guid);
@@ -75,8 +80,12 @@ namespace SafePlace.Service
                 return null;
             foreach(var floor in floors)
             {
-                if (floor.ImagePath != null) floor.FloorMap = new BitmapImage(new Uri(floor.ImagePath, UriKind.Relative));
-                else floor.FloorMap = new BitmapImage(new Uri("/Images/Placeholder.png", UriKind.Relative));
+                if (!floor.ImagePath.StartsWith("/Images/"))
+                    floor.FloorMap = new BitmapImage(new Uri(floor.ImagePath, UriKind.Absolute));
+                else if (floor.ImagePath != null)
+                    floor.FloorMap = new BitmapImage(new Uri(floor.ImagePath, UriKind.Relative));
+                else
+                    floor.FloorMap = new BitmapImage(new Uri("/Images/Placeholder.png", UriKind.Relative));
             }
             return floors;
         }
