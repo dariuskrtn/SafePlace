@@ -13,11 +13,14 @@ namespace SafePlace.Service
     {
         private Dictionary<Guid, Floor> floors = new Dictionary<Guid, Floor>();
 
+        public event EventHandler<AddFloorEventArgs> FloorAddedToDB;
+
         public void Add(Floor floor)
         {
             if (null == floor)
                 return;
             floors.Add(floor.Guid, floor);
+            FloorAddedToDB?.Invoke(this, new AddFloorEventArgs(floor));
         }
 
         public Floor CreateFloor()

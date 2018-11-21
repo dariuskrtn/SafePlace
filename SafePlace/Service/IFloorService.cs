@@ -9,6 +9,8 @@ namespace SafePlace.Service
 {
     public interface IFloorService
     {
+        event EventHandler<AddFloorEventArgs> FloorAddedToDB;
+
         void Add(Floor floor);
         Floor GetFloor(Guid guid);
         Floor CreateFloor();

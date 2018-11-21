@@ -10,14 +10,26 @@ using System.Reactive.Linq;
 
 namespace SafePlace.DBCommunication
 {
+    
+    //public class AddToDBEventArgs <T> : EventArgs where T : Model
+    //{
+    //    public T _model;
+
+    //    public AddToDBEventArgs(T model)
+    //    {
+    //        _model = model;
+    //    }
+    //}
 
     public sealed class DBCommunicator
     {
+        //public event EventHandler<AddToDBEventArgs<Model>> NewDataInDB;
+
         private static readonly Lazy<DBCommunicator> lazy = new Lazy<DBCommunicator>(() => new DBCommunicator());
 
         public static DBCommunicator Instace { get { return lazy.Value; } }
 
-
+        
         #region Add to DB
         public void AddCamera(Camera camera)
         {

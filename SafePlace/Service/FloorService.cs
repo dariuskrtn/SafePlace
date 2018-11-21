@@ -10,8 +10,21 @@ using System.Windows.Media.Imaging;
 
 namespace SafePlace.Service
 {
+    public class AddFloorEventArgs : EventArgs
+    {
+        public  Floor _floor;
+
+        public AddFloorEventArgs(Floor floor)
+        {
+            _floor = floor;
+        }
+    }
+
+
     public class FloorService : IFloorService
     {
+        public event EventHandler<AddFloorEventArgs> FloorAddedToDB;
+
         DBCommunicator _dBCommunicator = DBCommunicator.Instace;
 
         public void Add(Floor floor)
@@ -19,6 +32,7 @@ namespace SafePlace.Service
             if (null == floor)
                 return;
             _dBCommunicator.AddFloor(floor);
+            FloorAddedToDB(this, new AddFloorEventArgs(floor));
         }
 
         public Floor CreateFloor()
