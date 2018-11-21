@@ -5,7 +5,7 @@ namespace SafePlace.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-
+    [Serializable]
     [Table("Person")]
     public partial class Person : Model
     {
@@ -25,7 +25,7 @@ namespace SafePlace.Models
         //Could be in format: type, subtype. For example: "Visitor, business partner" or "Employee, intern".
         public PersonType PersonType { get; set; }
 
-        public virtual ICollection<Camera> AllowedCameras { get; set; }
+        public ICollection<Camera> AllowedCameras { get; set; }
         #endregion
 
         #region extr stuff

@@ -7,6 +7,7 @@ namespace SafePlace.Models
     using System.Data.Entity.Spatial;
     using System.Windows.Media.Imaging;
 
+    [Serializable]
     [Table("Floor")]
     public partial class Floor : Model
     {
@@ -21,11 +22,14 @@ namespace SafePlace.Models
 
         [StringLength(64)]
         public string Name { get; set; }
-        
-        public virtual ICollection<Camera> Cameras { get; set; }
+
+        public ICollection<Camera> Cameras { get; set; }
+
         #endregion
-        
+
         #region extra stuff
+        
+
         public Floor()
         {
             this.Cameras = new HashSet<Camera>(); 
