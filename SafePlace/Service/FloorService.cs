@@ -80,12 +80,19 @@ namespace SafePlace.Service
                 return null;
             foreach(var floor in floors)
             {
-                if (!floor.ImagePath.StartsWith("/Images/"))
-                    floor.FloorMap = new BitmapImage(new Uri(floor.ImagePath, UriKind.Absolute));
-                else if (floor.ImagePath != null)
-                    floor.FloorMap = new BitmapImage(new Uri(floor.ImagePath, UriKind.Relative));
-                else
-                    floor.FloorMap = new BitmapImage(new Uri("/Images/Placeholder.png", UriKind.Relative));
+                try
+                {
+                    if (!floor.ImagePath.StartsWith("/Images/"))
+                        floor.FloorMap = new BitmapImage(new Uri(floor.ImagePath, UriKind.Absolute));
+                    else if (floor.ImagePath != null)
+                        floor.FloorMap = new BitmapImage(new Uri(floor.ImagePath, UriKind.Relative));
+                    else
+                        floor.FloorMap = new BitmapImage(new Uri("/Images/Placeholder.png", UriKind.Relative));
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
             return floors;
         }
