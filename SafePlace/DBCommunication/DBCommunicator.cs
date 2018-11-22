@@ -171,7 +171,11 @@ namespace SafePlace.DBCommunication
                 dataContext.SaveChanges();
             }
         }
-
+        /// <summary>
+        /// Delete from DB any model which extends Model.cs
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="model"></param>
         public void Delete<T>(T model) where T : Model
         {
             using (DataContext dataContext = new DataContext())

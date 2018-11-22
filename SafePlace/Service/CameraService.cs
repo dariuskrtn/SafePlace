@@ -71,5 +71,10 @@ namespace SafePlace.Service
             throw new NotImplementedException("Obsolete. If working wioth database use DeleteCamera(Camera camera), " +
                                             "otherwise use WPFCameraService");
         }
+
+        public void Update(Camera camera)
+        {
+            _dBCommunicator.Update(camera);
+        }
     }
 }

@@ -35,5 +35,10 @@ namespace SafePlace.Service
             return null;
             
         }
+
+        public void Update(Person person)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -67,5 +67,10 @@ namespace SafePlace.Service
         {
             throw new NotImplementedException();
         }
+
+        public void Update(Camera camera)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

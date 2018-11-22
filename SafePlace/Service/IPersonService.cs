@@ -13,5 +13,6 @@ namespace SafePlace.Service
         Person CreatePerson();
         IEnumerable<Person> GetPeople();
         void Delete(Person person);
+        void Update(Person person);
     }
 }
