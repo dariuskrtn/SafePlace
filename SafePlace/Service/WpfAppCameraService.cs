@@ -62,5 +62,10 @@ namespace SafePlace.Service
         {
             cameras.Add(camera.Guid, camera);
         }
+
+        public void DeleteCamera(Camera camera)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

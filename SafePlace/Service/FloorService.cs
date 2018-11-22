@@ -10,11 +10,11 @@ using System.Windows.Media.Imaging;
 
 namespace SafePlace.Service
 {
-    public class AddFloorEventArgs : EventArgs
+    public class UpdateFloorEventArgs : EventArgs
     {
         public  Floor _floor;
 
-        public AddFloorEventArgs(Floor floor)
+        public UpdateFloorEventArgs(Floor floor)
         {
             _floor = floor;
         }
@@ -23,7 +23,7 @@ namespace SafePlace.Service
 
     public class FloorService : IFloorService
     {
-        public event EventHandler<AddFloorEventArgs> FloorAddedToDB;
+        public event EventHandler<UpdateFloorEventArgs> OnFloorListUpdated;
 
         DBCommunicator _dBCommunicator = DBCommunicator.Instace;
 
@@ -32,7 +32,7 @@ namespace SafePlace.Service
             if (null == floor)
                 return;
             _dBCommunicator.AddFloor(floor);
-            FloorAddedToDB(this, new AddFloorEventArgs(floor));
+            OnFloorListUpdated(this, new UpdateFloorEventArgs(floor));
         }
 
         public Floor CreateFloor()
@@ -66,6 +66,7 @@ namespace SafePlace.Service
         public void Update(Floor floor)
         {
             _dBCommunicator.Update(floor);
+            OnFloorListUpdated(this, new UpdateFloorEventArgs(floor));
         }
 
         public Floor GetFloor(Guid guid)
@@ -95,6 +96,12 @@ namespace SafePlace.Service
                 }
             }
             return floors;
+        }
+
+        public void Delete(Floor floor)
+        {
+            _dBCommunicator.Delete(floor);
+            OnFloorListUpdated(this, new UpdateFloorEventArgs(floor));
         }
     }
 }

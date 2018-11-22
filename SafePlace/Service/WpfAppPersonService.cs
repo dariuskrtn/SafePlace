@@ -19,6 +19,11 @@ namespace SafePlace.Service
             return person;
         }
 
+        public void Delete(Person person)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Person> GetPeople()
         {
             throw new NotImplementedException();

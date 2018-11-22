@@ -68,13 +68,11 @@ namespace SafePlace.Views.SettingsPageView
             _floor = _floorService.GetFloorList().FirstOrDefault();
             ReloadCollection(_viewModel.CameraCollection, _floor?.Cameras);
 
-            if (null != _floor)
+            if (null == _floor)
             {
-                return;
+                _floor = _floorService.CreateEmptyFloor(DefaultFloorName);
+                _currentMode = SettingsModes.CreatingNew;
             }
-
-            _floor = _floorService.CreateEmptyFloor(DefaultFloorName);
-            _currentMode = SettingsModes.CreatingNew;
         }
 
         private void BuildViewModel()
@@ -93,7 +91,13 @@ namespace SafePlace.Views.SettingsPageView
             _logger = mainService.GetLoggerInstance();
             _floorService = mainService.GetFloorServiceInstance();
             _cameraService = mainService.GetCameraServiceInstance();
+
+            _floorService.OnFloorListUpdated +=  delegate (object sender, UpdateFloorEventArgs e)
+                {
+                    ReloadCollection(_viewModel.FloorCollection, _floorService.GetFloorList().ToList());
+                };
         }
+
 
         private void BuildButttonsCommands()
         {
@@ -149,6 +153,7 @@ namespace SafePlace.Views.SettingsPageView
                 if (false == CheckIfNameIsValid())
                     return;
                 UpdateFloorFromUI(_floor);
+                _floorService.Update(_floor);
                 _currentMode = SettingsModes.Preview;
             }
             else if (SettingsModes.CreatingNew == _currentMode)
@@ -158,7 +163,6 @@ namespace SafePlace.Views.SettingsPageView
                 UpdateFloorFromUI(_floor);
                 _floorService.Add(_floor);
                 _currentMode = SettingsModes.Preview;
-                ReloadCollection(_viewModel.FloorCollection, _floorService.GetFloorList().ToList());
             }
             else
             {
@@ -177,7 +181,16 @@ namespace SafePlace.Views.SettingsPageView
 
         private void DeleteButtonCommand()
         {
+            _floorService.Delete(_floor);
+            _floor = _floorService.GetFloorList().FirstOrDefault();
+            LoadFloor(_floor);
 
+            if (null == _floor)
+            {
+                _floor = _floorService.CreateEmptyFloor(DefaultFloorName);
+                _currentMode = SettingsModes.CreatingNew;
+            }
+            _currentMode = SettingsModes.Preview;
         }
 
         #endregion

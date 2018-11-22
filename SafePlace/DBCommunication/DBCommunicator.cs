@@ -171,5 +171,20 @@ namespace SafePlace.DBCommunication
                 dataContext.SaveChanges();
             }
         }
+
+        public void Delete<T>(T model) where T : Model
+        {
+            using (DataContext dataContext = new DataContext())
+            {
+                /*
+                 * This should work with Connected Scenario - when model is get and updated using the same DataContext
+                 * dataContext.Entry<T>(model).CurrentValues.SetValues(model);
+                */
+
+                //This works with Disconnected Scenario  model is get and updated using different DataContexts
+                dataContext.Entry(model).State = EntityState.Deleted;
+                dataContext.SaveChanges();
+            }
+        }
     }
 }
