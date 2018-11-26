@@ -28,22 +28,22 @@ namespace WebService.Controllers
             if (floor == null) return NotFound();
             return Ok(floors);
         }
-
-        //To be implemented?:
-
+        
         // POST: api/Floors
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Floor floor)
         {
+            service.Add(floor);
         }
 
-        // PUT: api/Floors/5
+        // PUT: api/Floors/23005604-eb1b-11de-85ba-806d6172696f
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE: api/Floors/5
-        public void Delete(int id)
+        // DELETE: api/Floors/23005604-eb1b-11de-85ba-806d6172696f
+        public void Delete(Guid id)
         {
+            service.Delete(service.GetFloor(id));
         }
     }
 }

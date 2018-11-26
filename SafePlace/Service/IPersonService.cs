@@ -14,5 +14,6 @@ namespace SafePlace.Service
         IEnumerable<Person> GetPeople();
         void Delete(Person person);
         void Update(Person person);
+        void AddPerson(Person person);
     }
 }

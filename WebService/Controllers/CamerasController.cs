@@ -30,22 +30,23 @@ namespace WebService.Controllers
             if (cam == null) return NotFound();
             return Ok(cam);
         }
-
-        //To be implemented?:
-
+        
         // POST: api/Cameras
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Camera cam)
         {
+            service.AddCamera(cam);
         }
 
-        // PUT: api/Cameras/5
+        // PUT: api/Cameras/23005604-eb1b-11de-85ba-806d6172696f
         public void Put(int id, [FromBody]string value)
         {
+
         }
 
-        // DELETE: api/Cameras/5
-        public void Delete(int id)
+        // DELETE: api/Cameras/23005604-eb1b-11de-85ba-806d6172696f
+        public void Delete(Guid id)
         {
+            service.DeleteCamera(service.GetCamera(id));
         }
     }
 }

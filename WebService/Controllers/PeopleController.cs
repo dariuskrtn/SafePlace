@@ -29,22 +29,22 @@ namespace WebService.Controllers
             if (person == null) return NotFound();
             return Ok(new PersonDTO(person));
         }
-
-        //To implement?:
-
+        
         // POST: api/People
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Person person)
+        {
+            service.AddPerson(person);
+        }
+
+        // PUT: api/People/23005604-eb1b-11de-85ba-806d6172696f
+        public void Put(int id, [FromBody]Person person)
         {
         }
 
-        // PUT: api/People/5
-        public void Put(int id, [FromBody]string value)
+        // DELETE: api/People/23005604-eb1b-11de-85ba-806d6172696f
+        public void Delete(Guid id)
         {
-        }
-
-        // DELETE: api/People/5
-        public void Delete(int id)
-        {
+            service.Delete(service.GetPerson(id));
         }
     }
 }
