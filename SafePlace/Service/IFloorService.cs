@@ -9,11 +9,15 @@ namespace SafePlace.Service
 {
     public interface IFloorService
     {
+        event EventHandler<UpdateFloorEventArgs> OnFloorListUpdated;
+
         void Add(Floor floor);
         Floor GetFloor(Guid guid);
         Floor CreateFloor();
         Floor CreateEmptyFloor(string name);
         Floor CreateFloor(string path);
+        void Delete(Floor floor);
         IEnumerable<Floor> GetFloorList();
+        void Update(Floor floor);
     }
 }

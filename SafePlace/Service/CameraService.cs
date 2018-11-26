@@ -52,9 +52,9 @@ namespace SafePlace.Service
             return DBCommunicator.Instace.GetCamera(guid);
         }
         //Method for removing cameras. Returns true if the camera was found.
-        public bool RemoveCamera(Guid guid)
+        public void DeleteCamera(Camera camera)
         {
-            throw new NotImplementedException();
+            _dBCommunicator.Delete(camera);
         }
         /// <summary>
         /// Don't use this unless camera does not have floor 
@@ -64,6 +64,17 @@ namespace SafePlace.Service
         public void AddCamera(Camera camera)
         {
             _dBCommunicator.AddCamera(camera);
+        }
+
+        public bool RemoveCamera(Guid guid)
+        {
+            throw new NotImplementedException("Obsolete. If working wioth database use DeleteCamera(Camera camera), " +
+                                            "otherwise use WPFCameraService");
+        }
+
+        public void Update(Camera camera)
+        {
+            _dBCommunicator.Update(camera);
         }
     }
 }

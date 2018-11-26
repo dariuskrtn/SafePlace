@@ -9,9 +9,12 @@ using System.Windows.Media.Imaging;
 
 namespace SafePlace.Service
 {
+
     public class WpfAppFloorService : IFloorService
     {
         private Dictionary<Guid, Floor> floors = new Dictionary<Guid, Floor>();
+
+        public event EventHandler<UpdateFloorEventArgs> OnFloorListUpdated;
 
         public void Add(Floor floor)
         {
@@ -57,6 +60,16 @@ namespace SafePlace.Service
         public IEnumerable<Floor> GetFloorList()
         {
             return floors.Select(item => item.Value);
+        }
+
+        public void Delete(Floor floor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Floor floor)
+        {
+            throw new NotImplementedException();
         }
     }
 }

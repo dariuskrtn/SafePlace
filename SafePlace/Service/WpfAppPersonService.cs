@@ -19,6 +19,11 @@ namespace SafePlace.Service
             return person;
         }
 
+        public void Delete(Person person)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Person> GetPeople()
         {
             throw new NotImplementedException();
@@ -29,6 +34,11 @@ namespace SafePlace.Service
             if (people.ContainsKey(guid)) return people[guid];
             return null;
             
+        }
+
+        public void Update(Person person)
+        {
+            throw new NotImplementedException();
         }
     }
 }

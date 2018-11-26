@@ -34,5 +34,15 @@ namespace SafePlace.Service
         {
             return _dBCommunicator.GetPeople();
         }
+
+        public void Delete(Person person)
+        {
+            _dBCommunicator.Delete(person);
+        }
+
+        public void Update(Person person)
+        {
+            _dBCommunicator.Update(person);
+        }
     }
 }
