@@ -11,6 +11,11 @@ namespace SafePlace.Service
     {
         private Dictionary<Guid, Person> people = new Dictionary<Guid, Person>();
 
+        public void AddPerson(Person person)
+        {
+            throw new NotImplementedException();
+        }
+
         public Person CreatePerson()
         {
             var person = new Person();
