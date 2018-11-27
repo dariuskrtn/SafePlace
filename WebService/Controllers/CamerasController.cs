@@ -62,10 +62,10 @@ namespace WebService.Controllers
             if (camDTO.Floor != null) cam.Floor = FloorService.GetFloor((Guid)camDTO.Floor);
             else cam.Floor = null;
             //If camDTO.People is null, this cycle breaks. camDTO.people shouldn't be null, it should be an empty data structure.
-            if (camDTO.People != null) foreach (Guid personGuid in camDTO.People)
-                {
-                    cam.People.Add(PersonService.GetPerson(personGuid));
-                }
+            //if (camDTO.People != null) foreach (Guid personGuid in camDTO.People)
+            //    {
+            //        cam.People.Add(PersonService.GetPerson(personGuid));
+            //    }
             //Seems like we need a person type service too.
             if (cam.PersonTypes == null) cam.PersonTypes = new List<PersonType>();
             return cam;

@@ -10,6 +10,7 @@ namespace WebService.Controllers
 {
     public class ImagesController : ApiController
     {
+        IImageController ImageController
         //jei debug paleidi ir parašai: http://localhost:54507/api/images, gauni byte kodą nuotraukos iš App_Data.
         //GET: /api/images
         public string Get()
