@@ -23,7 +23,7 @@ namespace WebService.Models
 
         //The following two were commented as they cause an error when the request GET api/floors is resolved. 
         //Perhaps the select doesn't include people and person types.
-        public IEnumerable<Guid> People { set; get; }
+        //public IEnumerable<Guid> People { set; get; }
 
         public IEnumerable<Guid> PersonTypes { set; get; }
         public CameraDTO()
@@ -38,7 +38,7 @@ namespace WebService.Models
             PositionX = cam.PositionX;
             PositionY = cam.PositionY;
             Floor = cam.Floor?.Guid;
-            People = (IEnumerable<Guid>) cam.People.Select(person => person.Guid);  //Not sure why this doesn't work without the casting.
+            //People = cam.People.Select(person => person.Guid);  //Not sure why but this might not work without a casting.
             PersonTypes = (IEnumerable<Guid>) cam.PersonTypes.Select(type => type.Guid);
         }
 

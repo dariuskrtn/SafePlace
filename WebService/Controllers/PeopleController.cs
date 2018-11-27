@@ -32,10 +32,13 @@ namespace WebService.Controllers
         }
         
         // POST: api/People
-        public void Post([FromBody]PersonDTO personDTO)
+        public IHttpActionResult Post([FromBody]PersonDTO personDTO)
         {
             Person person = GetPersonFromDTO(personDTO);
             service.AddPerson(person);
+            //Some logic to differ whether the person was actually added.
+            //If a database exception arises, should return NotOK() or AddFailed().
+            return Ok(person.Guid);
         }
 
         // PUT: api/People/23005604-eb1b-11de-85ba-806d6172696f
