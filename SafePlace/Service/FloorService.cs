@@ -66,6 +66,7 @@ namespace SafePlace.Service
         public void Update(Floor floor)
         {
             _dBCommunicator.Update(floor);
+            //This throws an exception and a floor is still updated.
             OnFloorListUpdated(this, new UpdateFloorEventArgs(floor));
         }
 

@@ -23,10 +23,13 @@ namespace WebService.Models
 
         //The following two were commented as they cause an error when the request GET api/floors is resolved. 
         //Perhaps the select doesn't include people and person types.
-        //public ICollection<Person> People { set; get; }
+        //public IEnumerable<Guid> People { set; get; }
 
-        //public ICollection<PersonType> PersonTypes { set; get; }
+        public IEnumerable<Guid> PersonTypes { set; get; }
+        public CameraDTO()
+        {
 
+        }
         public CameraDTO(Camera cam)
         {
             Guid = cam.Guid;
@@ -35,8 +38,32 @@ namespace WebService.Models
             PositionX = cam.PositionX;
             PositionY = cam.PositionY;
             Floor = cam.Floor?.Guid;
-            //People = cam.People;
-            //PersonTypes = cam.PersonTypes;
+            //People = cam.People.Select(person => person.Guid);  //Not sure why but this might not work without a casting.
+            PersonTypes = (IEnumerable<Guid>) cam.PersonTypes.Select(type => type.Guid);
+        }
+
+        //Copies DTO attributes to the database object.
+        public static Camera CameraFromDTO(CameraDTO camDTO)
+        {
+            Camera camera = new Camera()
+            {
+                Guid = camDTO.Guid,
+                IPAddress = camDTO.IPAddress,
+                Name = camDTO.Name,
+                PositionX = camDTO.PositionX,
+                PositionY = camDTO.PositionY,
+                //People = new List<Person>(),
+                //PersonTypes = new List<PersonType>()
+            };
+            return camera;
+        }
+        public static void GetAttributesFromDTO(CameraDTO camDTO, Camera cam)
+        {
+            cam.Guid = camDTO.Guid;
+            cam.IPAddress = camDTO.IPAddress;
+            cam.Name = camDTO.Name;
+            cam.PositionX = camDTO.PositionX;
+            cam.PositionY = camDTO.PositionY;
         }
     }
 }

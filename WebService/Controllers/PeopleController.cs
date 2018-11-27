@@ -13,6 +13,7 @@ namespace WebService.Controllers
     public class PeopleController : ApiController
     {
         IPersonService service = new PersonService();
+        ICameraService CameraService = new CameraService();
         // GET: api/Cameras
         public IEnumerable<PersonDTO> Get()
         {
@@ -29,22 +30,36 @@ namespace WebService.Controllers
             if (person == null) return NotFound();
             return Ok(new PersonDTO(person));
         }
-
-        //To implement?:
-
+        
         // POST: api/People
-        public void Post([FromBody]string value)
+        public IHttpActionResult Post([FromBody]PersonDTO personDTO)
         {
+            Person person = GetPersonFromDTO(personDTO);
+            service.AddPerson(person);
+            //Some logic to differ whether the person was actually added.
+            //If a database exception arises, should return NotOK() or AddFailed().
+            return Ok(person.Guid);
         }
 
-        // PUT: api/People/5
-        public void Put(int id, [FromBody]string value)
+        // PUT: api/People/23005604-eb1b-11de-85ba-806d6172696f
+        public void Put(int id, [FromBody]PersonDTO personDTO)
         {
+            Person person = GetPersonFromDTO(personDTO);
+            service.AddPerson(person);
         }
 
-        // DELETE: api/People/5
-        public void Delete(int id)
+        // DELETE: api/People/23005604-eb1b-11de-85ba-806d6172696f
+        public void Delete(Guid id)
         {
+            service.Delete(service.GetPerson(id));
+        }
+        
+        private Person GetPersonFromDTO(PersonDTO personDTO)
+        {
+            Person person = new Person();
+            PersonDTO.GetAttributesFromDTO(personDTO, person);
+            person.AllowedCameras = personDTO.AllowedCameras.Select(cameraGuid => CameraService.GetCamera(cameraGuid)).ToList();
+            return person;
         }
     }
 }

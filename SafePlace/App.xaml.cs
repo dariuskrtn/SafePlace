@@ -111,7 +111,7 @@ namespace SafePlace
                     Guid Guid = Guid.NewGuid();
                     var person = new Person {Guid = Guid, Name = name, LastName = lastName };
                     db.People.Add(person);
-                    db.SaveChanges();
+                    //db.SaveChanges();
                 }
             }
             catch (DbEntityValidationException ex)
