@@ -1,18 +1,20 @@
 ﻿using SafePlace.Service;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using WebService.DependencyHandling;
 
 namespace WebService.Controllers
 {
     public class ImagesController : ApiController
     {
-        IImageService ImageService = new ImageService();
+        IImageService ImageService = DependencyHandler.ImageService.Value;
         //jei debug paleidi ir parašai: http://localhost:54507/api/images, gauni byte kodą nuotraukos iš App_Data.
         //GET: /api/images/
         public HttpResponseMessage Get(Guid id)
@@ -56,6 +58,7 @@ namespace WebService.Controllers
         {
             var result = new HttpResponseMessage(HttpStatusCode.OK);
             var faces = new List<Guid>();
+            var faceImages = new List<Bitmap>();
             if (Request.Content.IsMimeMultipartContent())
             {
                 Request.Content.ReadAsMultipartAsync<MultipartMemoryStreamProvider>(new MultipartMemoryStreamProvider()).ContinueWith((task) =>
@@ -64,11 +67,15 @@ namespace WebService.Controllers
                     foreach (HttpContent content in provider.Contents)
                     {
                         Stream stream = content.ReadAsStreamAsync().Result;
+                        faceImages.Add(Image.FromStream(stream) as Bitmap);
                         faces.Add(ImageService.SaveImage(stream));
                     }
                 });
                 //Face images are saved now. Should azure face registration start here?
                 //The ids of all faces are stored in a list and all images can be retrieved.
+                DependencyHandler.FaceRecognitionService.Value.RegisterPerson(personGuid.ToString(), faceImages);
+                //To do figure out a way to save face images so that you can reach them provided you have the GUID of the person.
+                //Might need separate get and save functions for facial images.
                 return result;
             }
             else
@@ -77,3 +84,4 @@ namespace WebService.Controllers
             }
         }
     }
+}
