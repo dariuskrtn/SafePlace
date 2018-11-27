@@ -52,10 +52,18 @@ namespace WebService.Models
                 Name = camDTO.Name,
                 PositionX = camDTO.PositionX,
                 PositionY = camDTO.PositionY,
-                People = new List<Person>(),
-                PersonTypes = new List<PersonType>()
+                //People = new List<Person>(),
+                //PersonTypes = new List<PersonType>()
             };
             return camera;
+        }
+        public static void CopyDTOToCamera(CameraDTO camDTO, Camera cam)
+        {
+            cam.Guid = camDTO.Guid;
+            cam.IPAddress = camDTO.IPAddress;
+            cam.Name = camDTO.Name;
+            cam.PositionX = camDTO.PositionX;
+            cam.PositionY = camDTO.PositionY;
         }
     }
 }

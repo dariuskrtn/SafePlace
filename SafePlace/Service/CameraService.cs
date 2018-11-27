@@ -18,10 +18,10 @@ namespace SafePlace.Service
             {
                 Guid = Guid.NewGuid(),
                 //Test data for implementing ItemSource, which takes items from ObservableCollection<Person>
-                IdentifiedPeople = new List<Person>() {
-                    new Person() { Name = "John", LastName = "Johnson" },
-                    new Person() { Name = "John", LastName = "Seenhim" }
-                }
+                //IdentifiedPeople = new List<Person>() {
+                //    new Person() { Name = "John", LastName = "Johnson" },
+                //    new Person() { Name = "John", LastName = "Seenhim" }
+                //}
             };
             return camera;
         }

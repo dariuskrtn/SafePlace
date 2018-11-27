@@ -37,29 +37,38 @@ namespace WebService.Controllers
         // POST: api/Cameras
         public void Post([FromBody]CameraDTO camDTO)
         {
-            Camera cam = CameraDTO.CameraFromDTO(camDTO);
-            if (camDTO.Floor != null) cam.Floor = FloorService.GetFloor((Guid)camDTO.Floor);
-            else cam.Floor = null;
-            //If camDTO.People is null, this cycle breaks. camDTO.people shouldn't be null, it should be an empty data structure.
-            if (camDTO.People != null) foreach(Guid personGuid in camDTO.People)
-            {
-                cam.People.Add(PersonService.GetPerson(personGuid));
-            }
-            //Seems like we need a person type service too.
-            cam.PersonTypes = new List<PersonType>();
+            Camera cam = GetCameraFromDTO(camDTO);
             Service.AddCamera(cam);
         }
 
-        // PUT: api/Cameras/23005604-eb1b-11de-85ba-806d6172696f
-        public void Put(int id, [FromBody]string value)
+        // PUT: api/Cameras
+        //The parameter is completely optional as we do have the Guid inside the camera DTO.
+        public void Put([FromBody]CameraDTO camDTO)
         {
-
+            Camera cam = GetCameraFromDTO(camDTO);
+            Service.Update(cam);
         }
 
         // DELETE: api/Cameras/23005604-eb1b-11de-85ba-806d6172696f
         public void Delete(Guid id)
         {
             Service.DeleteCamera(Service.GetCamera(id));
+        }
+
+        private Camera GetCameraFromDTO(CameraDTO camDTO)
+        {
+            Camera cam = Service.CreateCamera();
+            CameraDTO.CopyDTOToCamera(camDTO, cam);
+            if (camDTO.Floor != null) cam.Floor = FloorService.GetFloor((Guid)camDTO.Floor);
+            else cam.Floor = null;
+            //If camDTO.People is null, this cycle breaks. camDTO.people shouldn't be null, it should be an empty data structure.
+            if (camDTO.People != null) foreach (Guid personGuid in camDTO.People)
+                {
+                    cam.People.Add(PersonService.GetPerson(personGuid));
+                }
+            //Seems like we need a person type service too.
+            if (cam.PersonTypes == null) cam.PersonTypes = new List<PersonType>();
+            return cam;
         }
     }
 }
