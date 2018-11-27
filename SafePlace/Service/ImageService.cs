@@ -13,6 +13,7 @@ namespace SafePlace.Service
     {
         private const string ImagesPath = "Images/";
 
+        //Deletes an image from the server given its id.
         public bool DeleteImage(Guid id)
         {
             String filePath = $"{ImagesPath}{id.ToString()}.jpg";
@@ -21,6 +22,7 @@ namespace SafePlace.Service
             return true;
         }
 
+        //Returns the byte array of an image, which is named as {id}.jpg.
         public byte[] GetImage(Guid id)
         {
             String filePath = $"{ImagesPath}{id.ToString()}.jpg";
@@ -31,7 +33,7 @@ namespace SafePlace.Service
             return memoryStream.ToArray();
 
         }
-
+        //Saves the image in a specified place inside the server.
         public Guid SaveImage(Stream ImageStream)
         {
             Guid id = Guid.NewGuid();
