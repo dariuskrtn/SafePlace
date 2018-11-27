@@ -114,12 +114,12 @@ namespace SafePlace.Service
             return faces?.Select(item => item.FaceId);
         }
 
-        public async Task<IEnumerable<Models.Person>> RecognizePeople(Bitmap image)
+        public async Task<IEnumerable<Guid>> RecognizePeople(Bitmap image)
         {
             var client = GetNextClient();
 
             var faceIds = await DetectFaces(image, client);
-            var people = new Collection<Models.Person>();
+            var people = new Collection<Guid>();
             
             if (faceIds != null)
             foreach (var faceId in faceIds)
@@ -135,11 +135,7 @@ namespace SafePlace.Service
                 var person = await client.GetPersonInPersonGroupAsync(_groupId, candidate.Value);
                 var personGuid = Guid.Parse(person.Name);
 
-                var personObj = _personService.GetPerson(personGuid);
-                if (personObj != null)
-                {
-                    people.Add(personObj);
-                }
+                people.Add(personGuid);
             }
             return people.AsEnumerable();
         }

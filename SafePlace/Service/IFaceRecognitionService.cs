@@ -11,7 +11,7 @@ namespace SafePlace.Service
     public interface IFaceRecognitionService
     {
         Task<bool> TrainAI();
-        Task<IEnumerable<Person>> RecognizePeople(Bitmap image);
+        Task<IEnumerable<Guid>> RecognizePeople(Bitmap image);
         Task<bool> RegisterPerson(string guid, IEnumerable<Bitmap> images);
     }
 }

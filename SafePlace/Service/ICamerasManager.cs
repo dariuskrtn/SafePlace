@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace SafePlace.Service
 {
-    public interface ICameraAnalyzeService
+    public interface ICamerasManager
     {
-        void Start();
-        void Stop();
-        IObservable<SpottedPeople> GetCameraUpdateObservable();
+        IEnumerable<SpottedPerson> GetSpottedPeople();
+        void AddCamera(Camera camera);
+        void AddCameras(IEnumerable<Camera> cameras);
+
     }
 }

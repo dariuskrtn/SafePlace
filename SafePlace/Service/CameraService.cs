@@ -12,16 +12,12 @@ namespace SafePlace.Service
     {
         DBCommunicator _dBCommunicator = DBCommunicator.Instace;
 
+
         public Camera CreateCamera()
         {
             var camera = new Camera()
             {
                 Guid = Guid.NewGuid(),
-                //Test data for implementing ItemSource, which takes items from ObservableCollection<Person>
-                //IdentifiedPeople = new List<Person>() {
-                //    new Person() { Name = "John", LastName = "Johnson" },
-                //    new Person() { Name = "John", LastName = "Seenhim" }
-                //}
             };
             return camera;
         }

@@ -1,4 +1,5 @@
 ﻿using AForge.Video;
+using SafePlace.DTO;
 using SafePlace.Models;
 using System;
 using System.Collections.Generic;
@@ -13,16 +14,15 @@ namespace SafePlace.Service
 {
     class CameraAnalyzeService : ICameraAnalyzeService
     {
-        public int RequestPeriod { get; set; }
+        public int RequestPeriod { get; set; } = 3000;
 
-        private Subject<Camera> _subject = new Subject<Camera>();
+        private Subject<SpottedPeople> _subject = new Subject<SpottedPeople>();
         private readonly IFaceRecognitionService _recognitionService;
         private MJPEGStream _stream;
         private Camera _camera;
         private Bitmap _lastFrame;
         private bool _isStopped;
         private bool _isRunning;
-
 
 
         public CameraAnalyzeService(IFaceRecognitionService recognitionService, Camera camera)
@@ -65,36 +65,17 @@ namespace SafePlace.Service
                 } else
                 {
                     var results = await _recognitionService.RecognizePeople(_lastFrame);
-                    if (results == null) results = Enumerable.Empty<Person>();
-
-                    _camera.IdentifiedPeople.Clear();
-
-                    foreach (var res in results)
-                    {
-                        _camera.IdentifiedPeople.Add(res);
-                    }
-
-                    if (_camera.IdentifiedPeople.Count() == 0)
-                    {
-                        _camera.Status = Enums.CameraStatus.Empty;
-                    }
-                    else if (!_camera.IdentifiedPeople.Any(person => person.AllowedCameras.Contains(_camera)))
-                    {
-                        _camera.Status = Enums.CameraStatus.Error;
-                    }
-                    else
-                    {
-                        _camera.Status = Enums.CameraStatus.Good;
-                    }
+                    if (results == null) results = Enumerable.Empty<Guid>();
+                    
+                    _subject.OnNext(new SpottedPeople() { Camera =  _camera.Guid, spottedPeople = results.Select(item => new SpottedPerson(_camera.Guid, item)) });
                 }
-                _subject.OnNext(_camera);
                 
                 Thread.Sleep(RequestPeriod);
             }
             _isRunning = false;
         }
 
-        public IObservable<Camera> GetCameraUpdateObservable()
+        public IObservable<SpottedPeople> GetCameraUpdateObservable()
         {
             return _subject;
         }
