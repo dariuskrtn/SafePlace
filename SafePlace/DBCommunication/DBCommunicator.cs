@@ -58,7 +58,11 @@ namespace SafePlace.DBCommunication
         {
             using (DataContext dataContext = new DataContext())
             {
+                foreach (var camera in person.AllowedCameras)
+                dataContext.Cameras.Attach(camera);
+
                 dataContext.People.Add(person);
+                
                 dataContext.SaveChanges();
             }
         }
@@ -106,7 +110,7 @@ namespace SafePlace.DBCommunication
             using (DataContext dataContext = new DataContext())
             {
                 /// ToList deals with deferred excefution problem, (explained at the top af region)
-                return dataContext.People.AsEnumerable().ToList();
+                return dataContext.People.Include("AllowedCameras").AsEnumerable().ToList();
             }
         }
 

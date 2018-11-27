@@ -18,7 +18,10 @@ namespace WebService.Models
         public Guid? PersonType { get; set; }
 
         public virtual IEnumerable<Guid> AllowedCameras { get; set; }
+        public PersonDTO()
+        {
 
+        }
         public PersonDTO(Person person)
         {
             Guid = person.Guid;
@@ -27,7 +30,15 @@ namespace WebService.Models
             PersonType = person.PersonType?.Guid;
             //The following does not work well with DB for some reason. Thus I commented it out.
             //AllowedCameras = person.AllowedCameras.Select(allowedCamera => allowedCamera.Guid);
-            AllowedCameras = new List<Guid>();
+            AllowedCameras = person.AllowedCameras.Select(cam => cam.Guid);
+        }
+
+        //A helping method that copies all non guid attributes from DTO to model.
+        public static void GetAttributesFromDTO(PersonDTO personDTO, Person person)
+        {
+            person.Guid = personDTO.Guid;
+            person.Name = personDTO.Name;
+            person.LastName = personDTO.LastName;
         }
     }
 }

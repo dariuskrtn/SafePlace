@@ -57,7 +57,7 @@ namespace WebService.Models
             };
             return camera;
         }
-        public static void CopyDTOToCamera(CameraDTO camDTO, Camera cam)
+        public static void GetAttributesFromDTO(CameraDTO camDTO, Camera cam)
         {
             cam.Guid = camDTO.Guid;
             cam.IPAddress = camDTO.IPAddress;

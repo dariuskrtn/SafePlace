@@ -58,7 +58,7 @@ namespace WebService.Controllers
         private Camera GetCameraFromDTO(CameraDTO camDTO)
         {
             Camera cam = Service.CreateCamera();
-            CameraDTO.CopyDTOToCamera(camDTO, cam);
+            CameraDTO.GetAttributesFromDTO(camDTO, cam);
             if (camDTO.Floor != null) cam.Floor = FloorService.GetFloor((Guid)camDTO.Floor);
             else cam.Floor = null;
             //If camDTO.People is null, this cycle breaks. camDTO.people shouldn't be null, it should be an empty data structure.
