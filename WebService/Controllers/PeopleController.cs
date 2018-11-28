@@ -14,14 +14,17 @@ namespace WebService.Controllers
     {
         IPersonService service = new PersonService();
         ICameraService CameraService = new CameraService();
-        // GET: api/Cameras
+        //Project settings add attributes during runtime near each method of a controller:
+        //[Route("api/People")] //People(Controller)
+        //[HttpGet] //First word of the method is Get
+        // GET: api/People
         public IEnumerable<PersonDTO> Get()
         {
             var dbPeople = service.GetPeople();
             return dbPeople.Select(person => new PersonDTO(person));
         }
 
-        // GET: api/Cameras/23005604-eb1b-11de-85ba-806d6172696f
+        // GET: api/People/23005604-eb1b-11de-85ba-806d6172696f
         public IHttpActionResult Get(Guid id)
         {
             var people = service.GetPeople();

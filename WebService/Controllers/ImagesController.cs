@@ -28,6 +28,8 @@ namespace WebService.Controllers
         //The request's contents should be a MIME containing the image of the floor.
         //MIME - Multipurpose Internet Mail Extensions
         //If the image was added successfully, the response contains guid of the saved image.
+        [HttpPost]
+        [Route("api/saveimage")] //Should there be capital letters in the route?
         public HttpResponseMessage PostFloorImage()
         {
             var result = new HttpResponseMessage(HttpStatusCode.OK);
@@ -42,7 +44,8 @@ namespace WebService.Controllers
                         Stream stream = content.ReadAsStreamAsync().Result;
                         FloorImageGuid = ImageService.SaveImage(stream);
                     }
-                });
+                }).Wait();
+                
                 result.Content = new StringContent(FloorImageGuid.ToString());
                 return result;
             }
