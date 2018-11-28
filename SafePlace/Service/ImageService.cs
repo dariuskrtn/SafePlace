@@ -11,8 +11,8 @@ namespace SafePlace.Service
 {
     public class ImageService : IImageService
     {
-        private const string ImagesPath = "Images/";
-
+        private const string ImagesPath = "/Images";
+        
         //Deletes an image from the server given its id.
         public bool DeleteImage(Guid id)
         {
@@ -25,7 +25,9 @@ namespace SafePlace.Service
         //Returns the byte array of an image, which is named as {id}.jpg.
         public byte[] GetImage(Guid id)
         {
-            String filePath = $"{ImagesPath}{id.ToString()}.jpg";
+            //The path of current users home folder. In windows it's similar to: C:/users/myUser
+            string HomeFolderPath = Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile);
+            String filePath = $"{HomeFolderPath}{ImagesPath}/{id.ToString()}.jpg";
             FileStream fileStream = new FileStream(filePath, FileMode.Open);
             Image image = Image.FromStream(fileStream);
             MemoryStream memoryStream = new MemoryStream();

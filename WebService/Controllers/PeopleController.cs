@@ -42,10 +42,10 @@ namespace WebService.Controllers
         }
 
         // PUT: api/People/23005604-eb1b-11de-85ba-806d6172696f
-        public void Put(int id, [FromBody]PersonDTO personDTO)
+        public void Put([FromBody]PersonDTO personDTO)
         {
             Person person = GetPersonFromDTO(personDTO);
-            service.AddPerson(person);
+            service.Update(person);
         }
 
         // DELETE: api/People/23005604-eb1b-11de-85ba-806d6172696f

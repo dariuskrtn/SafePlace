@@ -15,7 +15,6 @@ namespace WebService.Controllers
     public class ImagesController : ApiController
     {
         IImageService ImageService = DependencyHandler.ImageService.Value;
-        //jei debug paleidi ir parašai: http://localhost:54507/api/images, gauni byte kodą nuotraukos iš App_Data.
         //GET: /api/images/
         public HttpResponseMessage Get(Guid id)
         {
