@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebService", "WebService\We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafePlaceFaceRecognition", "SafePlaceFaceRecognition\SafePlaceFaceRecognition.csproj", "{54684E08-D17B-4BD0-9387-CC950D1CC832}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafePlaceWpf", "SafePlaceWpf2\SafePlaceWpf.csproj", "{F24E9D04-DE5E-4B98-B200-DDCD7236AAC2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafePlaceWpf", "SafePlaceWpf\SafePlaceWpf.csproj", "{F24E9D04-DE5E-4B98-B200-DDCD7236AAC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
