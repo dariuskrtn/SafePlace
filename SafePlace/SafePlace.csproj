@@ -170,6 +170,8 @@
     <Compile Include="DB\DataContext.cs" />
     <Compile Include="Enums\CameraStatus.cs" />
     <Compile Include="Enums\SettingsModes.cs" />
+    <Compile Include="Service\IImageService.cs" />
+    <Compile Include="Service\ImageService.cs" />
     <Compile Include="Service\WpfAppPersonService.cs" />
     <Compile Include="Service\WpfAppFloorService.cs" />
     <Compile Include="Service\WpfAppCameraService.cs" />

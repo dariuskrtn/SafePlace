@@ -14,6 +14,7 @@ namespace SafePlaceFaceRecognition
         private static FaceRecognition _instance = null;
         private static readonly object _lock = new object();
         private ICamerasManager _camerasManager;
+        private IFaceRecognitionService _faceRecognitionService;
         public static FaceRecognition GetInstance()
         {
             lock (_lock)
@@ -27,18 +28,23 @@ namespace SafePlaceFaceRecognition
         }
         private FaceRecognition()
         {
-            var recognition = new FaceRecognitionService(
+            _faceRecognitionService = new FaceRecognitionService(
                 ConfigurationManager.AppSettings["azure-keys"],
                 ConfigurationManager.AppSettings["azure-endpoint"],
                 ConfigurationManager.AppSettings["azure-group-id"],
                 new ConsoleLogger()
                 );
-            _camerasManager = new CamerasManager(recognition);
+            _camerasManager = new CamerasManager(_faceRecognitionService);
         }
 
         public ICamerasManager GetCamerasManager()
         {
             return _camerasManager;
+        }
+
+        public IFaceRecognitionService GetFaceRecognitionService()
+        {
+            return _faceRecognitionService;
         }
 
     }
