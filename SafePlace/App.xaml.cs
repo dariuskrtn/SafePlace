@@ -62,10 +62,6 @@ namespace SafePlace
                 floors[0].AddCamera(cameras[1]);
                 floors[1].AddCamera(cameras[2]);
             }
-            foreach (var camera in cameras)
-            {
-                mainService.CreateCameraAnalyzeService(camera);
-            }
             //var cam = mainService.GetCameraServiceInstance().CreateCamera();
             //cam.IPAddress = "http://192.168.8.101:8081/video";
             //cam.Name = "Main camera";

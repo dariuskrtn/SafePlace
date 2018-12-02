@@ -62,6 +62,7 @@ namespace SafePlace.Views.HomePageView
 
         private void BuildSubscriptions()
         {
+            /*
             Observable.Merge(_mainService.GetAnalyzeServices().Select(analyzer => analyzer.GetCameraUpdateObservable())).Subscribe(cam =>
             {
                 CameraViewModel viewModelToChange = null;
@@ -72,6 +73,7 @@ namespace SafePlace.Views.HomePageView
                 if (viewModelToChange == null) return;
                 UpdateCameraViewModel(cam, viewModelToChange);
             });
+            */
         }
         
         public void UpdateCameraViewModel(Camera camera, CameraViewModel viewModel)

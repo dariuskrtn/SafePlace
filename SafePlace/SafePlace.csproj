@@ -170,7 +170,6 @@
     <Compile Include="DB\DataContext.cs" />
     <Compile Include="Enums\CameraStatus.cs" />
     <Compile Include="Enums\SettingsModes.cs" />
-    <Compile Include="Service\CameraAnalyzeService.cs" />
     <Compile Include="Service\IImageService.cs" />
     <Compile Include="Service\ImageService.cs" />
     <Compile Include="Service\WpfAppPersonService.cs" />
@@ -179,12 +178,9 @@
     <Compile Include="Service\CameraService.cs" />
     <Compile Include="Service\ConsoleLogger.cs" />
     <Compile Include="Service\FloorService.cs" />
-    <Compile Include="Service\ICameraAnalyzeService.cs" />
     <Compile Include="Service\ICameraService.cs" />
     <Compile Include="DBCommunication\IDBCommunicator.cs" />
     <Compile Include="Service\IFloorService.cs" />
-    <Compile Include="Service\FaceRecognitionService.cs" />
-    <Compile Include="Service\IFaceRecognitionService.cs" />
     <Compile Include="Service\ILogger.cs" />
     <Compile Include="Service\IMainService.cs" />
     <Compile Include="Service\IPageCreator.cs" />

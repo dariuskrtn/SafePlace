@@ -10,8 +10,6 @@ namespace WebService.DependencyHandling
     {
         public static Lazy<IMainService> MainService = new Lazy<IMainService>(() => new MainService());
 
-        public static Lazy<IFaceRecognitionService> FaceRecognitionService = new Lazy<IFaceRecognitionService>(() => MainService.Value.GetFaceRecognitionServiceInstance());
-
         public static Lazy<IPersonService> PersonService = new Lazy<IPersonService>(() => MainService.Value.GetPersonServiceInstance());
 
         public static Lazy<ICameraService> CameraService = new Lazy<ICameraService>(() => MainService.Value.GetCameraServiceInstance());

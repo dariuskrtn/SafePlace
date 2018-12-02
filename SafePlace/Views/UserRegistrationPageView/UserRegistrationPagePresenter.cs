@@ -18,14 +18,12 @@ namespace SafePlace.Views.UserRegistrationPageView
         private readonly IMainService _mainService;
         private readonly ICameraService _cameraService;
         private readonly IPersonService _personService;
-        private readonly IFaceRecognitionService _recognitionService;
         public UserRegistrationPagePresenter(UserRegistrationPageViewModel viewModel, IMainService mainService)
         {
             _viewModel = viewModel;
             _mainService = mainService;
             _cameraService = mainService.GetCameraServiceInstance();
             _personService = mainService.GetPersonServiceInstance();
-            _recognitionService = mainService.GetFaceRecognitionServiceInstance();
 
             BuildViewModel();
         }
@@ -91,10 +89,6 @@ namespace SafePlace.Views.UserRegistrationPageView
         private async void RegisterPersonFace(Person person)
         {
             _viewModel.IsSaving = true;
-
-            await _recognitionService.RegisterPerson(person.Guid.ToString(), _viewModel.Recordings);
-
-            await _recognitionService.TrainAI();
 
             _viewModel.IsSaving = false;
         }

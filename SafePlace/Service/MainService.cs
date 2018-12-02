@@ -18,9 +18,7 @@ namespace SafePlace.Service
         private ICameraService _cameraService;
         private IFloorService _floorService;
         private IPersonService _personService;
-        private IFaceRecognitionService _faceRecognitionService;
         private IWindowCreator _windowCreator;
-        private Collection<ICameraAnalyzeService> _analyzeServices = new Collection<ICameraAnalyzeService>();
 
 
         //Simple lock object to avoid multiple threads creating different class instances.
@@ -51,23 +49,6 @@ namespace SafePlace.Service
                     _pageCreator = new PageCreator(this);
                 }
                 return _pageCreator;
-            }
-        }
-        public IFaceRecognitionService GetFaceRecognitionServiceInstance()
-        {
-            lock (_lock)
-            {
-                if (_faceRecognitionService == null)
-                {
-                    //Instantiates face recognition service with parameters taken from App.config
-                    _faceRecognitionService = new FaceRecognitionService(
-                        ConfigurationManager.AppSettings["azure-key"],
-                        ConfigurationManager.AppSettings["azure-endpoint"],
-                        ConfigurationManager.AppSettings["azure-group-id"],
-                        GetLoggerInstance(), GetPersonServiceInstance());
-                }
-                new Thread(async _ => await _faceRecognitionService.TrainAI()).Start();
-                return _faceRecognitionService;
             }
         }
         public SynchronizationContext GetSynchronizationContext()
@@ -121,18 +102,6 @@ namespace SafePlace.Service
                 }
                 return _windowCreator;
             }
-        }
-
-        public IEnumerable<ICameraAnalyzeService> GetAnalyzeServices()
-        {
-            return _analyzeServices.AsEnumerable();
-        }
-
-        public void CreateCameraAnalyzeService(Camera camera)
-        {
-            var analyzer = new CameraAnalyzeService(GetFaceRecognitionServiceInstance(), camera) { RequestPeriod = 3000 };
-            analyzer.Start();
-            _analyzeServices.Add(analyzer);
         }
     }
 }

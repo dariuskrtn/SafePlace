@@ -1,4 +1,5 @@
 ﻿using SafePlace.Service;
+using SafePlaceFaceRecognition;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -75,7 +76,7 @@ namespace WebService.Controllers
                 });
                 //Face images are saved now. Should azure face registration start here?
                 //The ids of all faces are stored in a list and all images can be retrieved.
-                DependencyHandler.FaceRecognitionService.Value.RegisterPerson(personGuid.ToString(), faceImages);
+                FaceRecognition.GetInstance().GetFaceRecognitionService().RegisterPerson(personGuid.ToString(), faceImages);
                 //To do figure out a way to save face images so that you can reach them provided you have the GUID of the person.
                 //Might need separate get and save functions for facial images.
                 return result;
