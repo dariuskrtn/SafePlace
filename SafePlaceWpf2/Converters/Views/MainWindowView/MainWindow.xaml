@@ -1,0 +1,59 @@
+﻿<Window x:Class="SafePlace.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:e="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:local="clr-namespace:SafePlace"
+        xmlns:behaviors="clr-namespace:SafePlace.Behaviors"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="700" Width="1000"
+        ResizeMode="CanResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/SafePlace;component/Resources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!--Insert resources intended for this view here.-->
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="HomeButton" Command="{ Binding HomePageCommand }" Grid.Column="0" Margin="0 0 10 0">
+                <StackPanel>
+                    <Image Source="/Images/home.png"  Height="45" Width="36"/>
+                </StackPanel>
+            </Button>
+            <Button  x:Name="UserRegistrationButton" Command="{ Binding UserRegistrationPageCommand }" Grid.Column="1" Margin="0 0 10 0">
+                <StackPanel>
+                    <Image Source="/Images/people.png"  Height="45" Width="36"/>
+                </StackPanel>
+            </Button>
+            <Button  x:Name="CamerasButton" Grid.Column="2" Margin="0 0 10 0">
+                <StackPanel>
+                    <Image Source="/Images/camera.png"  Height="45" Width="36"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="SettingsButton" Command="{ Binding SettingsPageCommand }" Grid.Column="3">
+                <StackPanel>
+                    <Image Source="/Images/settings.png"  Height="45" Width="36"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+        <Frame Margin="0,60,0,0" 
+               NavigationUIVisibility="Hidden" 
+               Content="{Binding Path=DisplayPage, Mode=TwoWay}" 
+               HorizontalContentAlignment="Stretch" 
+               VerticalContentAlignment="Stretch"/>
+    </Grid>
+</Window>
