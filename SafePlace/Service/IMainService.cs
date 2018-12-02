@@ -11,11 +11,8 @@ namespace SafePlace.Service
     public interface IMainService
     {
         ILogger GetLoggerInstance();
-        IPageCreator GetPageCreatorInstance();
-        SynchronizationContext GetSynchronizationContext();
         IFloorService GetFloorServiceInstance();
         ICameraService GetCameraServiceInstance();
         IPersonService GetPersonServiceInstance();
-        IWindowCreator GetWindowCreatorInstance();
     }
 }
