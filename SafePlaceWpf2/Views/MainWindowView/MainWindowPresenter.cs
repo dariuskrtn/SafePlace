@@ -1,5 +1,6 @@
 ﻿using SafePlace.Service;
-using SafePlace.Utilities;
+using SafePlaceWpf.Service;
+using SafePlaceWpf.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

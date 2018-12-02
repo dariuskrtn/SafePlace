@@ -1,19 +1,12 @@
 ﻿using SafePlace.Models;
 using SafePlace.Service;
-using SafePlace.Utilities;
+using SafePlaceWpf.Utilities;
+using SafePlaceWpf.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using System.Windows.Media;
-using System.Collections.ObjectModel;
-using System.Reactive.Linq;
-using SafePlace.ViewModels;
 
 namespace SafePlaceWpf.Views.HomePageView
 {
@@ -28,15 +21,11 @@ namespace SafePlaceWpf.Views.HomePageView
         private SynchronizationContext _synchronizationContext;
         private ILogger _logger;
         private IFloorService _floorService;
-
-
-
-        private string[] Names = { "Joseph", "Johan", "John", "Jack", "Joe", "Johnattan", "Jacob", "Jason", "Jennifer", "Jay" };
-        private string[] LastNames = { "Peugeot", "Ferrari", "Harrari", "Smith", "Sans", "Rutherford", "Boore", "Huxley", "Jacksondaughter", "Joestar"};
         
-        public HomePagePresenter(HomePageViewModel viewModel, IMainService mainService)
+        public HomePagePresenter(HomePageViewModel viewModel, IMainService mainService, SynchronizationContext synchronizationContext)
         {
             _viewModel = viewModel;
+            _synchronizationContext = synchronizationContext;
             _mainService = mainService;
             GetServices(_mainService);
             LoadFloorList();
@@ -47,7 +36,6 @@ namespace SafePlaceWpf.Views.HomePageView
         private void GetServices(IMainService mainService)
         {
             _logger = mainService.GetLoggerInstance();
-            _synchronizationContext = mainService.GetSynchronizationContext();
             _floorService = mainService.GetFloorServiceInstance();
         }
 
@@ -78,7 +66,7 @@ namespace SafePlaceWpf.Views.HomePageView
         
         public void UpdateCameraViewModel(Camera camera, CameraViewModel viewModel)
         {
-            _mainService.GetSynchronizationContext().Send(_ =>
+            _synchronizationContext.Send(_ =>
             {
                 viewModel.Status = camera.Status;
                 viewModel.IdentifiedPeople.Clear();

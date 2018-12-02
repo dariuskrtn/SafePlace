@@ -20,10 +20,12 @@ namespace SafePlaceWpf.Service
     class PageCreator : IPageCreator
     {
         private readonly IMainService _mainService;
+        private readonly SynchronizationContext _synchronizationContext;
 
-        public PageCreator(IMainService mainService)
+        public PageCreator(IMainService mainService, SynchronizationContext synchronizationContext)
         {
             _mainService = mainService;
+            _synchronizationContext = synchronizationContext;
         }
         /*
          * Creates Home Page View and injects all required dependencies.
@@ -31,7 +33,7 @@ namespace SafePlaceWpf.Service
         public Page CreateHomePage()
         {
             var homePageViewModel = new HomePageViewModel();
-            var homePagePresenter = new HomePagePresenter(homePageViewModel, _mainService);
+            var homePagePresenter = new HomePagePresenter(homePageViewModel, _mainService, _synchronizationContext);
 
             var homePageView = new HomePageView();
             homePageView.DataContext = homePageViewModel;
@@ -42,7 +44,7 @@ namespace SafePlaceWpf.Service
         public Page CreateSettingsPage()
         {
             var settingsPageViewModel = new SettingsPageViewModel();
-            var settingsPagePresenter = new SettingsPagePresenter(settingsPageViewModel, _mainService);
+            var settingsPagePresenter = new SettingsPagePresenter(settingsPageViewModel, _mainService, _synchronizationContext);
 
             var settingsPageView = new SettingsPageView();
             settingsPageView.DataContext = settingsPageViewModel;

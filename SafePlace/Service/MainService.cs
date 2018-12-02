@@ -12,6 +12,8 @@ namespace SafePlace.Service
 {
     public class MainService : IMainService
     {
+        private static MainService _mainService;
+
         private ILogger _logger;
         private ICameraService _cameraService;
         private IFloorService _floorService;
@@ -20,6 +22,14 @@ namespace SafePlace.Service
         //Simple lock object to avoid multiple threads creating different class instances.
         private static readonly object _lock = new object();
 
+        public static MainService GetInstance()
+        {
+            lock (_lock)
+            {
+                if (_mainService == null) _mainService = new MainService();
+                return _mainService;
+            }
+        }
         public ILogger GetLoggerInstance()
         {
             lock(_lock)

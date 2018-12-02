@@ -1,23 +1,16 @@
 ﻿using Microsoft.Win32;
 using SafePlace.Models;
 using SafePlace.Service;
-using SafePlace.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using SafePlace.Enums;
+using SafePlaceWpf.Utilities;
 
 namespace SafePlaceWpf.Views.SettingsPageView
 {
@@ -52,11 +45,11 @@ namespace SafePlaceWpf.Views.SettingsPageView
             }
         }
 
-        public SettingsPagePresenter(SettingsPageViewModel viewModel, IMainService mainService)
+        public SettingsPagePresenter(SettingsPageViewModel viewModel, IMainService mainService, SynchronizationContext synchronizationContext)
         {
             _viewModel = viewModel;
             _mainService = mainService;
-            _synchronisationContext = mainService.GetSynchronizationContext();
+            _synchronisationContext = synchronizationContext;
             _currentMode = SettingsModes.Preview;
             GetServices(_mainService);
             BuildViewModel();

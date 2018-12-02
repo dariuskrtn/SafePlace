@@ -1,6 +1,6 @@
 ﻿using SafePlace.Models;
-using SafePlace.ViewModels;
-using SafePlace.WpfComponents;
+using SafePlaceWpf.ViewModels;
+using SafePlaceWpf.WpfComponents;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

@@ -1,7 +1,7 @@
 ﻿using SafePlace.Models;
 using SafePlace.Service;
-using SafePlace.Utilities;
-using SafePlace.WpfComponents;
+using SafePlaceWpf.Utilities;
+using SafePlaceWpf.WpfComponents;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

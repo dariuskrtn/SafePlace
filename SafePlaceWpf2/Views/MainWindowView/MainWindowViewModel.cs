@@ -1,4 +1,4 @@
-﻿using SafePlace.ViewModels;
+﻿using SafePlaceWpf.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

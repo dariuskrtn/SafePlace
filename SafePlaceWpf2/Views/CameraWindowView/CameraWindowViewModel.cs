@@ -1,5 +1,5 @@
 ﻿using AForge.Video;
-using SafePlace.ViewModels;
+using SafePlaceWpf.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
