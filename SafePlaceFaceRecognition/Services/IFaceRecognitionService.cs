@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SafePlace.Service
+namespace SafePlaceFaceRecognition.Service
 {
     public interface IFaceRecognitionService
     {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using SafePlace.DTO;
 using SafePlace.Models;
 
-namespace SafePlace.Service
+namespace SafePlaceFaceRecognition.Service
 {
     class CamerasManager : ICamerasManager
     {

@@ -16,9 +16,6 @@ namespace SafePlace.Service
         IFloorService GetFloorServiceInstance();
         ICameraService GetCameraServiceInstance();
         IPersonService GetPersonServiceInstance();
-        IFaceRecognitionService GetFaceRecognitionServiceInstance();
         IWindowCreator GetWindowCreatorInstance();
-        void CreateCameraAnalyzeService(Camera camera);
-        IEnumerable<ICameraAnalyzeService> GetAnalyzeServices();
     }
 }

@@ -170,6 +170,7 @@
     <Compile Include="Controllers\FloorsController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
+    <Compile Include="Controllers\PersonRecognitionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -214,6 +215,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SafePlaceFaceRecognition\SafePlaceFaceRecognition.csproj">
+      <Project>{54684E08-D17B-4BD0-9387-CC950D1CC832}</Project>
+      <Name>SafePlaceFaceRecognition</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SafePlace\SafePlace.csproj">
       <Project>{d0c0dd38-ad3b-4877-9469-2bf43b2117ed}</Project>
       <Name>SafePlace</Name>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.ProjectOxford.Face;
 using Microsoft.ProjectOxford.Face.Contract;
+using SafePlace.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,20 +11,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Models = SafePlace.Models;
 
-namespace SafePlace.Service
+namespace SafePlaceFaceRecognition.Service
 {
     public class FaceRecognitionService : IFaceRecognitionService
     {
         private readonly object _lock = new object();
 
-        private readonly IPersonService _personService;
         private readonly string _groupId;
         private readonly List<FaceServiceClient> _faceServiceClients = new List<FaceServiceClient>();
         private readonly ILogger _logger;
         private int clientId = -1;
-        public FaceRecognitionService(string apiKeys, string endpoint, string groupId, ILogger logger, IPersonService personService)
+        public FaceRecognitionService(string apiKeys, string endpoint, string groupId, ILogger logger)
         {
-            _personService = personService;
             foreach (var key in apiKeys.Split(';'))
             {
                 _faceServiceClients.Add(new FaceServiceClient(key, endpoint));
@@ -31,7 +30,13 @@ namespace SafePlace.Service
             _groupId = groupId;
             _logger = logger;
             
-            CreateGroup();
+            try
+            {
+                CreateGroup();
+            } catch (Exception ex)
+            {
+                _logger.LogInfo("Recognition group is already created.");
+            }
         }
 
         private FaceServiceClient GetNextClient()

@@ -2,15 +2,12 @@
 using SafePlace.DTO;
 using SafePlace.Models;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Reactive.Subjects;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
-namespace SafePlace.Service
+namespace SafePlaceFaceRecognition.Service
 {
     class CameraAnalyzeService : ICameraAnalyzeService
     {
@@ -61,7 +58,7 @@ namespace SafePlace.Service
                 if (_lastFrame == null)
                 {
                     _camera.IdentifiedPeople.Clear();
-                    _camera.Status = Enums.CameraStatus.Offline;
+                    _camera.Status = SafePlace.Enums.CameraStatus.Offline;
                 } else
                 {
                     var results = await _recognitionService.RecognizePeople(_lastFrame);
