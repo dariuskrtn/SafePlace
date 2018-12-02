@@ -8,7 +8,7 @@ using System.Windows.Input;
 using System.Windows.Interactivity;
 using System.Windows.Shapes;
 
-namespace SafePlace.Behaviors
+namespace SafePlaceWpf.Behaviors
 {
     class CameraClickBehavior : Behavior<Ellipse>
     {

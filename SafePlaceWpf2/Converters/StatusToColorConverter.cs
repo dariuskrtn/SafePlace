@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace SafePlace.Converters
+namespace SafePlaceWpf.Converters
 {
     class StatusToColorConverter : IValueConverter
     {

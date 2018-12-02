@@ -11,7 +11,7 @@ using System.Windows.Interactivity;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace SafePlace.Behaviors
+namespace SafePlaceWpf.Behaviors
 {
     class IPCameraBehavior : Behavior<System.Windows.Controls.Image>
     {

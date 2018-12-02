@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace SafePlace.Converters
+namespace SafePlaceWpf.Converters
 {
     class SettingsModesToReadOnlyConverter : IValueConverter
     {

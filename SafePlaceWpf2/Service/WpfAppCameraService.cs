@@ -1,11 +1,12 @@
 ﻿using SafePlace.Models;
+using SafePlace.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SafePlace.Service
+namespace SafePlaceWpf.Service
 {
     public class WpfAppCameraService : ICameraService
     {

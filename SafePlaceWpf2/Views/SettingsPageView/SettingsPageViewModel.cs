@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
-namespace SafePlace.Views.SettingsPageView
+namespace SafePlaceWpf.Views.SettingsPageView
 {
     class SettingsPageViewModel : BaseViewModel
     {

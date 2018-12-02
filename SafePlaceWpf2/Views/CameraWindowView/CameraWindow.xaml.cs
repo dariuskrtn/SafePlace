@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SafePlace.Views.CameraWindowView
+namespace SafePlaceWpf.Views.CameraWindowView
 {
     /// <summary>
     /// Interaction logic for CameraWindow.xaml

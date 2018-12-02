@@ -1,6 +1,7 @@
-﻿using SafePlace.Views.HomePageView;
-using SafePlace.Views.SettingsPageView;
-using SafePlace.Views.UserRegistrationPageView;
+﻿using SafePlace.Service;
+using SafePlaceWpf.Views.HomePageView;
+using SafePlaceWpf.Views.SettingsPageView;
+using SafePlaceWpf.Views.UserRegistrationPageView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SafePlace.Service
+namespace SafePlaceWpf.Service
 {
     /*
      * Class responsible for different Page creation

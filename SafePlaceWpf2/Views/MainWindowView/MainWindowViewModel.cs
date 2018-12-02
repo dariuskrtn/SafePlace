@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SafePlace.Views.MainWindowView
+namespace SafePlaceWpf.Views.MainWindowView
 {
     class MainWindowViewModel : BaseViewModel
     {

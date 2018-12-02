@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SafePlace.Service
+namespace SafePlaceWpf.Service
 {
     public interface IPageCreator
     {

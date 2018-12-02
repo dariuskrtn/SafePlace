@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SafePlace.Utilities
+namespace SafePlaceWpf.Utilities
 {
     static class ExtensionMethods
     {

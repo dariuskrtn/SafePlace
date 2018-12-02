@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SafePlace.ViewModels
+namespace SafePlaceWpf.ViewModels
 {
     class CameraViewModel : BaseViewModel
     {

@@ -19,7 +19,7 @@ using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using SafePlace.Enums;
 
-namespace SafePlace.Views.SettingsPageView
+namespace SafePlaceWpf.Views.SettingsPageView
 {
     class SettingsPagePresenter
     {

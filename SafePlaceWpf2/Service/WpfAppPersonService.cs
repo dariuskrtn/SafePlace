@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SafePlace.Models;
+using SafePlace.Service;
 
-namespace SafePlace.Service
+namespace SafePlaceWpf.Service
 {
     class WpfAppPersonService : IPersonService
     {

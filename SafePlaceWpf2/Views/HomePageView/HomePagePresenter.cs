@@ -15,7 +15,7 @@ using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using SafePlace.ViewModels;
 
-namespace SafePlace.Views.HomePageView
+namespace SafePlaceWpf.Views.HomePageView
 {
     /*
      * Moved Home Page from MainWindow.

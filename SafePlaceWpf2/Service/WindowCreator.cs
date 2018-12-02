@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SafePlace.Models;
-using SafePlace.Views.CameraWindowView;
+using SafePlace.Service;
+using SafePlaceWpf.Views.CameraWindowView;
 
-namespace SafePlace.Service
+namespace SafePlaceWpf.Service
 {
     class WindowCreator : IWindowCreator
     {

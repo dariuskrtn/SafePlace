@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SafePlace.Views.MainWindowView
+namespace SafePlaceWpf.Views.MainWindowView
 {
     class MainWindowPresenter
     {

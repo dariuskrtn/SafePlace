@@ -11,7 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
-namespace SafePlace.Views.HomePageView
+namespace SafePlaceWpf.Views.HomePageView
 {
     class HomePageViewModel : BaseViewModel
     {

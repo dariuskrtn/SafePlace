@@ -1,4 +1,4 @@
-﻿using SafePlace.WpfComponents;
+﻿using SafePlaceWpf.WpfComponents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
 
-namespace SafePlace.Behaviors
+namespace SafePlaceWpf.Behaviors
 {
     //Generic behavior implementing multiple choice in Combobox component
     class MultiComboboxBehavior<T> : Behavior<CheckBox>

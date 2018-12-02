@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SafePlace.Views.SettingsPageView
+namespace SafePlaceWpf.Views.SettingsPageView
 {
     /// <summary>
     /// Interaction logic for Page1.xaml

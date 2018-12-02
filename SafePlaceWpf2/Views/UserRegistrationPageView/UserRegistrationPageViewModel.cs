@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WebEye.Controls.Wpf;
 
-namespace SafePlace.Views.UserRegistrationPageView
+namespace SafePlaceWpf.Views.UserRegistrationPageView
 {
     class UserRegistrationPageViewModel : BaseViewModel
     {

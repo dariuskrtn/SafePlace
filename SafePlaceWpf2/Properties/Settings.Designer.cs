@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SafePlaceWpf2.Properties
+namespace SafePlaceWpfWpf2.Properties
 {
 
 

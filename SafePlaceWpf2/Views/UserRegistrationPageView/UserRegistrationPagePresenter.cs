@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SafePlace.Views.UserRegistrationPageView
+namespace SafePlaceWpf.Views.UserRegistrationPageView
 {
     class UserRegistrationPagePresenter
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SafePlace.WpfComponents
+namespace SafePlaceWpf.WpfComponents
 {
     class MultiComboboxItem<T>
     {

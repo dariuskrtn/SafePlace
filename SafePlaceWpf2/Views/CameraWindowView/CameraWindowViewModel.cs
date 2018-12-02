@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SafePlace.Views.CameraWindowView
+namespace SafePlaceWpf.Views.CameraWindowView
 {
     class CameraWindowViewModel : BaseViewModel
     {

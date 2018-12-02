@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SafePlace.Views.HomePageView
+namespace SafePlaceWpf.Views.HomePageView
 {
     /// <summary>
     /// Interaction logic for HomePageView.xaml

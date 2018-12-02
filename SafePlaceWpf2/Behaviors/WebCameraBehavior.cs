@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Interactivity;
 using WebEye.Controls.Wpf;
 
-namespace SafePlace.Behaviors
+namespace SafePlaceWpf.Behaviors
 {
     class WebCameraBehavior : Behavior<WebCameraControl>
     {

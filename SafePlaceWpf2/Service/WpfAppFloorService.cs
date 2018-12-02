@@ -1,4 +1,5 @@
 ﻿using SafePlace.Models;
+using SafePlace.Service;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
-namespace SafePlace.Service
+namespace SafePlaceWpf.Service
 {
 
     public class WpfAppFloorService : IFloorService
