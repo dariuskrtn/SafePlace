@@ -26,6 +26,7 @@ namespace WebService.Models
         //public IEnumerable<Guid> People { set; get; }
 
         public IEnumerable<Guid> PersonTypes { set; get; }
+        public IEnumerable<Guid> People { get; set; }
         public CameraDTO()
         {
 
@@ -38,8 +39,8 @@ namespace WebService.Models
             PositionX = cam.PositionX;
             PositionY = cam.PositionY;
             Floor = cam.Floor?.Guid;
-            //People = cam.People.Select(person => person.Guid);  //Not sure why but this might not work without a casting.
-            PersonTypes = (IEnumerable<Guid>) cam.PersonTypes.Select(type => type.Guid);
+            People = cam.People.Select(person => person.Guid);
+            PersonTypes = cam.PersonTypes.Select(type => type.Guid);
         }
 
         //Copies DTO attributes to the database object.
