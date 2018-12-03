@@ -11,6 +11,7 @@ namespace SafePlace.Service
 {
     public class ImageService : IImageService
     {
+        //Images are stored and read from the c:/Images folder.
         private const string ImagesPath = "/Images";
         
         //Deletes an image from the server given its id.
@@ -26,8 +27,8 @@ namespace SafePlace.Service
         public byte[] GetImage(Guid id)
         {
             //The path of current users home folder. In windows it's similar to: C:/users/myUser
-            string HomeFolderPath = Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile);
-            String filePath = $"{HomeFolderPath}{ImagesPath}/{id.ToString()}.jpg";
+            //string HomeFolderPath = Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile);
+            String filePath = $"{ImagesPath}/{id.ToString()}.jpg";
             FileStream fileStream = new FileStream(filePath, FileMode.Open);
             Image image = Image.FromStream(fileStream);
             MemoryStream memoryStream = new MemoryStream();
@@ -39,8 +40,8 @@ namespace SafePlace.Service
         public Guid SaveImage(Stream ImageStream)
         {
             Guid id = Guid.NewGuid();
-            string HomeFolderPath = Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile);
-            String filePath = $"{HomeFolderPath}{ImagesPath}/{id.ToString()}.jpg";
+            //string HomeFolderPath = Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile);
+            String filePath = $"{ImagesPath}/{id.ToString()}.jpg";
 
             Image image = Image.FromStream(ImageStream);
 
