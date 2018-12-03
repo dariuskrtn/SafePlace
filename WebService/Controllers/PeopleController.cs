@@ -38,6 +38,7 @@ namespace WebService.Controllers
         public IHttpActionResult Post([FromBody]PersonDTO personDTO)
         {
             Person person = GetPersonFromDTO(personDTO);
+            person.Guid = Guid.NewGuid();
             service.AddPerson(person);
             //Some logic to differ whether the person was actually added.
             //If a database exception arises, should return NotOK() or AddFailed().

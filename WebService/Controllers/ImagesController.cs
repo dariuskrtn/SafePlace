@@ -16,7 +16,7 @@ namespace WebService.Controllers
     public class ImagesController : ApiController
     {
         IImageService ImageService = DependencyHandler.ImageService.Value;
-        //GET: /api/images/
+
         public HttpResponseMessage Get(Guid id)
         {
             var result = new HttpResponseMessage(HttpStatusCode.OK);
@@ -29,9 +29,7 @@ namespace WebService.Controllers
         //The request's contents should be a MIME containing the image of the floor.
         //MIME - Multipurpose Internet Mail Extensions
         //If the image was added successfully, the response contains guid of the saved image.
-        [HttpPost]
-        [Route("api/saveimage")] //Should there be capital letters in the route?
-        public HttpResponseMessage PostFloorImage()
+        public HttpResponseMessage Post()
         {
             var result = new HttpResponseMessage(HttpStatusCode.OK);
             Guid FloorImageGuid = Guid.Empty;
@@ -57,6 +55,8 @@ namespace WebService.Controllers
         }
 
         //The request's contents should be a collection of face images in a MIME format.
+        [HttpPost]
+        [Route("api/images/person/{personGuid}")]
         public HttpResponseMessage PostFaceImages(Guid personGuid)
         {
             var result = new HttpResponseMessage(HttpStatusCode.OK);
