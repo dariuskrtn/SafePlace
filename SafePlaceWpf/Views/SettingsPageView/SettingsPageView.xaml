@@ -1,0 +1,198 @@
+﻿<Page x:Class="SafePlaceWpf.Views.SettingsPageView.SettingsPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SafePlaceWpf.Views.SettingsPageView"
+      xmlns:e="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:behaviors="clr-namespace:SafePlaceWpf.Behaviors"
+      xmlns:converters="clr-namespace:SafePlaceWpf.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SettingsPageView">
+
+        
+    <Page.Resources>
+        <ResourceDictionary>
+            
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/SafePlaceWpf;component/Resources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!--Insert resources intended for this view here.-->
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <converters:SettingsModesToReadOnlyConverter x:Key="settingsModesToReadOnlyConverter"/>
+            <converters:SettingsModesToFlootButtonTextConverter x:Key="settingsModesToFlootButtonTextConverter"/>
+
+            <Style  x:Key="PopupContentStyle" TargetType="{x:Type ContentControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid Background="Azure">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="40" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="20*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="30*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Label VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Content="IP adress:"/>
+                            <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="0" 
+                                     Text="{Binding EditedCamera.IPAddress, UpdateSourceTrigger=PropertyChanged}"
+                                     IsReadOnly="{Binding SettingsModes, Converter={StaticResource settingsModesToReadOnlyConverter}}"/>
+                            <Label VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Content="Name:"/>
+                            <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" 
+                                     Text="{Binding EditedCamera.Name, UpdateSourceTrigger=PropertyChanged}"
+                                     IsReadOnly="{Binding SettingsModes, Converter={StaticResource settingsModesToReadOnlyConverter}}"/>
+                            <Label VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Content="Position x:"/>
+                            <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" 
+                                     Text="{Binding EditedCamera.PositionX, UpdateSourceTrigger=PropertyChanged}"
+                                     IsReadOnly="{Binding SettingsModes, Converter={StaticResource settingsModesToReadOnlyConverter}}"/>
+                            <Label VerticalAlignment="Center" Grid.Row="6" Grid.Column="1" Content="Position y:"/>
+                            <TextBox VerticalAlignment="Center" Grid.Column="3" Grid.Row="6" 
+                                     Text="{Binding EditedCamera.PositionY, UpdateSourceTrigger=PropertyChanged}"
+                                     IsReadOnly="{Binding SettingsModes, Converter={StaticResource settingsModesToReadOnlyConverter}}"/>
+                            <Button Grid.Row="8" Grid.Column="1" Content="Cancel" Command="{Binding CameraCancelCommand}"/>
+                            <Button Grid.Row="8" Grid.Column="3" Content="Comfirm" Command="{Binding CameraAddCommand}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+        <!--For selecting which setting to change, implemet later-->
+            <StackPanel Grid.Row="0" Width="auto"/>
+
+
+        <!-- Add floor page-->
+        <Grid Name="newFloorPageGrid" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+
+        <!-- Items in the left -->
+            <Grid Margin="5 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                    
+                <!-- Floors list -->
+                <ListView Margin="0 5" ItemsSource="{Binding FloorCollection}" Style="{StaticResource FloorListStyle}">
+                    <e:Interaction.Behaviors>
+                        <behaviors:FloorViewBehavior Command="{Binding FloorListClickCommand}"/>
+                    </e:Interaction.Behaviors>
+                </ListView>
+                    
+                <!-- Buttons -->
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button Content="Edit selected floor" Command="{Binding EditButtonClickCommand}"  Margin="0 5"/>
+                    <Button  Command="{Binding AddCameraButtonClickCommand}" Grid.Row="1"      Margin="0 5" TextBlock.TextAlignment="Center">
+                        <StackPanel>
+
+                            <TextBlock Text="Add new camera&#x0d;&#x0a;(To delete or edit exiting camera click on it)"/>
+                            <!--[Tomas] I'll try reuse this popup for camera editing as well -->
+                            <Popup Name="myPopup" HorizontalAlignment="Center" Placement="MousePoint" VerticalAlignment="Center" IsOpen = "{Binding ShowPopUp}" Width="250" Height="auto">
+                                <ContentControl Style="{StaticResource PopupContentStyle}"/>
+                            </Popup>
+                        </StackPanel>
+                        
+                    </Button>
+                    <Button Content="Choose/Change floor image" Command="{ Binding ChooseImageButtonClickCommand}" Grid.Row="2"        Margin="0 5"/>
+                </Grid>
+            </Grid> 
+            
+            <!--Picture and floor name-->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="20*"/>
+                </Grid.RowDefinitions>
+            
+                <!-- Name input -->
+                
+                    <Viewbox Grid.Row="0" MaxHeight="20">
+                            <TextBlock Width="auto" Text="{Binding InvalidNameNotification}" Foreground="#FF0000" />
+                    </Viewbox>
+                    <Viewbox Grid.Row="1" HorizontalAlignment="Center">
+                    <TextBox Width="auto" Text="{Binding FloorName, Mode=TwoWay}" IsReadOnly="{Binding SettingsModes, Converter={StaticResource settingsModesToReadOnlyConverter}}" Grid.Row="0"  ClipToBounds="True" BorderThickness="1" />
+                </Viewbox>
+
+                <!-- Here will show up uploaded floor image-->
+                <Viewbox Grid.Row="2" VerticalAlignment="Top">
+
+                    <Grid>
+                        <Image Source="{Binding FloorImage}">
+                            <e:Interaction.Behaviors>
+
+                                <behaviors:FloorImageClickBehavior Command="{Binding RelativeSource={RelativeSource AncestorType=Viewbox},
+                                        Path=DataContext.FloorImageClickCommand}" />
+                            </e:Interaction.Behaviors>
+                        </Image>
+                        <ItemsControl ItemsSource="{Binding Path=CameraCollection}" ItemTemplate="{StaticResource CameraTemplate}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Grid/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                        <!--A preview camera. Becomes visible on click, invisible after comfirming or canceling new camera.-->
+                        <Image Source="/Images/camera_blue.png" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left"
+                               Visibility="{Binding IsNewCameraShown, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Image.RenderTransform>
+                                <TranslateTransform X="{Binding  Path=EditedCamera.PositionX}" Y="{Binding Path=EditedCamera.PositionY}"/>
+                            </Image.RenderTransform>
+                        </Image>
+                    </Grid>
+
+                </Viewbox>
+            </Grid>
+
+        </Grid>
+         <!-- Bottom buttons -->
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/> 
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="{Binding SettingsModes, Converter={StaticResource settingsModesToFlootButtonTextConverter}}" x:Name="FloorButton" Command="{ Binding FloorButtonClickCommand}" Grid.Column="0" Margin="5 2"/>
+            <Button Content="Cancel" Grid.Column="1" Margin="5 2" Command="{Binding CancelButtonClickCommand}" />
+            <Button Grid.Column="2" Margin="5 2" Command="{Binding DeleteButtonClickCommand}">
+                <TextBlock Text="Delete button"/>
+ 
+            </Button>
+            
+        </Grid>
+
+           
+        
+    </Grid>
+</Page>

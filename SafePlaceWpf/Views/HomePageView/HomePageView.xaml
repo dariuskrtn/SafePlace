@@ -1,0 +1,94 @@
+﻿<Page x:Class="SafePlaceWpf.Views.HomePageView.HomePageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SafePlaceWpf.Views.HomePageView"
+      xmlns:e="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:behaviors="clr-namespace:SafePlaceWpf.Behaviors"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="HomePageView">
+    
+    <!--Putting data templates to page resources in case the template needs to be reused elsewhere.
+    Defined templates are reachable from the context if this page. It can be made reachable out of this context-->
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/SafePlaceWpf;component/Resources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!--Insert resources intended for this view here.-->
+        </ResourceDictionary>
+
+    </Page.Resources>
+    <Grid Margin="10 10 10 10" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="8*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!--A view box containing the current floor's image and all the cameras-->
+        <StackPanel Grid.Column="1">
+            <TextBlock Width="auto" Text="{Binding FloorName}" HorizontalAlignment="Center"
+                    FontSize="40" Height="auto" VerticalAlignment="Top"/>
+            <Viewbox x:Name="FloorView" Grid.Column="1" VerticalAlignment="Top">
+                <Grid x:Name="FloorGrid">
+                    <Image Source="{Binding CurrentFloorImage}" x:Name="FloorMap" Grid.RowSpan="2"/>
+
+                    <ItemsControl ItemsSource="{Binding Path=Cameras}" ItemTemplate="{StaticResource EllipseCameraTemplate}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Grid/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Grid>
+            </Viewbox>
+        </StackPanel>
+
+
+        <!--A StackPanel for buttons and list of floors-->
+        <StackPanel x:Name="Controls" Grid.Column="0" Grid.Row ="0">
+            <Button Height="50" Margin="0 0 10 0" Command="{Binding FloorUpCommand}">
+                <Image Source="/Images/up.png"/>
+            </Button>
+            <Button Height="50" Margin="0 10 10 0" Command="{Binding FloorDownCommand}">
+                <Image Source="/Images/down.png"/>
+            </Button>
+            <ListView x:Name="FloorsList" Margin="0 15 10 50" ItemsSource="{Binding Floors}" 
+                      SelectedIndex="{Binding CurrentFloor, Mode=TwoWay}"
+                      Style="{StaticResource FloorListStyle}">
+                <e:Interaction.Behaviors>
+                    <behaviors:FloorViewBehavior Command="{Binding FloorListClickCommand}"/>
+                </e:Interaction.Behaviors>
+                
+            </ListView>
+
+            <DataGrid Margin="0 0 10 0"  HorizontalAlignment="Left" Height="200" AutoGenerateColumns="False" ItemsSource="{Binding SelectedCamera.IdentifiedPeople}" 
+                  ScrollViewer.CanContentScroll="True"  ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                       BorderBrush="Black">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="BorderThickness" Value="1,0,2,1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="Background" Value="Gray"/>
+                    </Style>
+                    <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                        <Setter Property="BorderThickness" Value="1,1,1,0"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Surname" Binding="{Binding LastName}" Width="*" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Page>

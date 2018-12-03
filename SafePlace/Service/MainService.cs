@@ -12,23 +12,24 @@ namespace SafePlace.Service
 {
     public class MainService : IMainService
     {
+        private static MainService _mainService;
+
         private ILogger _logger;
-        private IPageCreator _pageCreator;
-        private SynchronizationContext _synchronizationContext;
         private ICameraService _cameraService;
         private IFloorService _floorService;
         private IPersonService _personService;
-        private IWindowCreator _windowCreator;
-
 
         //Simple lock object to avoid multiple threads creating different class instances.
         private static readonly object _lock = new object();
 
-        public MainService()
+        public static MainService GetInstance()
         {
-            _synchronizationContext = SynchronizationContext.Current;
+            lock (_lock)
+            {
+                if (_mainService == null) _mainService = new MainService();
+                return _mainService;
+            }
         }
-
         public ILogger GetLoggerInstance()
         {
             lock(_lock)
@@ -39,21 +40,6 @@ namespace SafePlace.Service
                 }
                 return _logger;
             }
-        }
-        public IPageCreator GetPageCreatorInstance()
-        {
-            lock (_lock)
-            {
-                if (_pageCreator == null)
-                {
-                    _pageCreator = new PageCreator(this);
-                }
-                return _pageCreator;
-            }
-        }
-        public SynchronizationContext GetSynchronizationContext()
-        {
-            return _synchronizationContext;
         }
 
         public IFloorService GetFloorServiceInstance()
@@ -89,18 +75,6 @@ namespace SafePlace.Service
                     _personService = new PersonService();
                 }
                 return _personService;
-            }
-        }
-
-        public IWindowCreator GetWindowCreatorInstance()
-        {
-            lock (_lock)
-            {
-                if (_windowCreator == null)
-                {
-                    _windowCreator = new WindowCreator(this);
-                }
-                return _windowCreator;
             }
         }
     }
