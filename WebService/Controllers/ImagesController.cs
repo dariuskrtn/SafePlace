@@ -60,18 +60,18 @@ namespace WebService.Controllers
         public HttpResponseMessage PostFaceImages(Guid personGuid)
         {
             var result = new HttpResponseMessage(HttpStatusCode.OK);
-            var faces = new List<Guid>();
             var faceImages = new List<Bitmap>();
             if (Request.Content.IsMimeMultipartContent())
             {
                 Request.Content.ReadAsMultipartAsync<MultipartMemoryStreamProvider>(new MultipartMemoryStreamProvider()).ContinueWith((task) =>
                 {
                     MultipartMemoryStreamProvider provider = task.Result;
+                    int number = 0;
                     foreach (HttpContent content in provider.Contents)
                     {
                         Stream stream = content.ReadAsStreamAsync().Result;
                         faceImages.Add(Image.FromStream(stream) as Bitmap);
-                        faces.Add(ImageService.SaveImage(stream));
+                        ImageService.SaveFaceImage(stream, personGuid, number++);
                     }
                 });
                 //Face images are saved now. Should azure face registration start here?
@@ -85,6 +85,15 @@ namespace WebService.Controllers
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotAcceptable, "This request is not properly formatted"));
             }
+        }
+
+        //Returns the first face image of a registered person.
+        public HttpResponseMessage GetFace(Guid id)
+        {
+            var result = new HttpResponseMessage(HttpStatusCode.OK);
+            result.Content = new ByteArrayContent(ImageService.GetFaceImage(id, 0));
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+            return result;
         }
     }
 }

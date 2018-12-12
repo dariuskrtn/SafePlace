@@ -49,5 +49,28 @@ namespace SafePlace.Service
 
             return id;
         }
+        //Returns the byte array of an image, which is named as {id}.jpg.
+        public byte[] GetFaceImage(Guid id, int number)
+        {
+            //The path of current users home folder. In windows it's similar to: C:/users/myUser
+            //string HomeFolderPath = Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile);
+            String filePath = $"{ImagesPath}/{id.ToString()}{number.ToString()}.jpg";
+            FileStream fileStream = new FileStream(filePath, FileMode.Open);
+            Image image = Image.FromStream(fileStream);
+            MemoryStream memoryStream = new MemoryStream();
+            image.Save(memoryStream, ImageFormat.Jpeg);
+            return memoryStream.ToArray();
+
+        }
+        //A saved face image receives
+        public void SaveFaceImage(Stream ImageStream, Guid personID, int number)
+        {
+            //string HomeFolderPath = Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile);
+            String filePath = $"{ImagesPath}/{personID.ToString()}{number.ToString()}.jpg";
+
+            Image image = Image.FromStream(ImageStream);
+
+            image.Save(filePath);
+        }
     }
 }
