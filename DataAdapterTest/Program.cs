@@ -15,15 +15,27 @@ namespace DataAdapterTest
         static void Main(string[] args)
         {
             var Floors = GetFloors();
+            int i = 0;
             foreach (Floor floor in Floors)
             {
-                Console.WriteLine(floor.Name + " " + floor.Guid + " " + floor.ImagePath);
+                Console.WriteLine(i++ + ". " +floor.Name + " " + floor.Guid + " " + floor.ImagePath);
             }
+            Console.WriteLine("Which floor do you want to edit?");
+            i = Console.Read() - '0';
             Console.ReadLine();
-
+            Console.WriteLine(i);
+            if (i < 0 || i > 9)
+            {
+                Console.WriteLine("Wrong input. I give up.");
+                return;
+            }
+            Console.WriteLine("Enter new name for the floor.");
+            string newName = Console.ReadLine();
+            if (!string.IsNullOrEmpty(newName))UpdateFloor(Floors.ToList()[i], newName);
+            
+            Console.ReadLine();
         }
-        #region SampleCode
-
+        //Gets all rows from the azure database floors table and converts them to SafePlace Floor objects.
         static public ICollection<Floor> GetFloors()
         {
             SqlConnection cn = new SqlConnection();
@@ -38,9 +50,53 @@ namespace DataAdapterTest
             da.Dispose();
 
             var Floors = new List<Floor>();
-            foreach(DataRow row in ds.Tables[0].Rows) Floors.Add(new Floor() {Name = (string)row["Name"], ImagePath = (string)row["ImagePath"], Guid = (Guid)row["Guid"] });
+            foreach (DataRow row in ds.Tables[0].Rows) Floors.Add(new Floor() { Name = (string)row["Name"], ImagePath = (string)row["ImagePath"], Guid = (Guid)row["Guid"] });
             return Floors;
         }
+        //Updates the name of a floor in the database given its representing object.
+        static public void UpdateFloor(Floor floor, string newName)
+        {
+
+            SqlConnection connection = new SqlConnection();
+            connection.ConnectionString = MyConnection;
+            connection.Open();
+
+            SqlCommand update = new SqlCommand();
+            update.Connection = connection;
+            update.CommandType = CommandType.Text;
+            update.CommandText = "UPDATE Topas.Floor SET Name = @name WHERE Guid = @Id";
+
+            update.Parameters.Add(new SqlParameter("@name", SqlDbType.NVarChar, 64, "Name"));
+            update.Parameters.Add(new SqlParameter("@Id", SqlDbType.UniqueIdentifier, 50, "Guid"));
+
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT Guid, Name FROM Topas.Floor", connection);
+            adapter.UpdateCommand = update;
+
+            DataSet dataSet = new DataSet();
+            adapter.Fill(dataSet, "Floor");
+
+            var rows = dataSet.Tables[0].Rows;
+            int rowToEdit = -1;
+            foreach (DataRow row in rows)
+            {
+                if ((Guid)row["Guid"] == floor.Guid)
+                {
+                    Console.WriteLine("Row to edit found!");
+                    rowToEdit = rows.IndexOf(row);
+                    break;
+                }
+
+            }
+            if (rowToEdit == -1) return;
+            rows[rowToEdit]["Name"] = newName;
+            //Not sure how the update function works. Perhaps the remote data set is compared with the local one and depending on the update query certain columns are changed.
+            adapter.Update(dataSet.Tables[0]);
+            connection.Close();
+            adapter.Dispose();
+        }
+
+        #region SampleCode
+
 
         static public void SelectWithSelectCommand()
         {
@@ -128,36 +184,7 @@ namespace DataAdapterTest
             da.Dispose();
         }
 
-        static public void Update()
-        {
-            string myCon = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Vytautas\Desktop\aa.mdf;Integrated Security=True;Connect Timeout=30";
-
-            SqlConnection cn = new SqlConnection();
-            cn.ConnectionString = myCon;
-            cn.Open();
-
-            SqlCommand update = new SqlCommand();
-            update.Connection = cn;
-            update.CommandType = CommandType.Text;
-            update.CommandText = "UPDATE Person SET FirstName = @FN, LastName = @LN WHERE Id = @Id";
-
-            update.Parameters.Add(new SqlParameter("@FN", SqlDbType.NVarChar, 50, "FirstName"));
-            update.Parameters.Add(new SqlParameter("@LN", SqlDbType.NVarChar, 50, "LastName"));
-            update.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int, 50, "Id"));
-
-            SqlDataAdapter da = new SqlDataAdapter("SELECT Id, FirstName, LastName FROM Person", cn);
-            da.UpdateCommand = update;
-
-            DataSet ds = new DataSet();
-            da.Fill(ds, "Person");
-
-            ds.Tables[0].Rows[0]["FirstName"] = "Jack";
-            ds.Tables[0].Rows[0]["LastName"] = "Johnson";
-
-            da.Update(ds.Tables[0]);
-            cn.Close();
-            da.Dispose();
-        }
+        
         #endregion
     }
 }
