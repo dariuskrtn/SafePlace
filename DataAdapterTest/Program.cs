@@ -14,14 +14,17 @@ namespace DataAdapterTest
         static string MyConnection = "Server=tcp:smartvision.database.windows.net,1433;Initial Catalog=SafePlaceDatabase;Persist Security Info=False;User ID=SmartVision2018;Password=TDVData2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         static void Main(string[] args)
         {
+            //Getting floors from the database.
             var Floors = GetFloors();
             int i = 0;
             foreach (Floor floor in Floors)
             {
                 Console.WriteLine(i++ + ". " +floor.Name + " " + floor.Guid + " " + floor.ImagePath);
             }
-            Console.WriteLine("Which floor do you want to edit?");
+
+            Console.WriteLine("Which floor do you want to edit? (Write the index: 0, 1, ...)");
             i = Console.Read() - '0';
+            //Read leaves end line symbol in the buffer, therefore we must remove it.
             Console.ReadLine();
             Console.WriteLine(i);
             if (i < 0 || i > 9)
@@ -31,7 +34,9 @@ namespace DataAdapterTest
             }
             Console.WriteLine("Enter new name for the floor.");
             string newName = Console.ReadLine();
-            if (!string.IsNullOrEmpty(newName))UpdateFloor(Floors.ToList()[i], newName);
+            //Calling update function with given information.
+            if (!string.IsNullOrEmpty(newName) && i < Floors.Count) UpdateFloor(Floors.ToList()[i], newName);
+            else Console.WriteLine("Wrong input. You must write a non empty name and the index of an existing floor.");
             
             Console.ReadLine();
         }
