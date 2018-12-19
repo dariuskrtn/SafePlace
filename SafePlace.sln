@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafePlaceFaceRecognition", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafePlaceWpf", "SafePlaceWpf\SafePlaceWpf.csproj", "{F24E9D04-DE5E-4B98-B200-DDCD7236AAC2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAdapterTest", "DataAdapterTest\DataAdapterTest.csproj", "{66350261-940A-4629-BAAD-8763E18D36CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{F24E9D04-DE5E-4B98-B200-DDCD7236AAC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F24E9D04-DE5E-4B98-B200-DDCD7236AAC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F24E9D04-DE5E-4B98-B200-DDCD7236AAC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66350261-940A-4629-BAAD-8763E18D36CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66350261-940A-4629-BAAD-8763E18D36CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66350261-940A-4629-BAAD-8763E18D36CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66350261-940A-4629-BAAD-8763E18D36CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
